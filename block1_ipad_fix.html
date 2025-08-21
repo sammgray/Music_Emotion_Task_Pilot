@@ -1127,7 +1127,6 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.style.display = 'none';
                 
                 // Create unique filename for each trial
                 const timestamp = new Date().toISOString().split('T')[0];
@@ -1135,13 +1134,11 @@
                 const filePrefix = trialType === 'practice' ? 'practice' : 'trial';
                 a.download = `music_emotion_block1_${filePrefix}_${trialNumber}_${participantId}_${timestamp}.csv`;
                 
-                // Force auto-download
+                // Simple auto-download
                 document.body.appendChild(a);
                 a.click();
-                setTimeout(() => {
-                    document.body.removeChild(a);
-                    window.URL.revokeObjectURL(url);
-                }, 100);
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
                 
             } catch (error) {
                 console.log('Trial save failed:', error);
