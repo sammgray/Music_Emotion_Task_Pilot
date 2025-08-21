@@ -806,7 +806,55 @@
             alert('Trying to play: ' + currentSong.title + ' (' + currentSong.filename + ')');
             document.getElementById('start-audio-btn').style.display = 'none';
             document.getElementById('fixation-cross').style.display = 'block';
-            playAudioClip(currentSong);
+            
+            // Create and try to play audio immediately within user interaction context
+            const filename = currentSong.filename + '.mp3'; // Try MP3 first
+            currentAudio = new Audio(filename);
+            currentAudio.volume = 0.8;
+            
+            // Set start time and try to play immediately
+            currentAudio.currentTime = 10;
+            audioStartTime = Date.now();
+            
+            const playPromise = currentAudio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    alert('Direct play SUCCESS!');
+                    // Start the timer
+                    startAudioTimer();
+                }).catch(error => {
+                    alert('Direct play FAILED: ' + error.message);
+                    // Fall back to original method
+                    playAudioClip(currentSong);
+                });
+            }
+        }
+        
+        function startAudioTimer() {
+            const duration = isPractice ? PRACTICE_AUDIO_DURATION : AUDIO_DURATION;
+            let audioEnded = false;
+            
+            const updateProgress = () => {
+                if (audioEnded) return;
+                
+                const elapsed = Date.now() - audioStartTime;
+                const progress = Math.min((elapsed / duration) * 100, 100);
+                
+                if (progress >= 100) {
+                    audioEnded = true;
+                    if (currentAudio) {
+                        currentAudio.pause();
+                    }
+                    setTimeout(() => {
+                        showRatingScreen();
+                    }, 500);
+                } else {
+                    requestAnimationFrame(updateProgress);
+                }
+            };
+            
+            updateProgress();
         }
 
         function findWorkingAudioFile(song) {
