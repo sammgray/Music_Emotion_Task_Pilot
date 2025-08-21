@@ -815,14 +815,17 @@
                 
                 function tryNextFormat() {
                     if (formatIndex >= song.formats.length) {
+                        alert('All formats failed for: ' + song.title);
                         reject('No supported audio format found for: ' + song.title);
                         return;
                     }
                     
                     const filename = song.filename + song.formats[formatIndex];
+                    alert('Trying format: ' + filename);
                     const audio = new Audio();
                     
                     audio.addEventListener('canplaythrough', function() {
+                        alert('SUCCESS: Found working format: ' + filename);
                         console.log('Found working format:', filename);
                         resolve(filename);
                     });
