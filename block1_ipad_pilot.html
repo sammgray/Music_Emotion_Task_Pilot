@@ -59,7 +59,7 @@
         }
 
         .intro-text {
-            font-size: 1.2em;
+            font-size: 1.0em;
             line-height: 1.6;
             margin-bottom: 30px;
             text-align: left;
@@ -1112,36 +1112,127 @@
             }
         }
 
-        // NEW: Function to save individual trial to CSV
-        function saveTrialToFile(trialData, trialType) {
+        // NEW: Function to save trial to localStorage
+        function saveTrialToLocalStorage(trialData, trialType) {
             try {
-                // Convert single trial to CSV format
-                const headers = Object.keys(trialData);
-                const csvContent = headers.join(',') + '\n' + 
-                    headers.map(header => {
-                        const value = trialData[header];
-                        return typeof value === 'string' ? `"${value}"` : value;
-                    }).join(',');
+                const key = `block1_${participantId}_${trialType}_trial_${trialData.trial_number}`;
+                localStorage.setItem(key, JSON.stringify(trialData));
+                console.log(`Trial ${trialData.trial_number} saved to localStorage`);
+            } catch (error) {
+                console.log('LocalStorage save failed:', error);
+            }
+        }
+
+        // NEW: Function to collect all localStorage data and download
+        function downloadAllStoredData() {
+            try {
+                const allTrials = [];
+                const keyPrefix = `block1_${participantId}_`;
                 
+                // Collect all stored trials for this participant and block
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(keyPrefix)) {
+                        const trialData = JSON.parse(localStorage.getItem(key));
+                        allTrials.push(trialData);
+                    }
+                }
+                
+                if (allTrials.length === 0) {
+                    console.log('No stored data found for this participant');
+                    return;
+                }
+                
+                // Sort by trial number
+                allTrials.sort((a, b) => a.trial_number - b.trial_number);
+                
+                // Create combined CSV
+                const csvContent = convertToCSV(allTrials);
                 const blob = new Blob([csvContent], { type: 'text/csv' });
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
+                a.download = `music_emotion_block1_ALL_TRIALS_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
                 
-                // Create unique filename for each trial
-                const timestamp = new Date().toISOString().split('T')[0];
-                const trialNumber = trialData.trial_number;
-                const filePrefix = trialType === 'practice' ? 'practice' : 'trial';
-                a.download = `music_emotion_block1_${filePrefix}_${trialNumber}_${participantId}_${timestamp}.csv`;
-                
-                // Simple auto-download
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
                 
+                console.log(`Downloaded ${allTrials.length} trials from localStorage`);
+                
             } catch (error) {
-                console.log('Trial save failed:', error);
+                console.log('Download from localStorage failed:', error);
+            }
+        }
+
+        // NEW: Function to clear localStorage data after successful download
+        function clearStoredData() {
+            try {
+                const keyPrefix = `block1_${participantId}_`;
+                const keysToRemove = [];
+                
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(keyPrefix)) {
+                        keysToRemove.push(key);
+                    }
+                }
+                
+                keysToRemove.forEach(key => localStorage.removeItem(key));
+                console.log(`Cleared ${keysToRemove.length} items from localStorage`);
+                
+            } catch (error) {
+                console.log('Clear localStorage failed:', error);
+            }
+        }
+
+        // NEW: Function to recover data from localStorage (for after browser crashes)
+        function recoverStoredData() {
+            try {
+                const keyPrefix = `block1_`;
+                let foundData = false;
+                let participantIds = [];
+                
+                // Check for any Block 1 data
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(keyPrefix)) {
+                        foundData = true;
+                        // Extract participant ID from key
+                        const parts = key.split('_');
+                        if (parts.length >= 3) {
+                            const pid = parts[1] + '_' + parts[2]; // Reconstruct participant ID
+                            if (!participantIds.includes(pid)) {
+                                participantIds.push(pid);
+                            }
+                        }
+                    }
+                }
+                
+                if (!foundData) {
+                    alert('No stored Block 1 data found');
+                    return;
+                }
+                
+                // If multiple participants found, let user choose
+                if (participantIds.length > 1) {
+                    const choice = prompt(`Found data for ${participantIds.length} participants:\n${participantIds.join('\n')}\n\nEnter participant ID to recover:`);
+                    if (choice && participantIds.includes(choice)) {
+                        participantId = choice;
+                    } else {
+                        alert('Invalid participant ID');
+                        return;
+                    }
+                } else if (participantIds.length === 1) {
+                    participantId = participantIds[0];
+                }
+                
+                downloadAllStoredData();
+                
+            } catch (error) {
+                console.log('Recovery failed:', error);
+                alert('Data recovery failed');
             }
         }
 
@@ -1173,15 +1264,15 @@
                 is_practice: isPractice
             };
             
-            // NEW: Save immediately after each trial completion
+            // NEW: Save immediately to localStorage (no download prompts)
             if (isPractice) {
                 practiceData.push(trialData);
-                saveTrialToFile(trialData, 'practice');
-                console.log(`Practice trial ${currentTrial + 1} data saved to file.`);
+                saveTrialToLocalStorage(trialData, 'practice');
+                console.log(`Practice trial ${currentTrial + 1} saved to localStorage.`);
             } else {
                 experimentData.push(trialData);
-                saveTrialToFile(trialData, 'main');
-                console.log(`Trial ${currentTrial + 1} data saved to file.`);
+                saveTrialToLocalStorage(trialData, 'main');
+                console.log(`Trial ${currentTrial + 1} saved to localStorage.`);
             }
             
             // Move to next trial
@@ -1233,11 +1324,8 @@
         }
 
         function endExperiment() {
-            // Also save a combined file when experiment completes (in addition to individual trial files)
-            if (experimentData.length > 0) {
-                saveDataToFile();
-                console.log('Block 1 completed - combined data file saved');
-            }
+            // Download all data from localStorage when experiment completes
+            downloadAllStoredData();
             showScreen('completion-screen');
         }
 
