@@ -803,6 +803,7 @@
 
         // NEW: Function called when Start Audio button is clicked
         function startAudioPlayback() {
+            alert('Trying to play: ' + currentSong.title + ' (' + currentSong.filename + ')');
             document.getElementById('start-audio-btn').style.display = 'none';
             document.getElementById('fixation-cross').style.display = 'block';
             playAudioClip(currentSong);
@@ -827,6 +828,7 @@
                     });
                     
                     audio.addEventListener('error', function() {
+                        alert('Failed to load: ' + filename);
                         console.log('Format not supported or file not found:', filename);
                         formatIndex++;
                         tryNextFormat();
