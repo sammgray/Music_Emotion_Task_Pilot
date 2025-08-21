@@ -803,7 +803,6 @@
 
         // NEW: Function called when Start Audio button is clicked
         function startAudioPlayback() {
-            alert('Trying to play: ' + currentSong.title + ' (' + currentSong.filename + ')');
             document.getElementById('start-audio-btn').style.display = 'none';
             document.getElementById('fixation-cross').style.display = 'block';
             
@@ -820,11 +819,9 @@
             
             if (playPromise !== undefined) {
                 playPromise.then(() => {
-                    alert('Direct play SUCCESS!');
                     // Start the timer
                     startAudioTimer();
                 }).catch(error => {
-                    alert('Direct play FAILED: ' + error.message);
                     // Fall back to original method
                     playAudioClip(currentSong);
                 });
@@ -863,23 +860,19 @@
                 
                 function tryNextFormat() {
                     if (formatIndex >= song.formats.length) {
-                        alert('All formats failed for: ' + song.title);
                         reject('No supported audio format found for: ' + song.title);
                         return;
                     }
                     
                     const filename = song.filename + song.formats[formatIndex];
-                    alert('Trying format: ' + filename);
                     const audio = new Audio();
                     
                     audio.addEventListener('canplaythrough', function() {
-                        alert('SUCCESS: Found working format: ' + filename);
                         console.log('Found working format:', filename);
                         resolve(filename);
                     });
                     
                     audio.addEventListener('error', function() {
-                        alert('Failed to load: ' + filename);
                         console.log('Format not supported or file not found:', filename);
                         formatIndex++;
                         tryNextFormat();
@@ -934,17 +927,13 @@
                 
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
-                        alert('Audio PLAY SUCCESS!');
                         console.log('Audio started playing successfully');
                         // Double-check start time after play begins
                         currentAudio.currentTime = 10;
                     }).catch(error => {
-                        alert('Audio PLAY FAILED: ' + error.message);
                         console.log('Audio play failed:', error);
                         handleAudioFailure(song);
                     });
-                } else {
-                    alert('Play promise undefined - old browser?');
                 }
                 
                 const updateProgress = () => {
