@@ -886,13 +886,17 @@
                 
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
+                        alert('Audio PLAY SUCCESS!');
                         console.log('Audio started playing successfully');
                         // Double-check start time after play begins
                         currentAudio.currentTime = 10;
                     }).catch(error => {
+                        alert('Audio PLAY FAILED: ' + error.message);
                         console.log('Audio play failed:', error);
                         handleAudioFailure(song);
                     });
+                } else {
+                    alert('Play promise undefined - old browser?');
                 }
                 
                 const updateProgress = () => {
