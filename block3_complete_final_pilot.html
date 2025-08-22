@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Music Emotion Experiment - Block 1</title>
+    <title>Music Emotion Experiment - Block 3</title>
     <style>
         * {
             margin: 0;
@@ -379,11 +379,11 @@
         }
 
         .block-header {
-            background: rgba(76, 175, 80, 0.2);
+            background: rgba(156, 39, 176, 0.2);
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 20px;
-            border: 2px solid #4CAF50;
+            border: 2px solid #9C27B0;
         }
 
         @media (max-width: 768px) {
@@ -431,8 +431,8 @@
         <!-- Introduction Screen -->
         <div class="screen active" id="intro-screen">
             <div class="block-header">
-                <h2>Block 1 of 3</h2>
-                <p>This is the first block of the music emotion experiment</p>
+                <h2>Block 3 of 3</h2>
+                <p>This is the final block of the music emotion experiment</p>
             </div>
             <h1>Music Emotion Experiment</h1>
             <div class="intro-text">
@@ -454,6 +454,7 @@
                 <p>To begin the practice, hit the continue button below.</p>
             </div>
             <button class="btn" onclick="startPractice()">Continue</button>
+            <button class="btn" onclick="recoverStoredData()" style="position: fixed; bottom: 20px; left: 20px; background: linear-gradient(45deg, #95a5a6, #7f8c8d); font-size: 0.9em; padding: 10px 15px;">Recover Old Data</button>
         </div>
 
         <!-- Practice Introduction Screen -->
@@ -600,20 +601,20 @@
             <div class="intro-text">
                 <p>You've completed the practice session.</p>
                 <br>
-                <p>Now you'll begin Block 1 of the main experiment with the same type of ratings.</p>
+                <p>Now you'll begin Block 3 (final block) of the main experiment with the same type of ratings.</p>
                 <br>
-                <p>Block 1 contains 9 music clips.</p>
+                <p>Block 3 contains 9 music clips.</p>
             </div>
-            <button class="btn" onclick="startMainExperiment()">Start Block 1</button>
+            <button class="btn" onclick="startMainExperiment()">Start Block 3</button>
         </div>
 
         <!-- Completion Screen -->
         <div class="screen" id="completion-screen">
             <div class="completion-screen">
-                <h1>Congratulations! You have completed Block 1.</h1>
+                <h1>Congratulations! You have completed Block 3.</h1>
                 <p style="color: #ff4444; font-weight: bold; font-size: 1.2em; margin: 20px 0;">PLEASE MAKE SURE TO DOWNLOAD YOUR DATA BELOW</p>
-                <button class="btn download-btn" onclick="downloadData()">Download Block 1 Data</button>
-                <p style="margin: 20px 0;" id="completion-message">Close this tab and continue to the next block when you are ready by reopening the file on the home screen.</p>
+                <button class="btn download-btn" onclick="downloadData()">Download Block 3 Data</button>
+                <p style="margin: 20px 0;" id="completion-message">You have completed the entire experiment!</p>
             </div>
         </div>
     </div>
@@ -624,51 +625,51 @@
         const PRACTICE_AUDIO_DURATION = 10000; // 10 seconds for practice
         const REPETITIONS_PER_SONG = 1; // Changed from 3 to 1
         
-        // Block 1 songs (first 9 songs from original list)
+        // Block 3 songs (final 9 songs from original list)
         const DEMO_SONGS = [
             { 
-                filename: 'stimuli/audio/1252', 
-                title: '1252',
+                filename: 'stimuli/audio/1835', 
+                title: '1835',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/dupleMeter_stereo_30sec', 
-                title: 'Duple Meter Stereo',
+                filename: 'stimuli/audio/1878', 
+                title: '1878',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/69', 
-                title: '69',
+                filename: 'stimuli/audio/1895', 
+                title: '1895',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/399', 
-                title: '399',
+                filename: 'stimuli/audio/1952', 
+                title: '1952',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/425', 
-                title: '425',
+                filename: 'stimuli/audio/1954', 
+                title: '1954',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/612', 
-                title: '612',
+                filename: 'stimuli/audio/2007', 
+                title: '2007',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/649', 
-                title: '649',
+                filename: 'stimuli/audio/2033', 
+                title: '2033',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/657', 
-                title: '657',
+                filename: 'stimuli/audio/2037', 
+                title: '2037',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/799', 
-                title: '799',
+                filename: 'stimuli/audio/2057', 
+                title: '2057',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             }
         ];
@@ -688,7 +689,7 @@
         ];
 
         // Experiment State
-        let participantId = 'participant_block1_' + Date.now(); // Auto-generate ID with block identifier
+        let participantId = 'participant_block3_' + Date.now(); // Auto-generate ID with block identifier
         let currentTrial = 0;
         let trials = [];
         let experimentData = [];
@@ -1124,7 +1125,7 @@
             const startTime = trial.song.filename.includes('dupleMeter') ? 0 : 10;
             const trialData = {
                 participant_id: participantId,
-                block: 1,
+                block: 3,
                 trial_number: currentTrial + 1,
                 music_clip_title: trial.song.title,
                 playback_number: trial.repetition,
@@ -1146,9 +1147,11 @@
             
             if (isPractice) {
                 practiceData.push(trialData);
+                saveTrialToLocalStorage(trialData, 'practice');
                 console.log(`Practice trial ${currentTrial + 1} data saved to memory. Total practice trials: ${practiceData.length}`);
             } else {
                 experimentData.push(trialData);
+                saveTrialToLocalStorage(trialData, 'main');
                 console.log(`Trial ${currentTrial + 1} data saved to memory. Total trials: ${experimentData.length}`);
             }
             
@@ -1184,7 +1187,7 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `music_emotion_data_block1_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                a.download = `music_emotion_data_block3_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
                 
                 // Auto-download without user prompt
                 document.body.appendChild(a);
@@ -1199,11 +1202,114 @@
             }
         }
 
+        // Function to save trial to localStorage
+        function saveTrialToLocalStorage(trialData, trialType) {
+            try {
+                const key = `block3_${participantId}_${trialType}_trial_${trialData.trial_number}`;
+                localStorage.setItem(key, JSON.stringify(trialData));
+                console.log(`Trial ${trialData.trial_number} saved to localStorage`);
+            } catch (error) {
+                console.log('LocalStorage save failed:', error);
+            }
+        }
+
+        // Function to collect all localStorage data and download
+        function downloadAllStoredData() {
+            try {
+                const allTrials = [];
+                const keyPrefix = `block3_${participantId}_`;
+                
+                // Collect all stored trials for this participant and block
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(keyPrefix)) {
+                        const trialData = JSON.parse(localStorage.getItem(key));
+                        allTrials.push(trialData);
+                    }
+                }
+                
+                if (allTrials.length === 0) {
+                    console.log('No stored data found for this participant');
+                    return;
+                }
+                
+                // Sort by trial number
+                allTrials.sort((a, b) => a.trial_number - b.trial_number);
+                
+                // Create combined CSV
+                const csvContent = convertToCSV(allTrials);
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `music_emotion_block3_ALL_TRIALS_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                console.log(`Downloaded ${allTrials.length} trials from localStorage`);
+                
+            } catch (error) {
+                console.log('Download from localStorage failed:', error);
+            }
+        }
+
+        // Function to recover data from localStorage (for after browser crashes)
+        function recoverStoredData() {
+            try {
+                const keyPrefix = `block3_`;
+                let foundData = false;
+                let participantIds = [];
+                
+                // Check for any Block 3 data
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(keyPrefix)) {
+                        foundData = true;
+                        // Extract participant ID from key
+                        const parts = key.split('_');
+                        if (parts.length >= 3) {
+                            const pid = parts[1] + '_' + parts[2]; // Reconstruct participant ID
+                            if (!participantIds.includes(pid)) {
+                                participantIds.push(pid);
+                            }
+                        }
+                    }
+                }
+                
+                if (!foundData) {
+                    alert('No stored Block 3 data found');
+                    return;
+                }
+                
+                // If multiple participants found, let user choose
+                if (participantIds.length > 1) {
+                    const choice = prompt(`Found data for ${participantIds.length} participants:\n${participantIds.join('\n')}\n\nEnter participant ID to recover:`);
+                    if (choice && participantIds.includes(choice)) {
+                        participantId = choice;
+                    } else {
+                        alert('Invalid participant ID');
+                        return;
+                    }
+                } else if (participantIds.length === 1) {
+                    participantId = participantIds[0];
+                }
+                
+                downloadAllStoredData();
+                
+            } catch (error) {
+                console.log('Recovery failed:', error);
+                alert('Data recovery failed');
+            }
+        }
+
         function endExperiment() {
             // Save final data file when experiment completes
             if (experimentData.length > 0) {
                 saveDataToFile();
-                console.log('Block 1 completed - final data saved');
+                console.log('Block 3 completed - final data saved');
             }
             showScreen('completion-screen');
         }
@@ -1234,14 +1340,14 @@
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `music_emotion_data_block1_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+            a.download = `music_emotion_data_block3_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             window.URL.revokeObjectURL(url);
             
             // Show confirmation message
-            document.getElementById('completion-message').innerHTML = 'Your responses have been recorded and downloaded! Close this tab and continue to the next block when you are ready by reopening the file on the home screen.';
+            document.getElementById('completion-message').innerHTML = 'Your responses have been recorded and downloaded! You have completed the entire experiment!';
         }
 
         function convertToCSV(data) {
@@ -1266,7 +1372,7 @@
             experimentData = [];
             practiceData = [];
             isPractice = false;
-            participantId = 'participant_block1_' + Date.now();
+            participantId = 'participant_block3_' + Date.now();
             showScreen('intro-screen');
         }
     </script>
