@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Music Emotion Experiment - Block 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            touch-action: manipulation;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px 0;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #FFD700;
+        }
+
+        .intro-text {
+            font-size: 1.0em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: left;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .continue-btn-bottom {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .audio-controls {
+            margin: 30px 0;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .rating-section {
+            margin: 15px 0;
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .rating-title {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+
+        .rating-scale {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .rating-option {
+            width: 70px;
+            height: 70px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+            margin: 3px;
+            position: relative;
+        }
+
+        .rating-option img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .rating-option.blank {
+            background: transparent;
+            border: 2px solid black;
+            width: 60px;
+            height: 60px;
+            border-radius: 0;
+        }
+
+        .rating-option:hover {
+            border-color: #FFD700;
+            transform: scale(1.1);
+        }
+
+        .rating-option.selected {
+            border-color: #FFD700;
+            transform: scale(1.1);
+        }
+
+        .multiple-choice-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .choice-option {
+            flex: 1;
+            min-width: 50px;
+            padding: 6px 8px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8em;
+            text-align: center;
+            margin: 2px;
+        }
+
+        .choice-option:hover {
+            border-color: #FFD700;
+            transform: scale(1.05);
+        }
+
+        .choice-option.selected {
+            border-color: #FFD700;
+            transform: scale(1.05);
+        }
+
+        .slider-container {
+            margin: 20px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.3);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .fixation-cross {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4em;
+            font-weight: bold;
+            color: white;
+            font-family: monospace;
+            z-index: 20;
+            text-align: center;
+        }
+
+        /* Start Audio Button */
+        .start-audio-btn {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            z-index: 25;
+        }
+
+        .start-audio-btn:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        /* Gray background for audio screen - full screen override */
+        #audio-screen {
+            background-color: #808080 !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 5;
+        }
+
+        /* Override the container background when audio screen is active */
+        .container:has(#audio-screen.active) {
+            background: #808080 !important;
+        }
+
+        /* Alternative approach - override body background when audio screen is shown */
+        body.audio-playing {
+            background: #808080 !important;
+        }
+
+        /* Rating screen - white background */
+        body.rating-screen-active {
+            background: white !important;
+        }
+
+        #rating-screen {
+            background: white !important;
+            color: black !important;
+        }
+
+        #rating-screen .container {
+            background: white !important;
+        }
+
+        #rating-screen h2 {
+            color: #1e3c72 !important;
+        }
+
+        #rating-screen .rating-title {
+            color: #1e3c72 !important;
+        }
+
+        #rating-screen .rating-section {
+            background: transparent !important;
+            border: none !important;
+        }
+
+        #rating-screen .audio-title {
+            color: black !important;
+        }
+
+        #rating-screen .choice-option {
+            color: black !important;
+            border-color: black !important;
+        }
+
+        #rating-screen .choice-option:hover {
+            border-color: #FFD700 !important;
+        }
+
+        #rating-screen .choice-option.selected {
+            border-color: #FFD700 !important;
+            background: transparent !important;
+            color: black !important;
+        }
+
+        /* Keep trial counter visible but subtle */
+        #audio-screen .trial-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.3);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8em;
+            color: white;
+            z-index: 15;
+        }
+
+        .completion-screen {
+            text-align: center;
+        }
+
+        .download-btn {
+            background: linear-gradient(45deg, #4ECDC4, #45B7AF);
+            margin-top: 20px;
+        }
+
+        .practice-header {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #FFD700;
+        }
+
+        .block-header {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #4CAF50;
+        }
+
+        @media (max-width: 768px) {
+            .rating-option {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .rating-option img {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .rating-option.blank {
+                width: 50px;
+                height: 50px;
+                background: transparent;
+                border: 2px solid black;
+                border-radius: 0;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .intro-text {
+                font-size: 1em;
+            }
+
+            .choice-option {
+                font-size: 0.7em;
+                padding: 4px 6px;
+                min-width: 40px;
+            }
+
+            .start-audio-btn {
+                font-size: 1.2em;
+                padding: 15px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Introduction Screen -->
+        <div class="screen active" id="intro-screen">
+            <div class="block-header">
+                <h2>Block 1 of 3</h2>
+                <p>This is the first block of the music emotion experiment</p>
+            </div>
+            <h1>Music Emotion Experiment</h1>
+            <div class="intro-text">
+                <p>In the following experiment, we would like you to listen to a series of musical excerpts and rate a few things:</p>
+                <br>
+                <p>1. Your experienced valence, or how positive/negative the music makes you feel</p>
+                <p>2. Your arousal levels, or the intensity of how you feel</p>
+                <p>3. Your familiarity with the music</p>
+                <p>4. The "groove" of the music</p>
+                <br>
+                <p>We recognize that different individuals may define the term "groove" differently, so we would like you to use your own personal definition of "the groove" in making this judgment. A rating of zero means the music doesn't "groove" at all whereas a rating of 10 means the music imparts a very strong feeling of "groove".</p>
+                <br>
+                <p>Each excerpt lasts approximately 30 seconds. Occasionally, the music you hear will consist only of rhythmic sequences. After each excerpt, regardless of whether you heard a song or a drum loop, you will be asked the questions mentioned above.</p>
+                <br>
+                <p>First, we will briefly practice rating some music to ensure that you understand what each survey question is asking you about. Once you finish the practice, the full questions will no longer appear for each survey, and will instead be labeled on each end of the scale.</p>
+                <br>
+                <p style="color: #ff4444; font-weight: bold; font-size: 1.1em;">IMPORTANT: At the end of this block, you MUST download your data to save your responses!</p>
+                <br>
+                <p>To begin the practice, hit the continue button below.</p>
+            </div>
+            <button class="btn" onclick="startPractice()">Continue</button>
+        </div>
+
+        <!-- Practice Introduction Screen -->
+        <div class="screen" id="practice-intro-screen">
+            <div class="practice-header">
+                <h2>Practice Session</h2>
+                <p>Let's start with a brief practice using practice music clips</p>
+            </div>
+            <div class="intro-text">
+                <p>You will:</p>
+                <ul style="margin-left: 20px;">
+                    <li>Listen to practice music clips (10 seconds each)</li>
+                    <li>Rate your emotional responses after each clip</li>
+                    <li>Get familiar with the rating scales</li>
+                </ul>
+                <br>
+                <p>Click Continue when you're ready to begin the practice, or Skip if you've done this before.</p>
+            </div>
+            <button class="btn" onclick="startPracticeTrials()">Continue to Practice</button>
+            <button class="btn" onclick="skipPractice()" style="background: linear-gradient(45deg, #95a5a6, #7f8c8d); margin-left: 20px;">Skip Practice</button>
+        </div>
+
+        <!-- Audio Playback Screen -->
+        <div class="screen" id="audio-screen">
+            <div class="trial-info" id="trial-counter">Trial 1 of 9</div>
+            <div class="fixation-cross" id="fixation-cross" style="display: none;">+</div>
+            <button class="start-audio-btn" id="start-audio-btn" onclick="startAudioPlayback()">Start Audio</button>
+        </div>
+
+        <!-- Rating Screen -->
+        <div class="screen" id="rating-screen">
+            <h2 id="rating-header">Rate Your Response</h2>
+            <div class="audio-title" id="rating-song-title">Song Title</div>
+
+            <!-- Valence Rating -->
+            <div class="rating-section">
+                <div class="rating-title">How positive or negative does this music make you feel?</div>
+                <div class="rating-scale" id="valence-scale">
+                    <div class="rating-option" data-value="1">
+                        <img src="stimuli/SAM/valence1.png" alt="Very Negative">
+                    </div>
+                    <div class="rating-option blank" data-value="1.5"></div>
+                    <div class="rating-option" data-value="2">
+                        <img src="stimuli/SAM/valence2.png" alt="Negative">
+                    </div>
+                    <div class="rating-option blank" data-value="2.5"></div>
+                    <div class="rating-option" data-value="3">
+                        <img src="stimuli/SAM/valence3.png" alt="Neutral">
+                    </div>
+                    <div class="rating-option blank" data-value="3.5"></div>
+                    <div class="rating-option" data-value="4">
+                        <img src="stimuli/SAM/valence4.png" alt="Positive">
+                    </div>
+                    <div class="rating-option blank" data-value="4.5"></div>
+                    <div class="rating-option" data-value="5">
+                        <img src="stimuli/SAM/valence5.png" alt="Very Positive">
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
+                    <span>Negative</span>
+                    <span>Neutral</span>
+                    <span>Positive</span>
+                </div>
+            </div>
+
+            <!-- Arousal Rating -->
+            <div class="rating-section">
+                <div class="rating-title">How intense is that feeling?</div>
+                <div class="rating-scale" id="arousal-scale">
+                    <div class="rating-option" data-value="1">
+                        <img src="stimuli/SAM/arousal5.png" alt="Very Excited">
+                    </div>
+                    <div class="rating-option blank" data-value="1.5"></div>
+                    <div class="rating-option" data-value="2">
+                        <img src="stimuli/SAM/arousal4.png" alt="Excited">
+                    </div>
+                    <div class="rating-option blank" data-value="2.5"></div>
+                    <div class="rating-option" data-value="3">
+                        <img src="stimuli/SAM/arousal3.png" alt="Neutral">
+                    </div>
+                    <div class="rating-option blank" data-value="3.5"></div>
+                    <div class="rating-option" data-value="4">
+                        <img src="stimuli/SAM/arousal2.png" alt="Calm">
+                    </div>
+                    <div class="rating-option blank" data-value="4.5"></div>
+                    <div class="rating-option" data-value="5">
+                        <img src="stimuli/SAM/arousal1.png" alt="Very Calm">
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
+                    <span>Very Intense</span>
+                    <span>Neutral</span>
+                </div>
+            </div>
+
+            <!-- Familiarity Rating -->
+            <div class="rating-section">
+                <div class="rating-title">How familiar were you with this music before today?</div>
+                <div class="multiple-choice-container" id="familiarity-scale">
+                    <div class="choice-option" data-value="1">1</div>
+                    <div class="choice-option" data-value="2">2</div>
+                    <div class="choice-option" data-value="3">3</div>
+                    <div class="choice-option" data-value="4">4</div>
+                    <div class="choice-option" data-value="5">5</div>
+                    <div class="choice-option" data-value="6">6</div>
+                    <div class="choice-option" data-value="7">7</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
+                    <span>Not familiar at all</span>
+                    <span>Very familiar</span>
+                </div>
+            </div>
+
+            <!-- Groove Rating -->
+            <div class="rating-section">
+                <div class="rating-title">How would you rate the "groove" of this music?</div>
+                <div class="multiple-choice-container" id="groove-scale">
+                    <div class="choice-option" data-value="0">0</div>
+                    <div class="choice-option" data-value="1">1</div>
+                    <div class="choice-option" data-value="2">2</div>
+                    <div class="choice-option" data-value="3">3</div>
+                    <div class="choice-option" data-value="4">4</div>
+                    <div class="choice-option" data-value="5">5</div>
+                    <div class="choice-option" data-value="6">6</div>
+                    <div class="choice-option" data-value="7">7</div>
+                    <div class="choice-option" data-value="8">8</div>
+                    <div class="choice-option" data-value="9">9</div>
+                    <div class="choice-option" data-value="10">10</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
+                    <span>Not groovy at all</span>
+                    <span>Very groovy</span>
+                </div>
+            </div>
+
+            <button class="btn continue-btn-bottom" id="continue-btn" onclick="nextTrial()" disabled>Continue</button>
+        </div>
+
+        <!-- Practice Complete Screen -->
+        <div class="screen" id="practice-complete-screen">
+            <div class="practice-header">
+                <h2>Practice Complete!</h2>
+            </div>
+            <div class="intro-text">
+                <p>You've completed the practice session.</p>
+                <br>
+                <p>Now you'll begin Block 1 of the main experiment with the same type of ratings.</p>
+                <br>
+                <p>Block 1 contains 9 music clips.</p>
+            </div>
+            <button class="btn" onclick="startMainExperiment()">Start Block 1</button>
+        </div>
+
+        <!-- Completion Screen -->
+        <div class="screen" id="completion-screen">
+            <div class="completion-screen">
+                <h1>Block 1 Complete!</h1>
+                <p style="font-size: 1.3em; margin: 30px 0;">Thank you for completing Block 1!</p>
+                <p style="color: #ff4444; font-weight: bold; font-size: 1.2em; margin: 20px 0;">PLEASE MAKE SURE TO DOWNLOAD YOUR DATA BELOW</p>
+                <button class="btn download-btn" onclick="downloadData()">Download Block 1 Data</button>
+                <p style="margin: 20px 0;" id="completion-message">Close this tab and continue to the next block when you are ready by reopening the file on the home screen.</p>
+                <button class="btn" onclick="restartExperiment()">Restart Block 1</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Experiment Configuration
+        const AUDIO_DURATION = 30000; // 30 seconds in milliseconds
+        const PRACTICE_AUDIO_DURATION = 10000; // 10 seconds for practice
+        const REPETITIONS_PER_SONG = 1; // Changed from 3 to 1
+        
+        // Block 1 songs (first 9 songs from original list)
+        const DEMO_SONGS = [
+            { 
+                filename: 'stimuli/audio/1252', 
+                title: '1252',
+                formats: ['.mp3', '.wav', '.m4a', '.ogg']
+            },
+            { 
+                filename: 'stimuli/audio/dupleMeter_stereo_30sec', 
+                title: 'Duple Meter Stereo',
+                formats: ['.mp3', '.wav', '.m4a', '.ogg']
+            },
+            { 
+                filename: 'stimuli/audio/69', 
+                title: '69',
+                formats: ['.mp3', '.wav', '.m4a', '.ogg']
+            },
+            { 
+                filename: 'stimuli/audio/399', 
+                title: '399',
+                formats: ['.mp3', '.wav', '.m4a', '.ogg']
+            },
+            { 
+                filename: 'stimuli/audio/425', 
+                title: '425',
+                formats: ['.mp3', '.wav', '.m4a', '.ogg']
+            },
+            { 
+                filename: 'stimuli/audio/612', 
+                title: '612',
+                formats: ['.mp3', '.wav', '.m4a', '.ogg']
+            },
+            { 
+                filename: 'stimuli/audio/649', 
+                title: '649',
+                formats: ['.mp3', '.wav', '.m4a', '.ogg']
+            },
+            { 
+                filename: 'stimuli/audio/657', 
+                title: '657',
+                formats: ['.mp3', '.wav', '.m4a', '.ogg']
+            },
+            { 
+                filename: 'stimuli/audio/799', 
+                title: '799',
+                formats: ['.mp3', '.wav', '.m4a', '.ogg']
+            }
+        ];
+
+        // Practice songs - separate array for songs with "practice" in filename
+        const PRACTICE_SONGS_LIST = [
+            { 
+                filename: 'stimuli/audio/practice1_808', 
+                title: 'Practice 1',
+                formats: ['.mp3', '.wav', '.m4a', '.ogg']
+            },
+            { 
+                filename: 'stimuli/audio/practice2_1092', 
+                title: 'Practice 2',
+                formats: ['.mp3', '.wav', '.m4a', '.ogg']
+            }
+        ];
+
+        // Experiment State
+        let participantId = 'participant_block1_' + Date.now(); // Auto-generate ID with block identifier
+        let currentTrial = 0;
+        let trials = [];
+        let experimentData = [];
+        let practiceData = [];
+        let currentAudio = null;
+        let audioStartTime = 0;
+        let surveyStartTime = 0;
+        let valenceRating = null;
+        let arousalRating = null;
+        let familiarityRating = null;
+        let grooveRating = null;
+        let valenceRT = null;
+        let arousalRT = null;
+        let familiarityRT = null;
+        let grooveRT = null;
+        let isPractice = false;
+        let practiceTrials = [];
+        let currentSong = null; // Store current song for Start Audio button
+
+        // Auto-save when page is about to close
+        window.addEventListener('beforeunload', function(e) {
+            if (experimentData.length > 0 || practiceData.length > 0) {
+                saveDataToFile();
+            }
+        });
+
+        // Auto-save when page visibility changes (tab switch, etc.)
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden' && (experimentData.length > 0 || practiceData.length > 0)) {
+                saveDataToFile();
+            }
+        });
+
+        // Initialize practice
+        function initializePractice() {
+            practiceTrials = [];
+            for (let i = 0; i < PRACTICE_SONGS_LIST.length; i++) {
+                practiceTrials.push({
+                    song: PRACTICE_SONGS_LIST[i],
+                    repetition: 1
+                });
+            }
+        }
+
+        // Initialize main experiment
+        function initializeExperiment() {
+            // Create randomized trial list (use all DEMO_SONGS for main experiment)
+            trials = [];
+            for (let song of DEMO_SONGS) {
+                for (let rep = 0; rep < REPETITIONS_PER_SONG; rep++) {
+                    trials.push({
+                        song: song,
+                        repetition: rep + 1
+                    });
+                }
+            }
+            
+            // Shuffle trials
+            for (let i = trials.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [trials[i], trials[j]] = [trials[j], trials[i]];
+            }
+        }
+
+        function startPractice() {
+            showScreen('practice-intro-screen');
+        }
+
+        function startPracticeTrials() {
+            isPractice = true;
+            initializePractice();
+            currentTrial = 0;
+            showScreen('audio-screen');
+            startTrial();
+        }
+
+        function skipPractice() {
+            // Skip directly to main experiment
+            showScreen('practice-complete-screen');
+        }
+
+        function startMainExperiment() {
+            isPractice = false;
+            initializeExperiment();
+            currentTrial = 0;
+            showScreen('audio-screen');
+            startTrial();
+        }
+
+        function startTrial() {
+            const currentTrials = isPractice ? practiceTrials : trials;
+            
+            if (currentTrial >= currentTrials.length) {
+                if (isPractice) {
+                    showScreen('practice-complete-screen');
+                } else {
+                    endExperiment();
+                }
+                return;
+            }
+
+            const trial = currentTrials[currentTrial];
+            const totalTrials = isPractice ? practiceTrials.length : trials.length;
+            const trialLabel = isPractice ? 'Practice' : 'Trial';
+            document.getElementById('trial-counter').textContent = `${trialLabel} ${currentTrial + 1} of ${totalTrials}`;
+            
+            // Store current song and show Start Audio button
+            currentSong = trial.song;
+            document.getElementById('start-audio-btn').style.display = 'block';
+            document.getElementById('fixation-cross').style.display = 'none';
+        }
+
+        // Function called when Start Audio button is clicked
+        function startAudioPlayback() {
+            document.getElementById('start-audio-btn').style.display = 'none';
+            document.getElementById('fixation-cross').style.display = 'block';
+            
+            // Create and try to play audio immediately within user interaction context
+            const filename = currentSong.filename + '.mp3'; // Try MP3 first
+            currentAudio = new Audio(filename);
+            currentAudio.volume = 0.8;
+            
+            // Special handling for dupleMeter file - start from beginning
+            const startTime = currentSong.filename.includes('dupleMeter') ? 0 : 10;
+            currentAudio.currentTime = startTime;
+            audioStartTime = Date.now();
+            
+            const playPromise = currentAudio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // Start the timer
+                    startAudioTimer();
+                }).catch(error => {
+                    // Fall back to original method
+                    playAudioClip(currentSong);
+                });
+            }
+        }
+        
+        function startAudioTimer() {
+            const duration = isPractice ? PRACTICE_AUDIO_DURATION : AUDIO_DURATION;
+            let audioEnded = false;
+            
+            const updateProgress = () => {
+                if (audioEnded) return;
+                
+                const elapsed = Date.now() - audioStartTime;
+                const progress = Math.min((elapsed / duration) * 100, 100);
+                
+                if (progress >= 100) {
+                    audioEnded = true;
+                    if (currentAudio) {
+                        currentAudio.pause();
+                    }
+                    setTimeout(() => {
+                        showRatingScreen();
+                    }, 500);
+                } else {
+                    requestAnimationFrame(updateProgress);
+                }
+            };
+            
+            updateProgress();
+        }
+
+        function findWorkingAudioFile(song) {
+            return new Promise((resolve, reject) => {
+                let formatIndex = 0;
+                
+                function tryNextFormat() {
+                    if (formatIndex >= song.formats.length) {
+                        reject('No supported audio format found for: ' + song.title);
+                        return;
+                    }
+                    
+                    const filename = song.filename + song.formats[formatIndex];
+                    const audio = new Audio();
+                    
+                    audio.addEventListener('canplaythrough', function() {
+                        console.log('Found working format:', filename);
+                        resolve(filename);
+                    });
+                    
+                    audio.addEventListener('error', function() {
+                        console.log('Format not supported or file not found:', filename);
+                        formatIndex++;
+                        tryNextFormat();
+                    });
+                    
+                    audio.src = filename;
+                    audio.load();
+                }
+                
+                tryNextFormat();
+            });
+        }
+
+        function playAudioClip(song) {
+            // Create and play actual audio element
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+            }
+            
+            console.log('Attempting to find working audio file for:', song.title);
+            
+            // Use shorter duration for practice
+            const duration = isPractice ? PRACTICE_AUDIO_DURATION : AUDIO_DURATION;
+            
+            // First, try to find a working audio format
+            findWorkingAudioFile(song).then(workingFilename => {
+                console.log('Using audio file:', workingFilename);
+                
+                currentAudio = new Audio(workingFilename);
+                currentAudio.volume = 0.8;
+                currentAudio.preload = 'auto';
+                
+                audioStartTime = Date.now();
+                let audioEnded = false;
+                
+                // Audio event listeners
+                currentAudio.addEventListener('loadeddata', function() {
+                    console.log('Audio loaded successfully');
+                    // Special handling for dupleMeter file - start from beginning, others start at 10s
+                    const startTime = song.filename.includes('dupleMeter') ? 0 : 10;
+                    currentAudio.currentTime = startTime;
+                });
+                
+                currentAudio.addEventListener('error', function(e) {
+                    console.log('Audio playback error:', e);
+                    handleAudioFailure(song);
+                });
+                
+                // Try to play the audio
+                const playPromise = currentAudio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log('Audio started playing successfully');
+                        // Special handling for dupleMeter file - start from beginning, others start at 10s
+                        const startTime = song.filename.includes('dupleMeter') ? 0 : 10;
+                        currentAudio.currentTime = startTime;
+                    }).catch(error => {
+                        console.log('Audio play failed:', error);
+                        handleAudioFailure(song);
+                    });
+                }
+                
+                const updateProgress = () => {
+                    if (audioEnded) return;
+                    
+                    const elapsed = Date.now() - audioStartTime;
+                    const progress = Math.min((elapsed / duration) * 100, 100);
+                    
+                    if (progress >= 100) {
+                        audioEnded = true;
+                        if (currentAudio) {
+                            currentAudio.pause();
+                        }
+                        console.log(`${duration/1000} seconds elapsed, moving to rating screen`);
+                        setTimeout(() => {
+                            showRatingScreen();
+                        }, 500);
+                    } else {
+                        requestAnimationFrame(updateProgress);
+                    }
+                };
+                
+                updateProgress();
+                
+            }).catch(error => {
+                console.log('No working audio format found:', error);
+                handleAudioFailure(song);
+            });
+        }
+        
+        function handleAudioFailure(song) {
+            const duration = isPractice ? PRACTICE_AUDIO_DURATION : AUDIO_DURATION;
+            console.log('Audio failed for:', song.title, '- continuing with silent playback');
+            alert('Cannot play audio for: ' + song.title + '\n\nPossible issues:\n1. File not found in audio folder\n2. Unsupported format\n3. File name mismatch\n\nContinuing with ' + (duration/1000) + '-second silent period...');
+            
+            // Continue with silent period
+            setTimeout(() => {
+                showRatingScreen();
+            }, duration);
+        }
+
+        function showRatingScreen() {
+            const currentTrials = isPractice ? practiceTrials : trials;
+            const trial = currentTrials[currentTrial];
+            document.getElementById('rating-song-title').textContent = trial.song.title;
+            
+            const header = isPractice ? 'Practice - Rate Your Response' : 'Rate Your Response';
+            document.getElementById('rating-header').textContent = header;
+            
+            // Hide/show question text based on practice vs main experiment
+            const ratingTitles = document.querySelectorAll('.rating-title');
+            ratingTitles.forEach(title => {
+                if (isPractice) {
+                    title.style.display = 'block';
+                } else {
+                    title.style.display = 'none';
+                }
+            });
+            
+            // Reset ratings
+            resetRatings();
+            surveyStartTime = Date.now();
+            
+            showScreen('rating-screen');
+        }
+
+        function resetRatings() {
+            // Reset all scales
+            document.querySelectorAll('.rating-option, .choice-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Reset variables
+            valenceRating = null;
+            arousalRating = null;
+            familiarityRating = null;
+            grooveRating = null;
+            valenceRT = null;
+            arousalRT = null;
+            familiarityRT = null;
+            grooveRT = null;
+            
+            // Disable continue button
+            document.getElementById('continue-btn').disabled = true;
+        }
+
+        // Rating scale interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Valence scale
+            document.getElementById('valence-scale').addEventListener('click', function(e) {
+                if (e.target.closest('.rating-option')) {
+                    const option = e.target.closest('.rating-option');
+                    if (valenceRating === null) {
+                        valenceRT = Date.now() - surveyStartTime;
+                    }
+                    
+                    // Remove previous selection
+                    document.querySelectorAll('#valence-scale .rating-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selection to clicked option
+                    option.classList.add('selected');
+                    valenceRating = parseFloat(option.dataset.value);
+                    
+                    checkAllRatingsComplete();
+                }
+            });
+
+            // Arousal scale
+            document.getElementById('arousal-scale').addEventListener('click', function(e) {
+                if (e.target.closest('.rating-option')) {
+                    const option = e.target.closest('.rating-option');
+                    if (arousalRating === null) {
+                        arousalRT = Date.now() - surveyStartTime;
+                    }
+                    
+                    // Remove previous selection
+                    document.querySelectorAll('#arousal-scale .rating-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selection to clicked option
+                    option.classList.add('selected');
+                    arousalRating = parseFloat(option.dataset.value);
+                    
+                    checkAllRatingsComplete();
+                }
+            });
+
+            // Familiarity scale
+            document.getElementById('familiarity-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (familiarityRating === null) {
+                        familiarityRT = Date.now() - surveyStartTime;
+                    }
+                    
+                    // Remove previous selection
+                    document.querySelectorAll('#familiarity-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selection to clicked option
+                    e.target.classList.add('selected');
+                    familiarityRating = parseInt(e.target.dataset.value);
+                    
+                    checkAllRatingsComplete();
+                }
+            });
+
+            // Groove scale
+            document.getElementById('groove-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (grooveRating === null) {
+                        grooveRT = Date.now() - surveyStartTime;
+                    }
+                    
+                    // Remove previous selection
+                    document.querySelectorAll('#groove-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selection to clicked option
+                    e.target.classList.add('selected');
+                    grooveRating = parseInt(e.target.dataset.value);
+                    
+                    checkAllRatingsComplete();
+                }
+            });
+        });
+
+        function checkAllRatingsComplete() {
+            if (valenceRating !== null && arousalRating !== null && 
+                familiarityRating !== null && grooveRating !== null) {
+                document.getElementById('continue-btn').disabled = false;
+            }
+        }
+
+        function nextTrial() {
+            const currentTrials = isPractice ? practiceTrials : trials;
+            const trial = currentTrials[currentTrial];
+            const duration = isPractice ? PRACTICE_AUDIO_DURATION : AUDIO_DURATION;
+            
+            // Save trial data for both practice and main experiment
+            const startTime = trial.song.filename.includes('dupleMeter') ? 0 : 10;
+            const trialData = {
+                participant_id: participantId,
+                block: 1,
+                trial_number: currentTrial + 1,
+                music_clip_title: trial.song.title,
+                playback_number: trial.repetition,
+                audio_start_time_seconds: startTime, // 0 for dupleMeter, 10 for others
+                music_onset_time: audioStartTime,
+                music_offset_time: audioStartTime + duration,
+                emotion_survey_onset_time: surveyStartTime,
+                valence_rating: valenceRating,
+                valence_response_time: valenceRT,
+                arousal_rating: arousalRating,
+                arousal_response_time: arousalRT,
+                familiarity_rating: familiarityRating,
+                familiarity_response_time: familiarityRT,
+                groove_rating: grooveRating,
+                groove_response_time: grooveRT,
+                timestamp: new Date().toISOString(),
+                is_practice: isPractice
+            };
+            
+            if (isPractice) {
+                practiceData.push(trialData);
+                console.log(`Practice trial ${currentTrial + 1} data saved to memory. Total practice trials: ${practiceData.length}`);
+            } else {
+                experimentData.push(trialData);
+                console.log(`Trial ${currentTrial + 1} data saved to memory. Total trials: ${experimentData.length}`);
+            }
+            
+            // Move to next trial
+            currentTrial++;
+            
+            // Brief pause before next trial
+            setTimeout(() => {
+                if (currentTrial < currentTrials.length) {
+                    showScreen('audio-screen');
+                    startTrial();
+                } else {
+                    if (isPractice) {
+                        showScreen('practice-complete-screen');
+                    } else {
+                        endExperiment();
+                    }
+                }
+            }, 1000);
+        }
+
+        function saveDataToFile() {
+            if (experimentData.length === 0 && practiceData.length === 0) {
+                console.log('No data to save');
+                return;
+            }
+            
+            try {
+                // Combine practice and experiment data
+                const allData = [...practiceData, ...experimentData];
+                const csvContent = convertToCSV(allData);
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `music_emotion_data_block1_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                
+                // Auto-download without user prompt
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                console.log(`Auto-saved CSV with ${practiceData.length} practice + ${experimentData.length} main trials for participant: ${participantId}`);
+                
+            } catch (error) {
+                console.log('Auto-save failed:', error);
+            }
+        }
+
+        function endExperiment() {
+            // Save final data file when experiment completes
+            if (experimentData.length > 0) {
+                saveDataToFile();
+                console.log('Block 1 completed - final data saved');
+            }
+            showScreen('completion-screen');
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+            
+            // Add body class for audio screen to ensure full gray background
+            if (screenId === 'audio-screen') {
+                document.body.classList.add('audio-playing');
+                document.body.classList.remove('rating-screen-active');
+            } else if (screenId === 'rating-screen') {
+                document.body.classList.add('rating-screen-active');
+                document.body.classList.remove('audio-playing');
+            } else {
+                document.body.classList.remove('audio-playing');
+                document.body.classList.remove('rating-screen-active');
+            }
+        }
+
+        function downloadData() {
+            const allData = [...practiceData, ...experimentData];
+            const csvContent = convertToCSV(allData);
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `music_emotion_data_block1_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            // Show confirmation message
+            document.getElementById('completion-message').innerHTML = 'Your responses have been recorded and downloaded! Close this tab and continue to the next block when you are ready by reopening the file on the home screen.';
+        }
+
+        function convertToCSV(data) {
+            if (data.length === 0) return '';
+            
+            const headers = Object.keys(data[0]);
+            const csvRows = [headers.join(',')];
+            
+            for (const row of data) {
+                const values = headers.map(header => {
+                    const value = row[header];
+                    return typeof value === 'string' ? `"${value}"` : value;
+                });
+                csvRows.push(values.join(','));
+            }
+            
+            return csvRows.join('\n');
+        }
+
+        function restartExperiment() {
+            currentTrial = 0;
+            experimentData = [];
+            practiceData = [];
+            isPractice = false;
+            participantId = 'participant_block1_' + Date.now();
+            showScreen('intro-screen');
+        }
+    </script>
+</body>
+</html>
