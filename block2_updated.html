@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Music Emotion Experiment - Block 1</title>
+    <title>Music Emotion Experiment - Block 2</title>
     <style>
         * {
             margin: 0;
@@ -273,7 +273,6 @@
             text-align: center;
         }
 
-        /* Start Audio Button */
         .start-audio-btn {
             position: fixed;
             top: 50%;
@@ -296,7 +295,6 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
 
-        /* Gray background for audio screen - full screen override */
         #audio-screen {
             background-color: #808080 !important;
             position: fixed;
@@ -307,17 +305,14 @@
             z-index: 5;
         }
 
-        /* Override the container background when audio screen is active */
         .container:has(#audio-screen.active) {
             background: #808080 !important;
         }
 
-        /* Alternative approach - override body background when audio screen is shown */
         body.audio-playing {
             background: #808080 !important;
         }
 
-        /* Rating screen - white background */
         body.rating-screen-active {
             background: white !important;
         }
@@ -332,11 +327,11 @@
         }
 
         #rating-screen h2 {
-            color: #1e3c72 !important;
+            color: black !important;
         }
 
         #rating-screen .rating-title {
-            color: #1e3c72 !important;
+            color: black !important;
         }
 
         #rating-screen .rating-section {
@@ -363,7 +358,6 @@
             color: black !important;
         }
 
-        /* Keep trial counter visible but subtle */
         #audio-screen .trial-info {
             position: fixed;
             top: 20px;
@@ -401,7 +395,27 @@
             border: 2px solid #4CAF50;
         }
 
-        /* Feedback question styles */
+        body.feedback-screen-active {
+            background: white !important;
+        }
+
+        #feedback-screen {
+            background: white !important;
+            color: black !important;
+        }
+
+        #feedback-screen .container {
+            background: white !important;
+        }
+
+        .feedback-question-title {
+            color: black !important;
+            font-size: 1.3em;
+            font-weight: normal;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
         .feedback-question {
             margin: 20px 0;
             background: transparent;
@@ -455,28 +469,6 @@
             border-color: #1e3c72;
         }
 
-        /* Feedback screen - white background like rating screen */
-        body.feedback-screen-active {
-            background: white !important;
-        }
-
-        #feedback-screen {
-            background: white !important;
-            color: black !important;
-        }
-
-        #feedback-screen .container {
-            background: white !important;
-        }
-
-        .feedback-question-title {
-            color: black !important;
-            font-size: 1.3em;
-            font-weight: normal;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
         @media (max-width: 768px) {
             .rating-option {
                 width: 85px;
@@ -522,8 +514,8 @@
         <!-- Introduction Screen -->
         <div class="screen active" id="intro-screen">
             <div class="block-header">
-                <h2>Block 1 of 3</h2>
-                <p>This is the first block of the music emotion experiment</p>
+                <h2>Block 2 of 3</h2>
+                <p>This is the second block of the music emotion experiment</p>
             </div>
             <h1>Music Emotion Experiment</h1>
             <div class="intro-text">
@@ -538,7 +530,7 @@
                 <br>
                 <p>Each clip lasts 30 seconds. Occasionally, the music you hear will consist only of rhythmic sequences. After each clip, regardless of whether you heard a song or a drum loop, you will be asked the questions mentioned above.</p>
                 <br>
-                <p>First, we will practice rating some music to familiarize you with the surveys. Once you finish the practice, the full questions will no longer appear for each survey, and will instead be labeled on each end of the scale.</p>
+                <p>First, we will practice rating some music to familiarize you with the surveys.</p>
                 <br>
                 <p style="color: #ff4444; font-weight: bold; font-size: 1.1em;">**IMPORTANT: At the end of this block, you MUST download your data to save your responses!**</p>
                 <br>
@@ -634,9 +626,10 @@
                         <img src="stimuli/SAM/arousal1.png" alt="Very Calm">
                     </div>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
-                    <span>Neutral</span>
-                    <span>Very Intense</span>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Very Intense</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat intense</span>
+                    <span style="position: absolute; right: 0;">Neutral</span>
                 </div>
             </div>
 
@@ -652,9 +645,10 @@
                     <div class="choice-option" data-value="6">6</div>
                     <div class="choice-option" data-value="7">7</div>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
-                    <span>Not familiar at all</span>
-                    <span>Very familiar</span>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Not familiar at all</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat familiar</span>
+                    <span style="position: absolute; right: 0;">Very familiar</span>
                 </div>
             </div>
 
@@ -674,16 +668,17 @@
                     <div class="choice-option" data-value="9">9</div>
                     <div class="choice-option" data-value="10">10</div>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
-                    <span>Not groovy at all</span>
-                    <span>Very groovy</span>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Not groovy at all</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat groovy</span>
+                    <span style="position: absolute; right: 0;">Very groovy</span>
                 </div>
             </div>
 
             <!-- Describe how the task makes you feel -->
             <div class="rating-section">
-                <div class="rating-title">Use some words to describe how the task makes you feel (optional):</div>
-                <textarea class="describe-textarea" id="describe-response" placeholder="Optional: Describe how this task makes you feel..."></textarea>
+                <div class="rating-title">Use one or a few words to describe how the task makes you feel (optional but recommended):</div>
+                <textarea class="describe-textarea" id="describe-response" placeholder="Optional but recommended: Describe how this task makes you feel..."></textarea>
             </div>
 
             <button class="btn continue-btn-bottom" id="continue-btn" onclick="nextTrial()" disabled>Continue</button>
@@ -698,24 +693,24 @@
             <div class="intro-text">
                 <p>You've completed the practice session.</p>
                 <br>
-                <p>Now you'll begin Block 1 of the main experiment with the same type of ratings.</p>
+                <p>Now you'll begin Block 2 of the main experiment with the same type of ratings.</p>
                 <br>
-                <p>Block 1 contains 9 music clips.</p>
+                <p>Block 2 contains 9 music clips.</p>
             </div>
-            <button class="btn" onclick="startMainExperiment()">Start Block 1</button>
+            <button class="btn" onclick="startMainExperiment()">Start Block 2</button>
         </div>
 
         <!-- Feedback Question Screen -->
         <div class="screen" id="feedback-screen">
             <div class="feedback-question">
-                <div class="feedback-question-title">How did you rate the songs? Would you say that you were rating the emotional impact of the song or how much you liked the song? Please enter your response below (optional):</div>
-                <textarea class="feedback-textarea" id="strategy-response" placeholder="Optional: Please describe your approach to rating the songs..."></textarea>
+                <div class="feedback-question-title">How did you rate the songs? Would you say that you were rating the emotional impact of the song or how much you liked the song? Please enter your response below (optional but recommended):</div>
+                <textarea class="feedback-textarea" id="strategy-response" placeholder="Optional but recommended: Please describe your approach to rating the songs..."></textarea>
                 
-                <div class="feedback-question-title" style="margin-top: 30px;">What would make this task better? (optional):</div>
-                <textarea class="feedback-textarea" id="feedback-response" placeholder="Optional: What would make this task better..."></textarea>
+                <div class="feedback-question-title" style="margin-top: 30px;">What would make this task better? (optional but recommended):</div>
+                <textarea class="feedback-textarea" id="feedback-response" placeholder="Optional but recommended: What would make this task better..."></textarea>
                 
-                <div class="feedback-question-title" style="margin-top: 30px;">Was anything confusing about this task? If so, what? (optional):</div>
-                <textarea class="feedback-textarea" id="confusing-response" placeholder="Optional: Was anything confusing about this task..."></textarea>
+                <div class="feedback-question-title" style="margin-top: 30px;">Was anything confusing about this task? If so, what? (optional but recommended):</div>
+                <textarea class="feedback-textarea" id="confusing-response" placeholder="Optional but recommended: Was anything confusing about this task..."></textarea>
             </div>
             <button class="btn" onclick="submitFeedback()">Submit and Continue</button>
         </div>
@@ -723,9 +718,9 @@
         <!-- Completion Screen -->
         <div class="screen" id="completion-screen">
             <div class="completion-screen">
-                <h1>Congratulations! You have completed Block 1.</h1>
+                <h1>Congratulations! You have completed Block 2.</h1>
                 <p style="color: #ff4444; font-weight: bold; font-size: 1.2em; margin: 20px 0;">PLEASE MAKE SURE TO DOWNLOAD YOUR DATA BELOW</p>
-                <button class="btn download-btn" onclick="downloadData()">Download Block 1 Data</button>
+                <button class="btn download-btn" onclick="downloadData()">Download Block 2 Data</button>
                 <p style="margin: 20px 0;" id="completion-message">Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.</p>
             </div>
         </div>
@@ -737,51 +732,51 @@
         const PRACTICE_AUDIO_DURATION = 10000; // 10 seconds for practice
         const REPETITIONS_PER_SONG = 1; // Changed from 3 to 1
         
-        // Block 1 songs (first 9 songs from original list)
+        // Block 2 songs (songs not in Block 1 or Block 3)
         const DEMO_SONGS = [
             { 
-                filename: 'stimuli/audio/1252', 
-                title: '1252',
+                filename: 'stimuli/audio/1419', 
+                title: '1419',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/dupleMeter_stereo_30sec', 
-                title: 'Duple Meter Stereo',
+                filename: 'stimuli/audio/1507', 
+                title: '1507',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/69', 
-                title: '69',
+                filename: 'stimuli/audio/1744', 
+                title: '1744',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/399', 
-                title: '399',
+                filename: 'stimuli/audio/1807', 
+                title: '1807',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/425', 
-                title: '425',
+                filename: 'stimuli/audio/1824', 
+                title: '1824',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/612', 
-                title: '612',
+                filename: 'stimuli/audio/804', 
+                title: '804',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/649', 
-                title: '649',
+                filename: 'stimuli/audio/851', 
+                title: '851',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/657', 
-                title: '657',
+                filename: 'stimuli/audio/856', 
+                title: '856',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/799', 
-                title: '799',
+                filename: 'stimuli/audio/873', 
+                title: '873',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             }
         ];
@@ -801,7 +796,7 @@
         ];
 
         // Experiment State
-        let participantId = 'participant_block1_' + Date.now();
+        let participantId = 'participant_block2_' + Date.now();
         let currentTrial = 0;
         let trials = [];
         let experimentData = [];
@@ -1130,13 +1125,10 @@
             const header = isPractice ? 'Practice - Rate Your Response' : 'Rate Your Response';
             document.getElementById('rating-header').textContent = header;
             
+            // Always show rating titles
             const ratingTitles = document.querySelectorAll('.rating-title');
             ratingTitles.forEach(title => {
-                if (isPractice) {
-                    title.style.display = 'block';
-                } else {
-                    title.style.display = 'none';
-                }
+                title.style.display = 'block';
             });
             
             resetRatings();
@@ -1263,7 +1255,7 @@
             const startTime = trial.song.filename.includes('dupleMeter') ? 0 : 10;
             const trialData = {
                 participant_id: participantId,
-                block: 1,
+                block: 2,
                 trial_number: currentTrial + 1,
                 music_clip_title: trial.song.title,
                 playback_number: trial.repetition,
@@ -1325,7 +1317,7 @@
                 // Add separate feedback row at the end for auto-save as well
                 const feedbackRow = {
                     participant_id: participantId,
-                    block: 1,
+                    block: 2,
                     trial_number: null,
                     music_clip_title: null,
                     playback_number: null,
@@ -1355,7 +1347,7 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `music_emotion_data_block1_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                a.download = `music_emotion_data_block2_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
                 
                 document.body.appendChild(a);
                 a.click();
@@ -1371,7 +1363,7 @@
 
         function saveTrialToLocalStorage(trialData, trialType) {
             try {
-                const key = `block1_${participantId}_${trialType}_trial_${trialData.trial_number}`;
+                const key = `block2_${participantId}_${trialType}_trial_${trialData.trial_number}`;
                 localStorage.setItem(key, JSON.stringify(trialData));
                 console.log(`Trial ${trialData.trial_number} saved to localStorage`);
             } catch (error) {
@@ -1382,7 +1374,7 @@
         function downloadAllStoredData() {
             try {
                 const allTrials = [];
-                const keyPrefix = `block1_${participantId}_`;
+                const keyPrefix = `block2_${participantId}_`;
                 
                 for (let i = 0; i < localStorage.length; i++) {
                     const key = localStorage.key(i);
@@ -1404,7 +1396,7 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `music_emotion_block1_ALL_TRIALS_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                a.download = `music_emotion_block2_ALL_TRIALS_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
                 
                 document.body.appendChild(a);
                 a.click();
@@ -1420,7 +1412,7 @@
 
         function recoverStoredData() {
             try {
-                const keyPrefix = `block1_`;
+                const keyPrefix = `block2_`;
                 let foundData = false;
                 let participantIds = [];
                 
@@ -1439,7 +1431,7 @@
                 }
                 
                 if (!foundData) {
-                    alert('No stored Block 1 data found');
+                    alert('No stored Block 2 data found');
                     return;
                 }
                 
@@ -1466,7 +1458,7 @@
         function endExperiment() {
             if (experimentData.length > 0) {
                 saveDataToFile();
-                console.log('Block 1 completed - final data saved');
+                console.log('Block 2 completed - final data saved');
             }
             showScreen('feedback-screen');
         }
@@ -1509,7 +1501,7 @@
                 // Add separate feedback row at the end with all three final responses
                 const feedbackRow = {
                     participant_id: participantId,
-                    block: 1,
+                    block: 2,
                     trial_number: null,
                     music_clip_title: null,
                     playback_number: null,
@@ -1539,7 +1531,7 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `music_emotion_data_block1_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                a.download = `music_emotion_data_block2_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -1581,7 +1573,7 @@
             experimentData = [];
             practiceData = [];
             isPractice = false;
-            participantId = 'participant_block1_' + Date.now();
+            participantId = 'participant_block2_' + Date.now();
             showScreen('intro-screen');
         }
     </script>

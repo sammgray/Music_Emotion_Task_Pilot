@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Music Emotion Experiment - Block 2</title>
+    <title>Music Emotion Experiment - Block 3</title>
     <style>
         * {
             margin: 0;
@@ -273,6 +273,7 @@
             text-align: center;
         }
 
+        /* Start Audio Button */
         .start-audio-btn {
             position: fixed;
             top: 50%;
@@ -295,6 +296,7 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
 
+        /* Gray background for audio screen - full screen override */
         #audio-screen {
             background-color: #808080 !important;
             position: fixed;
@@ -305,14 +307,17 @@
             z-index: 5;
         }
 
+        /* Override the container background when audio screen is active */
         .container:has(#audio-screen.active) {
             background: #808080 !important;
         }
 
+        /* Alternative approach - override body background when audio screen is shown */
         body.audio-playing {
             background: #808080 !important;
         }
 
+        /* Rating screen - white background */
         body.rating-screen-active {
             background: white !important;
         }
@@ -327,11 +332,11 @@
         }
 
         #rating-screen h2 {
-            color: #1e3c72 !important;
+            color: black !important;
         }
 
         #rating-screen .rating-title {
-            color: #1e3c72 !important;
+            color: black !important;
         }
 
         #rating-screen .rating-section {
@@ -358,6 +363,7 @@
             color: black !important;
         }
 
+        /* Keep trial counter visible but subtle */
         #audio-screen .trial-info {
             position: fixed;
             top: 20px;
@@ -395,6 +401,7 @@
             border: 2px solid #4CAF50;
         }
 
+        /* Feedback screen - white background like rating screen */
         body.feedback-screen-active {
             background: white !important;
         }
@@ -416,6 +423,7 @@
             text-align: left;
         }
 
+        /* Feedback question styles */
         .feedback-question {
             margin: 20px 0;
             background: transparent;
@@ -514,8 +522,8 @@
         <!-- Introduction Screen -->
         <div class="screen active" id="intro-screen">
             <div class="block-header">
-                <h2>Block 2 of 3</h2>
-                <p>This is the second block of the music emotion experiment</p>
+                <h2>Block 3 of 3</h2>
+                <p>This is the final block of the music emotion experiment</p>
             </div>
             <h1>Music Emotion Experiment</h1>
             <div class="intro-text">
@@ -530,7 +538,7 @@
                 <br>
                 <p>Each clip lasts 30 seconds. Occasionally, the music you hear will consist only of rhythmic sequences. After each clip, regardless of whether you heard a song or a drum loop, you will be asked the questions mentioned above.</p>
                 <br>
-                <p>First, we will practice rating some music to familiarize you with the surveys. Once you finish the practice, the full questions will no longer appear for each survey, and will instead be labeled on each end of the scale.</p>
+                <p>First, we will practice rating some music to familiarize you with the surveys.</p>
                 <br>
                 <p style="color: #ff4444; font-weight: bold; font-size: 1.1em;">**IMPORTANT: At the end of this block, you MUST download your data to save your responses!**</p>
                 <br>
@@ -626,9 +634,10 @@
                         <img src="stimuli/SAM/arousal1.png" alt="Very Calm">
                     </div>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
-                    <span>Neutral</span>
-                    <span>Very Intense</span>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Very Intense</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat intense</span>
+                    <span style="position: absolute; right: 0;">Neutral</span>
                 </div>
             </div>
 
@@ -644,9 +653,10 @@
                     <div class="choice-option" data-value="6">6</div>
                     <div class="choice-option" data-value="7">7</div>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
-                    <span>Not familiar at all</span>
-                    <span>Very familiar</span>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Not familiar at all</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat familiar</span>
+                    <span style="position: absolute; right: 0;">Very familiar</span>
                 </div>
             </div>
 
@@ -666,16 +676,17 @@
                     <div class="choice-option" data-value="9">9</div>
                     <div class="choice-option" data-value="10">10</div>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
-                    <span>Not groovy at all</span>
-                    <span>Very groovy</span>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Not groovy at all</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat groovy</span>
+                    <span style="position: absolute; right: 0;">Very groovy</span>
                 </div>
             </div>
 
             <!-- Describe how the task makes you feel -->
             <div class="rating-section">
-                <div class="rating-title">Use some words to describe how the task makes you feel (optional):</div>
-                <textarea class="describe-textarea" id="describe-response" placeholder="Optional: Describe how this task makes you feel..."></textarea>
+                <div class="rating-title">Use one or a few words to describe how the task makes you feel (optional but recommended):</div>
+                <textarea class="describe-textarea" id="describe-response" placeholder="Optional but recommended: Describe how this task makes you feel..."></textarea>
             </div>
 
             <button class="btn continue-btn-bottom" id="continue-btn" onclick="nextTrial()" disabled>Continue</button>
@@ -690,24 +701,24 @@
             <div class="intro-text">
                 <p>You've completed the practice session.</p>
                 <br>
-                <p>Now you'll begin Block 2 of the main experiment with the same type of ratings.</p>
+                <p>Now you'll begin Block 3 (final block) of the main experiment with the same type of ratings.</p>
                 <br>
-                <p>Block 2 contains 9 music clips.</p>
+                <p>Block 3 contains 9 music clips.</p>
             </div>
-            <button class="btn" onclick="startMainExperiment()">Start Block 2</button>
+            <button class="btn" onclick="startMainExperiment()">Start Block 3</button>
         </div>
 
         <!-- Feedback Question Screen -->
         <div class="screen" id="feedback-screen">
             <div class="feedback-question">
-                <div class="feedback-question-title">How did you rate the songs? Would you say that you were rating the emotional impact of the song or how much you liked the song? Please enter your response below (optional):</div>
-                <textarea class="feedback-textarea" id="strategy-response" placeholder="Optional: Please describe your approach to rating the songs..."></textarea>
+                <div class="feedback-question-title">How did you rate the songs? Would you say that you were rating the emotional impact of the song or how much you liked the song? Please enter your response below (optional but recommended):</div>
+                <textarea class="feedback-textarea" id="strategy-response" placeholder="Optional but recommended: Please describe your approach to rating the songs..."></textarea>
                 
-                <div class="feedback-question-title" style="margin-top: 30px;">What would make this task better? (optional):</div>
-                <textarea class="feedback-textarea" id="feedback-response" placeholder="Optional: What would make this task better..."></textarea>
+                <div class="feedback-question-title" style="margin-top: 30px;">What would make this task better? (optional but recommended):</div>
+                <textarea class="feedback-textarea" id="feedback-response" placeholder="Optional but recommended: What would make this task better..."></textarea>
                 
-                <div class="feedback-question-title" style="margin-top: 30px;">Was anything confusing about this task? If so, what? (optional):</div>
-                <textarea class="feedback-textarea" id="confusing-response" placeholder="Optional: Was anything confusing about this task..."></textarea>
+                <div class="feedback-question-title" style="margin-top: 30px;">Was anything confusing about this task? If so, what? (optional but recommended):</div>
+                <textarea class="feedback-textarea" id="confusing-response" placeholder="Optional but recommended: Was anything confusing about this task..."></textarea>
             </div>
             <button class="btn" onclick="submitFeedback()">Submit and Continue</button>
         </div>
@@ -715,70 +726,70 @@
         <!-- Completion Screen -->
         <div class="screen" id="completion-screen">
             <div class="completion-screen">
-                <h1>Congratulations! You have completed Block 2.</h1>
+                <h1>Congratulations! You have completed Block 3.</h1>
                 <p style="color: #ff4444; font-weight: bold; font-size: 1.2em; margin: 20px 0;">PLEASE MAKE SURE TO DOWNLOAD YOUR DATA BELOW</p>
-                <button class="btn download-btn" onclick="downloadData()">Download Block 2 Data</button>
-                <p style="margin: 20px 0;" id="completion-message">Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.</p>
+                <button class="btn download-btn" onclick="downloadData()">Download Block 3 Data</button>
+                <p style="margin: 20px 0;" id="completion-message">You have completed the entire experiment! Thank you for participating!</p>
             </div>
         </div>
     </div>
 
     <script>
         // Experiment Configuration
-        const AUDIO_DURATION = 30000; // 30 seconds in milliseconds
-        const PRACTICE_AUDIO_DURATION = 10000; // 10 seconds for practice
-        const REPETITIONS_PER_SONG = 1; // Changed from 3 to 1
+        const AUDIO_DURATION = 30000;
+        const PRACTICE_AUDIO_DURATION = 10000;
+        const REPETITIONS_PER_SONG = 1;
         
-        // Block 2 songs (songs not in Block 1 or Block 3)
+        // Block 3 songs (final 9 songs from original list)
         const DEMO_SONGS = [
             { 
-                filename: 'stimuli/audio/1419', 
-                title: '1419',
+                filename: 'stimuli/audio/1835', 
+                title: '1835',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/1507', 
-                title: '1507',
+                filename: 'stimuli/audio/1878', 
+                title: '1878',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/1744', 
-                title: '1744',
+                filename: 'stimuli/audio/1895', 
+                title: '1895',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/1807', 
-                title: '1807',
+                filename: 'stimuli/audio/1952', 
+                title: '1952',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/1824', 
-                title: '1824',
+                filename: 'stimuli/audio/1954', 
+                title: '1954',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/804', 
-                title: '804',
+                filename: 'stimuli/audio/2007', 
+                title: '2007',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/851', 
-                title: '851',
+                filename: 'stimuli/audio/2033', 
+                title: '2033',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/856', 
-                title: '856',
+                filename: 'stimuli/audio/2037', 
+                title: '2037',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             },
             { 
-                filename: 'stimuli/audio/873', 
-                title: '873',
+                filename: 'stimuli/audio/2057', 
+                title: '2057',
                 formats: ['.mp3', '.wav', '.m4a', '.ogg']
             }
         ];
 
-        // Practice songs - separate array for songs with "practice" in filename
+        // Practice songs
         const PRACTICE_SONGS_LIST = [
             { 
                 filename: 'stimuli/audio/practice1_808', 
@@ -793,7 +804,7 @@
         ];
 
         // Experiment State
-        let participantId = 'participant_block2_' + Date.now();
+        let participantId = 'participant_block3_' + Date.now();
         let currentTrial = 0;
         let trials = [];
         let experimentData = [];
@@ -845,7 +856,6 @@
 
         // Initialize main experiment
         function initializeExperiment() {
-            // Create randomized trial list (use all DEMO_SONGS for main experiment)
             trials = [];
             for (let song of DEMO_SONGS) {
                 for (let rep = 0; rep < REPETITIONS_PER_SONG; rep++) {
@@ -883,15 +893,12 @@
             familiarityRating = 'skip';
             grooveRating = 'skip';
             
-            // Capture describe response but don't require it
             describeResponse = document.getElementById('describe-response').value || '';
             
-            // Remove any existing selections
             document.querySelectorAll('.rating-option, .choice-option').forEach(opt => {
                 opt.classList.remove('selected');
             });
             
-            // Enable continue button and automatically proceed
             document.getElementById('continue-btn').disabled = false;
             setTimeout(() => {
                 nextTrial();
@@ -1122,13 +1129,10 @@
             const header = isPractice ? 'Practice - Rate Your Response' : 'Rate Your Response';
             document.getElementById('rating-header').textContent = header;
             
+            // Always show rating titles
             const ratingTitles = document.querySelectorAll('.rating-title');
             ratingTitles.forEach(title => {
-                if (isPractice) {
-                    title.style.display = 'block';
-                } else {
-                    title.style.display = 'none';
-                }
+                title.style.display = 'block';
             });
             
             resetRatings();
@@ -1142,7 +1146,6 @@
                 option.classList.remove('selected');
             });
             
-            // Clear the describe textarea
             document.getElementById('describe-response').value = '';
             
             valenceRating = null;
@@ -1247,7 +1250,6 @@
             const trial = currentTrials[currentTrial];
             const duration = isPractice ? PRACTICE_AUDIO_DURATION : AUDIO_DURATION;
             
-            // Capture describe response if not already captured by skip button
             if (!describeResponse) {
                 describeResponse = document.getElementById('describe-response').value || '';
             }
@@ -1255,7 +1257,7 @@
             const startTime = trial.song.filename.includes('dupleMeter') ? 0 : 10;
             const trialData = {
                 participant_id: participantId,
-                block: 2,
+                block: 3,
                 trial_number: currentTrial + 1,
                 music_clip_title: trial.song.title,
                 playback_number: trial.repetition,
@@ -1282,11 +1284,9 @@
             if (isPractice) {
                 practiceData.push(trialData);
                 saveTrialToLocalStorage(trialData, 'practice');
-                console.log(`Practice trial ${currentTrial + 1} data saved to memory. Total practice trials: ${practiceData.length}`);
             } else {
                 experimentData.push(trialData);
                 saveTrialToLocalStorage(trialData, 'main');
-                console.log(`Trial ${currentTrial + 1} data saved to memory. Total trials: ${experimentData.length}`);
             }
             
             currentTrial++;
@@ -1307,17 +1307,15 @@
 
         function saveDataToFile() {
             if (experimentData.length === 0 && practiceData.length === 0) {
-                console.log('No data to save');
                 return;
             }
             
             try {
                 const allData = [...practiceData, ...experimentData];
                 
-                // Add separate feedback row at the end for auto-save as well
                 const feedbackRow = {
                     participant_id: participantId,
-                    block: 2,
+                    block: 3,
                     trial_number: null,
                     music_clip_title: null,
                     playback_number: null,
@@ -1347,15 +1345,12 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `music_emotion_data_block2_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                a.download = `music_emotion_data_block3_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
                 
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
-                
-                console.log(`Auto-saved CSV with ${practiceData.length} practice + ${experimentData.length} main trials for participant: ${participantId}`);
-                
             } catch (error) {
                 console.log('Auto-save failed:', error);
             }
@@ -1363,9 +1358,8 @@
 
         function saveTrialToLocalStorage(trialData, trialType) {
             try {
-                const key = `block2_${participantId}_${trialType}_trial_${trialData.trial_number}`;
+                const key = `block3_${participantId}_${trialType}_trial_${trialData.trial_number}`;
                 localStorage.setItem(key, JSON.stringify(trialData));
-                console.log(`Trial ${trialData.trial_number} saved to localStorage`);
             } catch (error) {
                 console.log('LocalStorage save failed:', error);
             }
@@ -1374,7 +1368,7 @@
         function downloadAllStoredData() {
             try {
                 const allTrials = [];
-                const keyPrefix = `block2_${participantId}_`;
+                const keyPrefix = `block3_${participantId}_`;
                 
                 for (let i = 0; i < localStorage.length; i++) {
                     const key = localStorage.key(i);
@@ -1385,7 +1379,6 @@
                 }
                 
                 if (allTrials.length === 0) {
-                    console.log('No stored data found for this participant');
                     return;
                 }
                 
@@ -1396,15 +1389,12 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `music_emotion_block2_ALL_TRIALS_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                a.download = `music_emotion_block3_ALL_TRIALS_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
                 
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
-                
-                console.log(`Downloaded ${allTrials.length} trials from localStorage`);
-                
             } catch (error) {
                 console.log('Download from localStorage failed:', error);
             }
@@ -1412,7 +1402,7 @@
 
         function recoverStoredData() {
             try {
-                const keyPrefix = `block2_`;
+                const keyPrefix = `block3_`;
                 let foundData = false;
                 let participantIds = [];
                 
@@ -1431,7 +1421,7 @@
                 }
                 
                 if (!foundData) {
-                    alert('No stored Block 2 data found');
+                    alert('No stored Block 3 data found');
                     return;
                 }
                 
@@ -1448,9 +1438,7 @@
                 }
                 
                 downloadAllStoredData();
-                
             } catch (error) {
-                console.log('Recovery failed:', error);
                 alert('Data recovery failed');
             }
         }
@@ -1458,7 +1446,6 @@
         function endExperiment() {
             if (experimentData.length > 0) {
                 saveDataToFile();
-                console.log('Block 2 completed - final data saved');
             }
             showScreen('feedback-screen');
         }
@@ -1485,7 +1472,6 @@
 
         function downloadData() {
             if (isDownloading) {
-                console.log('Download already in progress, preventing duplicate');
                 return;
             }
             
@@ -1498,10 +1484,9 @@
             try {
                 const allData = [...practiceData, ...experimentData];
                 
-                // Add separate feedback row at the end with all three final responses
                 const feedbackRow = {
                     participant_id: participantId,
-                    block: 2,
+                    block: 3,
                     trial_number: null,
                     music_clip_title: null,
                     playback_number: null,
@@ -1531,16 +1516,14 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `music_emotion_data_block2_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                a.download = `music_emotion_data_block3_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
                 
-                document.getElementById('completion-message').innerHTML = 'Your responses have been recorded and downloaded! Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.';
-                
+                document.getElementById('completion-message').innerHTML = 'Your responses have been recorded and downloaded! You have completed the entire experiment! Thank you for participating!';
             } catch (error) {
-                console.log('Download failed:', error);
                 document.getElementById('completion-message').innerHTML = 'Download may have failed. Please try again or contact the researcher.';
             }
             
@@ -1573,7 +1556,7 @@
             experimentData = [];
             practiceData = [];
             isPractice = false;
-            participantId = 'participant_block2_' + Date.now();
+            participantId = 'participant_block3_' + Date.now();
             showScreen('intro-screen');
         }
     </script>
