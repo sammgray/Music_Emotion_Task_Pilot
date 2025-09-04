@@ -1182,10 +1182,8 @@
             document.getElementById('start-audio-btn').style.display = 'none';
             document.getElementById('fixation-cross').style.display = 'block';
             
-            // Start with 3 seconds of pre-audio fixation
-            setTimeout(() => {
-                playAudioWithFadeIn();
-            }, PRE_AUDIO_FIXATION);
+            // Start audio immediately to maintain iOS user gesture requirement
+            playAudioWithFadeIn();
         }
         
         function playAudioWithFadeIn() {
