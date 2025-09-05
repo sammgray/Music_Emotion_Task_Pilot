@@ -146,6 +146,91 @@
             color: #FFD700;
         }
 
+        /* Continuous slider styles for valence and arousal */
+        .continuous-scale {
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .sam-characters {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            position: relative;
+            height: 160px;
+        }
+
+        /* Black connecting line behind SAM characters */
+        .sam-characters::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 80px;
+            right: 80px;
+            height: 4px;
+            background: black;
+            z-index: 1;
+        }
+
+        .sam-character {
+            width: 160px;
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            z-index: 2;
+            position: relative;
+        }
+
+        .sam-character img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
+
+        .sam-character-label {
+            font-size: 0.9em;
+            text-align: center;
+            color: black;
+            font-weight: bold;
+        }
+
+        .continuous-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 0;
+            background: black;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .continuous-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: black;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+
+        .continuous-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: black;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+
         .rating-scale {
             display: flex;
             justify-content: center;
@@ -363,6 +448,14 @@
             color: black !important;
         }
 
+        #rating-screen .sam-character-label {
+            color: black !important;
+        }
+
+        #rating-screen .sam-characters::before {
+            background: black !important;
+        }
+
         /* Keep trial counter visible but subtle */
         #audio-screen .trial-info {
             position: fixed;
@@ -539,7 +632,15 @@
             color: black !important;
         }
 
-                /* Musician screen - white background like rating screen */
+        #favorite-song-rating-screen .sam-character-label {
+            color: black !important;
+        }
+
+        #favorite-song-rating-screen .sam-characters::before {
+            background: black !important;
+        }
+
+        /* Musician screen - white background like rating screen */
         body.musician-screen-active {
             background: white !important;
         }
@@ -572,8 +673,28 @@
             color: black !important;
         }
 
-
         @media (max-width: 768px) {
+            .sam-character {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .sam-character img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .sam-character-label {
+                font-size: 0.7em;
+                margin-top: 5px;
+            }
+            
+            .sam-characters::before {
+                left: 60px;
+                right: 60px;
+                top: 40px;
+            }
+            
             .rating-option {
                 width: 85px;
                 height: 85px;
@@ -707,69 +828,63 @@
         <div class="screen" id="rating-screen">
             <h2 id="rating-header">Rate Your Response</h2>
 
-            <!-- Valence Rating -->
+            <!-- Valence Rating (Now Continuous with larger SAM images, black slider, and connecting line) -->
             <div class="rating-section">
                 <div class="rating-title">How pleasant or unpleasant does this music make you feel?</div>
-                <div class="rating-scale" id="valence-scale">
-                    <div class="rating-option" data-value="1">
-                        <img src="stimuli/SAM/valence1.png" alt="Very Negative">
+                <div class="continuous-scale">
+                    <div class="sam-characters">
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/valence1.png" alt="Very Negative">
+                            <div class="sam-character-label">Unpleasant</div>
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/valence2.png" alt="Negative">
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/valence3.png" alt="Neutral">
+                            <div class="sam-character-label">Neutral</div>
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/valence4.png" alt="Positive">
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/valence5.png" alt="Very Positive">
+                            <div class="sam-character-label">Pleasant</div>
+                        </div>
                     </div>
-                    <div class="rating-option blank" data-value="1.5"></div>
-                    <div class="rating-option" data-value="2">
-                        <img src="stimuli/SAM/valence2.png" alt="Negative">
-                    </div>
-                    <div class="rating-option blank" data-value="2.5"></div>
-                    <div class="rating-option" data-value="3">
-                        <img src="stimuli/SAM/valence3.png" alt="Neutral">
-                    </div>
-                    <div class="rating-option blank" data-value="3.5"></div>
-                    <div class="rating-option" data-value="4">
-                        <img src="stimuli/SAM/valence4.png" alt="Positive">
-                    </div>
-                    <div class="rating-option blank" data-value="4.5"></div>
-                    <div class="rating-option" data-value="5">
-                        <img src="stimuli/SAM/valence5.png" alt="Very Positive">
-                    </div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
-                    <span>Unpleasant</span>
-                    <span>Neutral</span>
-                    <span>Pleasant</span>
+                    <input type="range" class="continuous-slider" id="valence-slider" min="1" max="5" step="0.01" value="3">
                 </div>
             </div>
 
-            <!-- Arousal Rating -->
+            <!-- Arousal Rating (Now Continuous with larger SAM images, black slider, and connecting line) -->
             <div class="rating-section">
                 <div class="rating-title">How calm or excited does this music make you feel?</div>
-                <div class="rating-scale" id="arousal-scale">
-                    <div class="rating-option" data-value="1">
-                        <img src="stimuli/SAM/arousal5.png" alt="Very Excited">
+                <div class="continuous-scale">
+                    <div class="sam-characters">
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/arousal5.png" alt="Very Excited">
+                            <div class="sam-character-label">Calm</div>
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/arousal4.png" alt="Excited">
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/arousal3.png" alt="Neutral">
+                            <div class="sam-character-label">Neutral</div>
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/arousal2.png" alt="Calm">
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/arousal1.png" alt="Very Calm">
+                            <div class="sam-character-label">Excited</div>
+                        </div>
                     </div>
-                    <div class="rating-option blank" data-value="1.5"></div>
-                    <div class="rating-option" data-value="2">
-                        <img src="stimuli/SAM/arousal4.png" alt="Excited">
-                    </div>
-                    <div class="rating-option blank" data-value="2.5"></div>
-                    <div class="rating-option" data-value="3">
-                        <img src="stimuli/SAM/arousal3.png" alt="Neutral">
-                    </div>
-                    <div class="rating-option blank" data-value="3.5"></div>
-                    <div class="rating-option" data-value="4">
-                        <img src="stimuli/SAM/arousal2.png" alt="Calm">
-                    </div>
-                    <div class="rating-option blank" data-value="4.5"></div>
-                    <div class="rating-option" data-value="5">
-                        <img src="stimuli/SAM/arousal1.png" alt="Very Calm">
-                    </div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Calm</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Neutral</span>
-                    <span style="position: absolute; right: 0;">Excited</span>
+                    <input type="range" class="continuous-slider" id="arousal-slider" min="1" max="5" step="0.01" value="3">
                 </div>
             </div>
 
-            <!-- Familiarity Rating -->
+            <!-- Familiarity Rating (unchanged) -->
             <div class="rating-section">
                 <div class="rating-title">How familiar were you with this music before today?</div>
                 <div class="multiple-choice-container" id="familiarity-scale">
@@ -788,7 +903,7 @@
                 </div>
             </div>
 
-            <!-- Groove Rating -->
+            <!-- Groove Rating (unchanged) -->
             <div class="rating-section">
                 <div class="rating-title">How much does this music make you want to move?</div>
                 <div class="multiple-choice-container" id="groove-scale">
@@ -860,69 +975,63 @@
         <div class="screen" id="favorite-song-rating-screen">
             <h2>Rate Your Favorite Song</h2>
 
-            <!-- Valence Rating -->
+            <!-- Valence Rating (Now Continuous with larger SAM images, black slider, and connecting line) -->
             <div class="rating-section">
                 <div class="rating-title">How pleasant or unpleasant does this music make you feel?</div>
-                <div class="rating-scale" id="favorite-valence-scale">
-                    <div class="rating-option" data-value="1">
-                        <img src="stimuli/SAM/valence1.png" alt="Very Negative">
+                <div class="continuous-scale">
+                    <div class="sam-characters">
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/valence1.png" alt="Very Negative">
+                            <div class="sam-character-label">Unpleasant</div>
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/valence2.png" alt="Negative">
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/valence3.png" alt="Neutral">
+                            <div class="sam-character-label">Neutral</div>
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/valence4.png" alt="Positive">
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/valence5.png" alt="Very Positive">
+                            <div class="sam-character-label">Pleasant</div>
+                        </div>
                     </div>
-                    <div class="rating-option blank" data-value="1.5"></div>
-                    <div class="rating-option" data-value="2">
-                        <img src="stimuli/SAM/valence2.png" alt="Negative">
-                    </div>
-                    <div class="rating-option blank" data-value="2.5"></div>
-                    <div class="rating-option" data-value="3">
-                        <img src="stimuli/SAM/valence3.png" alt="Neutral">
-                    </div>
-                    <div class="rating-option blank" data-value="3.5"></div>
-                    <div class="rating-option" data-value="4">
-                        <img src="stimuli/SAM/valence4.png" alt="Positive">
-                    </div>
-                    <div class="rating-option blank" data-value="4.5"></div>
-                    <div class="rating-option" data-value="5">
-                        <img src="stimuli/SAM/valence5.png" alt="Very Positive">
-                    </div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
-                    <span>Unpleasant</span>
-                    <span>Neutral</span>
-                    <span>Pleasant</span>
+                    <input type="range" class="continuous-slider" id="favorite-valence-slider" min="1" max="5" step="0.01" value="3">
                 </div>
             </div>
 
-            <!-- Arousal Rating -->
+            <!-- Arousal Rating (Now Continuous with larger SAM images, black slider, and connecting line) -->
             <div class="rating-section">
                 <div class="rating-title">How calm or excited does this music make you feel?</div>
-                <div class="rating-scale" id="favorite-arousal-scale">
-                    <div class="rating-option" data-value="1">
-                        <img src="stimuli/SAM/arousal5.png" alt="Very Excited">
+                <div class="continuous-scale">
+                    <div class="sam-characters">
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/arousal5.png" alt="Very Excited">
+                            <div class="sam-character-label">Calm</div>
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/arousal4.png" alt="Excited">
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/arousal3.png" alt="Neutral">
+                            <div class="sam-character-label">Neutral</div>
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/arousal2.png" alt="Calm">
+                        </div>
+                        <div class="sam-character">
+                            <img src="stimuli/SAM/arousal1.png" alt="Very Calm">
+                            <div class="sam-character-label">Excited</div>
+                        </div>
                     </div>
-                    <div class="rating-option blank" data-value="1.5"></div>
-                    <div class="rating-option" data-value="2">
-                        <img src="stimuli/SAM/arousal4.png" alt="Excited">
-                    </div>
-                    <div class="rating-option blank" data-value="2.5"></div>
-                    <div class="rating-option" data-value="3">
-                        <img src="stimuli/SAM/arousal3.png" alt="Neutral">
-                    </div>
-                    <div class="rating-option blank" data-value="3.5"></div>
-                    <div class="rating-option" data-value="4">
-                        <img src="stimuli/SAM/arousal2.png" alt="Calm">
-                    </div>
-                    <div class="rating-option blank" data-value="4.5"></div>
-                    <div class="rating-option" data-value="5">
-                        <img src="stimuli/SAM/arousal1.png" alt="Very Calm">
-                    </div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px;">
-                    <span>Calm</span>
-                    <span>Neutral</span>
-                    <span>Excited</span>
+                    <input type="range" class="continuous-slider" id="favorite-arousal-slider" min="1" max="5" step="0.01" value="3">
                 </div>
             </div>
 
-            <!-- Familiarity Rating -->
+            <!-- Familiarity Rating (unchanged) -->
             <div class="rating-section">
                 <div class="rating-title">How familiar were you with this music before today?</div>
                 <div class="multiple-choice-container" id="favorite-familiarity-scale">
@@ -941,7 +1050,7 @@
                 </div>
             </div>
 
-            <!-- Groove Rating -->
+            <!-- Groove Rating (unchanged) -->
             <div class="rating-section">
                 <div class="rating-title">How much does this music make you want to move?</div>
                 <div class="multiple-choice-container" id="favorite-groove-scale">
@@ -1110,6 +1219,12 @@
         let favoriteSongDescribe = '';
         let favoriteSongSurveyStartTime = 0;
 
+        // Track if sliders have been moved
+        let valenceSliderMoved = false;
+        let arousalSliderMoved = false;
+        let favoriteValenceSliderMoved = false;
+        let favoriteArousalSliderMoved = false;
+
         // Auto-save when page is about to close
         window.addEventListener('beforeunload', function(e) {
             if (experimentData.length > 0 || practiceData.length > 0) {
@@ -1157,10 +1272,10 @@
 
         // Skip function for all ratings
         function skipAllRatings() {
-            if (valenceRating === null) {
+            if (!valenceSliderMoved) {
                 valenceRT = Date.now() - surveyStartTime;
             }
-            if (arousalRating === null) {
+            if (!arousalSliderMoved) {
                 arousalRT = Date.now() - surveyStartTime;
             }
             if (familiarityRating === null) {
@@ -1179,7 +1294,7 @@
             describeResponse = document.getElementById('describe-response').value || '';
             
             // Remove any existing selections
-            document.querySelectorAll('.rating-option, .choice-option').forEach(opt => {
+            document.querySelectorAll('.choice-option').forEach(opt => {
                 opt.classList.remove('selected');
             });
             
@@ -1466,7 +1581,11 @@
         }
 
         function resetRatings() {
-            document.querySelectorAll('.rating-option, .choice-option').forEach(option => {
+            // Reset slider positions
+            document.getElementById('valence-slider').value = 3;
+            document.getElementById('arousal-slider').value = 3;
+            
+            document.querySelectorAll('.choice-option').forEach(option => {
                 option.classList.remove('selected');
             });
             
@@ -1482,48 +1601,32 @@
             familiarityRT = null;
             grooveRT = null;
             describeResponse = '';
+            valenceSliderMoved = false;
+            arousalSliderMoved = false;
             
             document.getElementById('continue-btn').disabled = true;
         }
 
         // Rating scale interactions
         document.addEventListener('DOMContentLoaded', function() {
-            // Valence scale
-            document.getElementById('valence-scale').addEventListener('click', function(e) {
-                if (e.target.closest('.rating-option')) {
-                    const option = e.target.closest('.rating-option');
-                    if (valenceRating === null || valenceRating === 'skip') {
-                        valenceRT = Date.now() - surveyStartTime;
-                    }
-                    
-                    document.querySelectorAll('#valence-scale .rating-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    option.classList.add('selected');
-                    valenceRating = parseFloat(option.dataset.value);
-                    
-                    checkAllRatingsComplete();
+            // Valence slider
+            document.getElementById('valence-slider').addEventListener('input', function(e) {
+                if (!valenceSliderMoved) {
+                    valenceRT = Date.now() - surveyStartTime;
+                    valenceSliderMoved = true;
                 }
+                valenceRating = parseFloat(e.target.value);
+                checkAllRatingsComplete();
             });
 
-            // Arousal scale
-            document.getElementById('arousal-scale').addEventListener('click', function(e) {
-                if (e.target.closest('.rating-option')) {
-                    const option = e.target.closest('.rating-option');
-                    if (arousalRating === null || arousalRating === 'skip') {
-                        arousalRT = Date.now() - surveyStartTime;
-                    }
-                    
-                    document.querySelectorAll('#arousal-scale .rating-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    option.classList.add('selected');
-                    arousalRating = parseFloat(option.dataset.value);
-                    
-                    checkAllRatingsComplete();
+            // Arousal slider
+            document.getElementById('arousal-slider').addEventListener('input', function(e) {
+                if (!arousalSliderMoved) {
+                    arousalRT = Date.now() - surveyStartTime;
+                    arousalSliderMoved = true;
                 }
+                arousalRating = parseFloat(e.target.value);
+                checkAllRatingsComplete();
             });
 
             // Familiarity scale
@@ -1581,40 +1684,24 @@
             });
 
             // Favorite Song Rating Interactions
-            document.getElementById('favorite-valence-scale').addEventListener('click', function(e) {
-                if (e.target.closest('.rating-option')) {
-                    const option = e.target.closest('.rating-option');
-                    if (favoriteSongValence === null || favoriteSongValence === 'skip') {
-                        favoriteSongValenceRT = Date.now() - favoriteSongSurveyStartTime;
-                    }
-                    
-                    document.querySelectorAll('#favorite-valence-scale .rating-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    option.classList.add('selected');
-                    favoriteSongValence = parseFloat(option.dataset.value);
-                    
-                    checkFavoriteSongRatingsComplete();
+            // Favorite valence slider
+            document.getElementById('favorite-valence-slider').addEventListener('input', function(e) {
+                if (!favoriteValenceSliderMoved) {
+                    favoriteSongValenceRT = Date.now() - favoriteSongSurveyStartTime;
+                    favoriteValenceSliderMoved = true;
                 }
+                favoriteSongValence = parseFloat(e.target.value);
+                checkFavoriteSongRatingsComplete();
             });
 
-            document.getElementById('favorite-arousal-scale').addEventListener('click', function(e) {
-                if (e.target.closest('.rating-option')) {
-                    const option = e.target.closest('.rating-option');
-                    if (favoriteSongArousal === null || favoriteSongArousal === 'skip') {
-                        favoriteSongArousalRT = Date.now() - favoriteSongSurveyStartTime;
-                    }
-                    
-                    document.querySelectorAll('#favorite-arousal-scale .rating-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    option.classList.add('selected');
-                    favoriteSongArousal = parseFloat(option.dataset.value);
-                    
-                    checkFavoriteSongRatingsComplete();
+            // Favorite arousal slider
+            document.getElementById('favorite-arousal-slider').addEventListener('input', function(e) {
+                if (!favoriteArousalSliderMoved) {
+                    favoriteSongArousalRT = Date.now() - favoriteSongSurveyStartTime;
+                    favoriteArousalSliderMoved = true;
                 }
+                favoriteSongArousal = parseFloat(e.target.value);
+                checkFavoriteSongRatingsComplete();
             });
 
             document.getElementById('favorite-familiarity-scale').addEventListener('click', function(e) {
@@ -1653,14 +1740,14 @@
         });
 
         function checkAllRatingsComplete() {
-            if ((valenceRating !== null) && (arousalRating !== null) && 
+            if (valenceSliderMoved && arousalSliderMoved && 
                 (familiarityRating !== null) && (grooveRating !== null)) {
                 document.getElementById('continue-btn').disabled = false;
             }
         }
 
         function checkFavoriteSongRatingsComplete() {
-            if ((favoriteSongValence !== null) && (favoriteSongArousal !== null) && 
+            if (favoriteValenceSliderMoved && favoriteArousalSliderMoved && 
                 (favoriteSongFamiliarity !== null) && (favoriteSongGroove !== null)) {
                 document.getElementById('favorite-continue-btn').disabled = false;
             }
@@ -1701,7 +1788,6 @@
             showScreen('practice-intro-screen');
         }
 
-
         function startFavoriteSongTrial() {
             showScreen('favorite-song-screen');
         }
@@ -1727,7 +1813,11 @@
         }
 
         function resetFavoriteSongRatings() {
-            document.querySelectorAll('#favorite-song-rating-screen .rating-option, #favorite-song-rating-screen .choice-option').forEach(option => {
+            // Reset slider positions
+            document.getElementById('favorite-valence-slider').value = 3;
+            document.getElementById('favorite-arousal-slider').value = 3;
+            
+            document.querySelectorAll('#favorite-song-rating-screen .choice-option').forEach(option => {
                 option.classList.remove('selected');
             });
             
@@ -1742,15 +1832,17 @@
             favoriteSongFamiliarityRT = null;
             favoriteSongGrooveRT = null;
             favoriteSongDescribe = '';
+            favoriteValenceSliderMoved = false;
+            favoriteArousalSliderMoved = false;
             
             document.getElementById('favorite-continue-btn').disabled = true;
         }
 
         function skipFavoriteSongRating() {
-            if (favoriteSongValence === null) {
+            if (!favoriteValenceSliderMoved) {
                 favoriteSongValenceRT = Date.now() - favoriteSongSurveyStartTime;
             }
-            if (favoriteSongArousal === null) {
+            if (!favoriteArousalSliderMoved) {
                 favoriteSongArousalRT = Date.now() - favoriteSongSurveyStartTime;
             }
             if (favoriteSongFamiliarity === null) {
@@ -1979,16 +2071,16 @@
             
             if (screenId === 'audio-screen' || screenId === 'favorite-song-screen') {
                 document.body.classList.add('audio-playing');
-                document.body.classList.remove('rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active');
+                document.body.classList.remove('rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active', 'musician-screen-active');
             } else if (screenId === 'rating-screen') {
                 document.body.classList.add('rating-screen-active');
-                document.body.classList.remove('audio-playing', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active');
+                document.body.classList.remove('audio-playing', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active', 'musician-screen-active');
             } else if (screenId === 'feedback-screen') {
                 document.body.classList.add('feedback-screen-active');
-                document.body.classList.remove('audio-playing', 'rating-screen-active', 'stop-music-active', 'favorite-rating-active');
+                document.body.classList.remove('audio-playing', 'rating-screen-active', 'stop-music-active', 'favorite-rating-active', 'musician-screen-active');
             } else if (screenId === 'stop-music-screen') {
                 document.body.classList.add('stop-music-active');
-                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'favorite-rating-active');
+                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'favorite-rating-active', 'musician-screen-active');
             } else if (screenId === 'favorite-song-rating-screen') {
                 document.body.classList.add('favorite-rating-active');
                 document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'musician-screen-active');
