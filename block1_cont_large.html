@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Music Emotion Experiment - Block 2</title>
+    <title>Music Emotion Experiment - Block 1</title>
     <style>
         * {
             margin: 0;
@@ -357,6 +357,38 @@
             border-color: #1e3c72;
         }
 
+        body.musician-screen-active {
+            background: white !important;
+        }
+
+        #musician-screen {
+            background: white !important;
+            color: black !important;
+        }
+
+        #musician-screen .container {
+            background: white !important;
+        }
+
+        #musician-screen h2 {
+            color: black !important;
+        }
+
+        #musician-screen .choice-option {
+            color: black !important;
+            border-color: black !important;
+        }
+
+        #musician-screen .choice-option:hover {
+            border-color: #FFD700 !important;
+        }
+
+        #musician-screen .choice-option.selected {
+            border-color: #FFD700 !important;
+            background: transparent !important;
+            color: black !important;
+        }
+
         /* Audio screen */
         #audio-screen {
             background-color: #808080 !important;
@@ -559,8 +591,8 @@
         <!-- Introduction Screen -->
         <div class="screen active" id="intro-screen">
             <div class="block-header">
-                <h2>Block 2 of 4</h2>
-                <p>This is the second block of the music emotion experiment</p>
+                <h2>Block 1 of 4</h2>
+                <p>This is the first block of the music emotion experiment</p>
             </div>
             <h1>Music Emotion Experiment</h1>
             <div class="intro-text">
@@ -584,6 +616,33 @@
             </div>
             <button class="btn" onclick="startPractice()">Continue</button>
             <button class="btn" onclick="recoverStoredData()" style="position: fixed; bottom: 20px; left: 20px; background: linear-gradient(45deg, #95a5a6, #7f8c8d); font-size: 0.9em; padding: 10px 15px;">Recover Old Data</button>
+        </div>
+
+        <!-- Musician Experience Screen -->
+        <div class="screen" id="musician-screen">
+            <h2>Background Information</h2>
+            <div class="intro-text">
+                <div class="feedback-question-title">Have you ever played an instrument?</div>
+                <div style="font-size: 0.9em; color: #666; margin-bottom: 30px;">(You will only need to answer this question once)</div>
+                
+                <div class="rating-section">
+                    <div class="multiple-choice-container" id="musician-scale" style="margin: 30px 0;">
+                        <div class="choice-option" data-value="1">1</div>
+                        <div class="choice-option" data-value="2">2</div>
+                        <div class="choice-option" data-value="3">3</div>
+                        <div class="choice-option" data-value="4">4</div>
+                        <div class="choice-option" data-value="5">5</div>
+                        <div class="choice-option" data-value="6">6</div>
+                        <div class="choice-option" data-value="7">7</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                        <span style="position: absolute; left: 0;">Never played an instrument</span>
+                        <span style="position: absolute; left: 50%; transform: translateX(-50%);">Some experience</span>
+                        <span style="position: absolute; right: 0;">Professional musician</span>
+                    </div>
+                </div>
+            </div>
+            <button class="btn continue-btn-bottom" id="musician-continue-btn" onclick="submitMusicianExperience()" disabled>Continue to Practice</button>
         </div>
 
         <!-- Practice Introduction Screen -->
@@ -744,11 +803,11 @@
             <div class="intro-text">
                 <p>You've completed the practice session.</p>
                 <br>
-                <p>Now you'll begin Block 2 of the main experiment with the same type of ratings.</p>
+                <p>Now you'll begin Block 1 of the main experiment with the same type of ratings.</p>
                 <br>
-                <p>Block 2 contains 9 music clips.</p>
+                <p>Block 1 contains 9 music clips.</p>
             </div>
-            <button class="btn" onclick="startMainExperiment()">Start Block 2</button>
+            <button class="btn" onclick="startMainExperiment()">Start Block 1</button>
         </div>
 
         <!-- Favorite Song Introduction Screen -->
@@ -908,9 +967,9 @@
         <!-- Completion Screen -->
         <div class="screen" id="completion-screen">
             <div class="completion-screen">
-                <h1>Congratulations! You have completed Block 2.</h1>
+                <h1>Congratulations! You have completed Block 1.</h1>
                 <p style="color: #ff4444; font-weight: bold; font-size: 1.2em; margin: 20px 0;">PLEASE MAKE SURE TO DOWNLOAD YOUR DATA BELOW</p>
-                <button class="btn download-btn" onclick="downloadData()">Download Block 2 Data</button>
+                <button class="btn download-btn" onclick="downloadData()">Download Block 1 Data</button>
                 <p style="margin: 20px 0;" id="completion-message">Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.</p>
             </div>
         </div>
@@ -925,27 +984,25 @@
         const PRE_AUDIO_FIXATION = 3000;
         const POST_AUDIO_FIXATION = 3000;
         
-        // Block 2 songs (songs not in Block 1)
         const DEMO_SONGS = [
-            { filename: 'stimuli/audio/1419', title: '1419', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
-            { filename: 'stimuli/audio/1507', title: '1507', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
-            { filename: 'stimuli/audio/1744', title: '1744', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
-            { filename: 'stimuli/audio/1807', title: '1807', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
-            { filename: 'stimuli/audio/1824', title: '1824', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
-            { filename: 'stimuli/audio/804', title: '804', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
-            { filename: 'stimuli/audio/851', title: '851', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
-            { filename: 'stimuli/audio/856', title: '856', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
-            { filename: 'stimuli/audio/873', title: '873', formats: ['.mp3', '.wav', '.m4a', '.ogg'] }
+            { filename: 'stimuli/audio/1252', title: '1252', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/dupleMeter_stereo_30sec', title: 'Duple Meter Stereo', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/69', title: '69', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/399', title: '399', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/425', title: '425', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/612', title: '612', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/649', title: '649', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/657', title: '657', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/799', title: '799', formats: ['.mp3', '.wav', '.m4a', '.ogg'] }
         ];
 
-        // Practice songs - separate array for songs with "practice" in filename
         const PRACTICE_SONGS_LIST = [
             { filename: 'stimuli/audio/practice1_808', title: 'Practice 1', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
             { filename: 'stimuli/audio/practice2_1092', title: 'Practice 2', formats: ['.mp3', '.wav', '.m4a', '.ogg'] }
         ];
 
         // Experiment State
-        let participantId = 'participant_block2_' + Date.now();
+        let participantId = 'participant_block1_' + Date.now();
         let currentTrial = 0;
         let trials = [];
         let experimentData = [];
@@ -971,6 +1028,10 @@
         let confusingResponse = '';
         let describeResponse = '';
         let isDownloading = false;
+
+        let musicianRating = null;
+        let musicianRT = null;
+        let musicianSurveyStartTime = 0;
 
         // Favorite song trial variables
         let favoriteSongValence = null;
@@ -1093,7 +1154,8 @@
         }
 
         function startPractice() {
-            showScreen('practice-intro-screen');
+            showScreen('musician-screen');
+            musicianSurveyStartTime = Date.now();
         }
 
         function startPracticeTrials() {
@@ -1436,6 +1498,24 @@
                 }
             });
 
+            // Musician scale
+            document.getElementById('musician-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (musicianRating === null) {
+                        musicianRT = Date.now() - musicianSurveyStartTime;
+                    }
+                    
+                    document.querySelectorAll('#musician-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    musicianRating = parseInt(e.target.dataset.value);
+                    
+                    document.getElementById('musician-continue-btn').disabled = false;
+                }
+            });
+
             // Favorite valence slider
             document.getElementById('favorite-valence-slider').addEventListener('input', function(e) {
                 if (!favoriteValenceSliderMoved) {
@@ -1525,3 +1605,507 @@
                 (favoriteSongFamiliarity !== null) && (favoriteSongGroove !== null) && (favoriteSongLiking !== null)) {
                 document.getElementById('favorite-continue-btn').disabled = false;
             }
+        }
+
+        function submitMusicianExperience() {
+            const musicianData = {
+                participant_id: participantId,
+                block: 1,
+                trial_number: 'musician_experience',
+                music_clip_title: null,
+                playback_number: null,
+                audio_start_time_seconds: null,
+                music_onset_time: null,
+                music_offset_time: null,
+                emotion_survey_onset_time: musicianSurveyStartTime,
+                valence_rating: null,
+                valence_response_time: null,
+                arousal_rating: null,
+                arousal_response_time: null,
+                familiarity_rating: null,
+                familiarity_response_time: null,
+                groove_rating: null,
+                groove_response_time: null,
+                liking_rating: null,
+                liking_response_time: null,
+                musician_rating: musicianRating,
+                musician_response_time: musicianRT,
+                describe: null,
+                strategy: null,
+                feedback: null,
+                confusing: null,
+                timestamp: new Date().toISOString(),
+                is_practice: null
+            };
+            
+            experimentData.push(musicianData);
+            console.log('Musician experience data saved');
+            
+            showScreen('practice-intro-screen');
+        }
+
+        function startFavoriteSongTrial() {
+            showScreen('favorite-song-screen');
+        }
+
+        function skipFavoriteSong() {
+            showScreen('feedback-screen');
+        }
+
+        function startFavoriteSongPlayback() {
+            document.getElementById('start-favorite-btn').style.display = 'none';
+            document.getElementById('favorite-fixation-cross').style.display = 'block';
+            
+            setTimeout(() => {
+                showScreen('stop-music-screen');
+            }, 30000);
+        }
+
+        function showFavoriteSongRating() {
+            resetFavoriteSongRatings();
+            favoriteSongSurveyStartTime = Date.now();
+            showScreen('favorite-song-rating-screen');
+        }
+
+        function resetFavoriteSongRatings() {
+            document.getElementById('favorite-valence-slider').value = 3;
+            document.getElementById('favorite-arousal-slider').value = 3;
+            
+            document.querySelectorAll('#favorite-song-rating-screen .choice-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            document.getElementById('favorite-describe-response').value = '';
+            
+            favoriteSongValence = null;
+            favoriteSongArousal = null;
+            favoriteSongFamiliarity = null;
+            favoriteSongGroove = null;
+            favoriteSongLiking = null;
+            favoriteSongValenceRT = null;
+            favoriteSongArousalRT = null;
+            favoriteSongFamiliarityRT = null;
+            favoriteSongGrooveRT = null;
+            favoriteSongLikingRT = null;
+            favoriteSongDescribe = '';
+            favoriteValenceSliderMoved = false;
+            favoriteArousalSliderMoved = false;
+            
+            document.getElementById('favorite-continue-btn').disabled = true;
+        }
+
+        function skipFavoriteSongRating() {
+            if (!favoriteValenceSliderMoved) {
+                favoriteSongValenceRT = Date.now() - favoriteSongSurveyStartTime;
+            }
+            if (!favoriteArousalSliderMoved) {
+                favoriteSongArousalRT = Date.now() - favoriteSongSurveyStartTime;
+            }
+            if (favoriteSongFamiliarity === null) {
+                favoriteSongFamiliarityRT = Date.now() - favoriteSongSurveyStartTime;
+            }
+            if (favoriteSongGroove === null) {
+                favoriteSongGrooveRT = Date.now() - favoriteSongSurveyStartTime;
+            }
+            if (favoriteSongLiking === null) {
+                favoriteSongLikingRT = Date.now() - favoriteSongSurveyStartTime;
+            }
+            
+            favoriteSongValence = 'skip';
+            favoriteSongArousal = 'skip';
+            favoriteSongFamiliarity = 'skip';
+            favoriteSongGroove = 'skip';
+            favoriteSongLiking = 'skip';
+            
+            document.getElementById('favorite-continue-btn').disabled = false;
+            setTimeout(() => {
+                submitFavoriteSongRating();
+            }, 500);
+        }
+
+        function submitFavoriteSongRating() {
+            favoriteSongDescribe = document.getElementById('favorite-describe-response').value || '';
+            
+            const favoriteSongData = {
+                participant_id: participantId,
+                block: 1,
+                trial_number: 'favorite_song',
+                music_clip_title: 'Participant_Favorite_Song',
+                playback_number: 1,
+                audio_start_time_seconds: 0,
+                music_onset_time: Date.now(),
+                music_offset_time: Date.now() + 30000,
+                emotion_survey_onset_time: favoriteSongSurveyStartTime,
+                valence_rating: favoriteSongValence,
+                valence_response_time: favoriteSongValenceRT,
+                arousal_rating: favoriteSongArousal,
+                arousal_response_time: favoriteSongArousalRT,
+                familiarity_rating: favoriteSongFamiliarity,
+                familiarity_response_time: favoriteSongFamiliarityRT,
+                groove_rating: favoriteSongGroove,
+                groove_response_time: favoriteSongGrooveRT,
+                liking_rating: favoriteSongLiking,
+                liking_response_time: favoriteSongLikingRT,
+                describe: favoriteSongDescribe,
+                strategy: null,
+                feedback: null,
+                confusing: null,
+                timestamp: new Date().toISOString(),
+                is_practice: false
+            };
+            
+            experimentData.push(favoriteSongData);
+            console.log('Favorite song data saved');
+            
+            showScreen('feedback-screen');
+        }
+
+        function nextTrial() {
+            const currentTrials = isPractice ? practiceTrials : trials;
+            const trial = currentTrials[currentTrial];
+            const duration = isPractice ? PRACTICE_AUDIO_DURATION : AUDIO_DURATION;
+            
+            if (!describeResponse) {
+                describeResponse = document.getElementById('describe-response').value || '';
+            }
+            
+            const startTime = trial.song.filename.includes('dupleMeter') ? 0 : 10;
+            const trialData = {
+                participant_id: participantId,
+                block: 1,
+                trial_number: currentTrial + 1,
+                music_clip_title: trial.song.title,
+                playback_number: trial.repetition,
+                audio_start_time_seconds: startTime,
+                music_onset_time: audioStartTime,
+                music_offset_time: audioStartTime + duration,
+                emotion_survey_onset_time: surveyStartTime,
+                valence_rating: valenceRating,
+                valence_response_time: valenceRT,
+                arousal_rating: arousalRating,
+                arousal_response_time: arousalRT,
+                familiarity_rating: familiarityRating,
+                familiarity_response_time: familiarityRT,
+                groove_rating: grooveRating,
+                groove_response_time: grooveRT,
+                liking_rating: likingRating,
+                liking_response_time: likingRT,
+                describe: describeResponse,
+                strategy: null,
+                feedback: null,
+                confusing: null,
+                timestamp: new Date().toISOString(),
+                is_practice: isPractice
+            };
+            
+            if (isPractice) {
+                practiceData.push(trialData);
+                saveTrialToLocalStorage(trialData, 'practice');
+                console.log(`Practice trial ${currentTrial + 1} data saved to memory. Total practice trials: ${practiceData.length}`);
+            } else {
+                experimentData.push(trialData);
+                saveTrialToLocalStorage(trialData, 'main');
+                console.log(`Trial ${currentTrial + 1} data saved to memory. Total trials: ${experimentData.length}`);
+            }
+            
+            currentTrial++;
+            
+            setTimeout(() => {
+                if (currentTrial < currentTrials.length) {
+                    showScreen('audio-screen');
+                    startTrial();
+                } else {
+                    if (isPractice) {
+                        showScreen('practice-complete-screen');
+                    } else {
+                        endExperiment();
+                    }
+                }
+            }, 1000);
+        }
+
+        function saveTrialToLocalStorage(trialData, trialType) {
+            try {
+                const key = `block1_${participantId}_${trialType}_trial_${trialData.trial_number}`;
+                localStorage.setItem(key, JSON.stringify(trialData));
+                console.log(`Trial ${trialData.trial_number} saved to localStorage`);
+            } catch (error) {
+                console.log('LocalStorage save failed:', error);
+            }
+        }
+
+        function downloadAllStoredData() {
+            try {
+                const allTrials = [];
+                const keyPrefix = `block1_${participantId}_`;
+                
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(keyPrefix)) {
+                        const trialData = JSON.parse(localStorage.getItem(key));
+                        allTrials.push(trialData);
+                    }
+                }
+                
+                if (allTrials.length === 0) {
+                    console.log('No stored data found for this participant');
+                    return;
+                }
+                
+                allTrials.sort((a, b) => a.trial_number - b.trial_number);
+                
+                const csvContent = convertToCSV(allTrials);
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `music_emotion_block1_ALL_TRIALS_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                console.log(`Downloaded ${allTrials.length} trials from localStorage`);
+                
+            } catch (error) {
+                console.log('Download from localStorage failed:', error);
+            }
+        }
+
+        function recoverStoredData() {
+            try {
+                const keyPrefix = `block1_`;
+                let foundData = false;
+                let participantIds = [];
+                
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith(keyPrefix)) {
+                        foundData = true;
+                        const parts = key.split('_');
+                        if (parts.length >= 3) {
+                            const pid = parts[1] + '_' + parts[2];
+                            if (!participantIds.includes(pid)) {
+                                participantIds.push(pid);
+                            }
+                        }
+                    }
+                }
+                
+                if (!foundData) {
+                    alert('No stored Block 1 data found');
+                    return;
+                }
+                
+                if (participantIds.length > 1) {
+                    const choice = prompt(`Found data for ${participantIds.length} participants:\n${participantIds.join('\n')}\n\nEnter participant ID to recover:`);
+                    if (choice && participantIds.includes(choice)) {
+                        participantId = choice;
+                    } else {
+                        alert('Invalid participant ID');
+                        return;
+                    }
+                } else if (participantIds.length === 1) {
+                    participantId = participantIds[0];
+                }
+                
+                downloadAllStoredData();
+                
+            } catch (error) {
+                console.log('Recovery failed:', error);
+                alert('Data recovery failed');
+            }
+        }
+
+        function endExperiment() {
+            if (experimentData.length > 0) {
+                saveDataToFile();
+                console.log('Block 1 completed - final data saved');
+            }
+            showScreen('favorite-song-intro-screen');
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+            
+            if (screenId === 'audio-screen' || screenId === 'favorite-song-screen') {
+                document.body.classList.add('audio-playing');
+                document.body.classList.remove('rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active', 'musician-screen-active');
+            } else if (screenId === 'rating-screen' || screenId === 'rating-screen-2') {
+                document.body.classList.add('rating-screen-active');
+                document.body.classList.remove('audio-playing', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active', 'musician-screen-active');
+            } else if (screenId === 'feedback-screen') {
+                document.body.classList.add('feedback-screen-active');
+                document.body.classList.remove('audio-playing', 'rating-screen-active', 'stop-music-active', 'favorite-rating-active', 'musician-screen-active');
+            } else if (screenId === 'stop-music-screen') {
+                document.body.classList.add('stop-music-active');
+                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'favorite-rating-active', 'musician-screen-active');
+            } else if (screenId === 'favorite-song-rating-screen') {
+                document.body.classList.add('favorite-rating-active');
+                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'musician-screen-active');
+            } else if (screenId === 'musician-screen') {
+                document.body.classList.add('musician-screen-active');
+                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active');
+            } else {
+                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active', 'musician-screen-active');
+            }
+        }
+
+        function downloadData() {
+            if (isDownloading) {
+                console.log('Download already in progress, preventing duplicate');
+                return;
+            }
+            
+            isDownloading = true;
+            const downloadBtn = document.querySelector('.download-btn');
+            const originalText = downloadBtn.textContent;
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = 'Downloading...';
+            
+            try {
+                const allData = [...practiceData, ...experimentData];
+                
+                const feedbackRow = {
+                    participant_id: participantId,
+                    block: 1,
+                    trial_number: null,
+                    music_clip_title: null,
+                    playback_number: null,
+                    audio_start_time_seconds: null,
+                    music_onset_time: null,
+                    music_offset_time: null,
+                    emotion_survey_onset_time: null,
+                    valence_rating: null,
+                    valence_response_time: null,
+                    arousal_rating: null,
+                    arousal_response_time: null,
+                    familiarity_rating: null,
+                    familiarity_response_time: null,
+                    groove_rating: null,
+                    groove_response_time: null,
+                    liking_rating: null,
+                    liking_response_time: null,
+                    describe: null,
+                    timestamp: new Date().toISOString(),
+                    is_practice: null,
+                    strategy: strategyResponse || '',
+                    feedback: feedbackResponse || '',
+                    confusing: confusingResponse || ''
+                };
+                allData.push(feedbackRow);
+                
+                const csvContent = convertToCSV(allData);
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `music_emotion_data_block1_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                document.getElementById('completion-message').innerHTML = 'Your responses have been recorded and downloaded! Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.';
+                
+            } catch (error) {
+                console.log('Download failed:', error);
+                document.getElementById('completion-message').innerHTML = 'Download may have failed. Please try again or contact the researcher.';
+            }
+            
+            setTimeout(() => {
+                isDownloading = false;
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = originalText;
+            }, 2000);
+        }
+
+        function saveDataToFile() {
+            if (experimentData.length === 0 && practiceData.length === 0) {
+                console.log('No data to save');
+                return;
+            }
+            
+            try {
+                const allData = [...practiceData, ...experimentData];
+                
+                const feedbackRow = {
+                    participant_id: participantId,
+                    block: 1,
+                    trial_number: null,
+                    music_clip_title: null,
+                    playback_number: null,
+                    audio_start_time_seconds: null,
+                    music_onset_time: null,
+                    music_offset_time: null,
+                    emotion_survey_onset_time: null,
+                    valence_rating: null,
+                    valence_response_time: null,
+                    arousal_rating: null,
+                    arousal_response_time: null,
+                    familiarity_rating: null,
+                    familiarity_response_time: null,
+                    groove_rating: null,
+                    groove_response_time: null,
+                    liking_rating: null,
+                    liking_response_time: null,
+                    describe: null,
+                    timestamp: new Date().toISOString(),
+                    is_practice: null,
+                    strategy: strategyResponse || '',
+                    feedback: feedbackResponse || '',
+                    confusing: confusingResponse || ''
+                };
+                allData.push(feedbackRow);
+                
+                const csvContent = convertToCSV(allData);
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `music_emotion_data_block1_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                console.log(`Auto-saved CSV with ${practiceData.length} practice + ${experimentData.length} main trials for participant: ${participantId}`);
+                
+            } catch (error) {
+                console.log('Auto-save failed:', error);
+            }
+        }
+
+        function convertToCSV(data) {
+            if (data.length === 0) return '';
+            
+            const headers = Object.keys(data[0]);
+            const csvRows = [headers.join(',')];
+            
+            for (const row of data) {
+                const values = headers.map(header => {
+                    const value = row[header];
+                    return typeof value === 'string' ? `"${value}"` : value;
+                });
+                csvRows.push(values.join(','));
+            }
+            
+            return csvRows.join('\n');
+        }
+
+        function restartExperiment() {
+            currentTrial = 0;
+            experimentData = [];
+            practiceData = [];
+            isPractice = false;
+            participantId = 'participant_block1_' + Date.now();
+            showScreen('intro-screen');
+        }
+    </script>
+</body>
+</html>
