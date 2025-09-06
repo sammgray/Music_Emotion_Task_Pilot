@@ -495,38 +495,46 @@
             background: white !important;
         }
 
-        #favorite-song-rating-screen {
+        #favorite-song-rating-screen,
+        #favorite-song-rating-screen-2 {
             background: white !important;
             color: black !important;
         }
 
-        #favorite-song-rating-screen .container {
+        #favorite-song-rating-screen .container,
+        #favorite-song-rating-screen-2 .container {
             background: white !important;
         }
 
-        #favorite-song-rating-screen h2 {
+        #favorite-song-rating-screen h2,
+        #favorite-song-rating-screen-2 h2 {
             color: black !important;
         }
 
-        #favorite-song-rating-screen .rating-title {
+        #favorite-song-rating-screen .rating-title,
+        #favorite-song-rating-screen-2 .rating-title {
             color: black !important;
         }
 
-        #favorite-song-rating-screen .rating-section {
+        #favorite-song-rating-screen .rating-section,
+        #favorite-song-rating-screen-2 .rating-section {
             background: transparent !important;
             border: none !important;
         }
 
-        #favorite-song-rating-screen .choice-option {
+        #favorite-song-rating-screen .choice-option,
+        #favorite-song-rating-screen-2 .choice-option {
             color: black !important;
             border-color: black !important;
         }
 
-        #favorite-song-rating-screen .choice-option:hover {
+        #favorite-song-rating-screen .choice-option:hover,
+        #favorite-song-rating-screen-2 .choice-option:hover {
             border-color: #FFD700 !important;
         }
 
-        #favorite-song-rating-screen .choice-option.selected {
+        #favorite-song-rating-screen .choice-option.selected,
+        #favorite-song-rating-screen-2 .choice-option.selected {
             border-color: #FFD700 !important;
             background: transparent !important;
             color: black !important;
@@ -835,7 +843,7 @@
             <button class="btn" onclick="showFavoriteSongRating()">Continue</button>
         </div>
 
-        <!-- Favorite Song Rating Screen -->
+        <!-- Favorite Song Rating Screen - Page 1: Valence and Arousal -->
         <div class="screen" id="favorite-song-rating-screen">
             <h2>Rate Your Favorite Song</h2>
 
@@ -882,6 +890,14 @@
                     <input type="range" class="continuous-slider" id="favorite-arousal-slider" min="1" max="5" step="0.01" value="3">
                 </div>
             </div>
+
+            <button class="btn continue-btn-bottom" id="favorite-continue-btn" onclick="nextFavoriteRatingPage()" disabled>Continue</button>
+            <button class="skip-btn" onclick="skipFavoriteValenceArousal()">Skip All</button>
+        </div>
+
+        <!-- Favorite Song Rating Screen - Page 2: Familiarity, Groove, Liking, and Description -->
+        <div class="screen" id="favorite-song-rating-screen-2">
+            <h2>Rate Your Favorite Song</h2>
 
             <!-- Familiarity Rating -->
             <div class="rating-section">
@@ -940,14 +956,14 @@
                 </div>
             </div>
 
-            <!-- Describe how the task makes you feel -->
+            <!-- Describe how the song makes you feel -->
             <div class="rating-section">
                 <div class="rating-title">Use one or a few words to describe how this song makes you feel (optional but recommended):</div>
                 <textarea class="describe-textarea" id="favorite-describe-response" placeholder="Optional but recommended: Describe how this song makes you feel..."></textarea>
             </div>
 
-            <button class="btn continue-btn-bottom" id="favorite-continue-btn" onclick="submitFavoriteSongRating()" disabled>Continue</button>
-            <button class="skip-btn" onclick="skipFavoriteSongRating()">Skip All</button>
+            <button class="btn continue-btn-bottom" id="favorite-continue-btn-2" onclick="submitFavoriteSongRating()" disabled>Continue</button>
+            <button class="skip-btn" onclick="skipFavoriteAllRatings()">Skip All</button>
         </div>
 
         <!-- Feedback Question Screen -->
@@ -1047,6 +1063,7 @@
         let favoriteSongLikingRT = null;
         let favoriteSongDescribe = '';
         let favoriteSongSurveyStartTime = 0;
+        let favoriteSongPage2StartTime = 0;
 
         // Track if sliders have been moved
         let valenceSliderMoved = false;
@@ -1104,6 +1121,11 @@
             showScreen('rating-screen-2');
         }
 
+        function nextFavoriteRatingPage() {
+            favoriteSongPage2StartTime = Date.now();
+            showScreen('favorite-song-rating-screen-2');
+        }
+
         function skipValenceArousal() {
             if (!valenceSliderMoved) {
                 valenceRT = Date.now() - surveyStartTime;
@@ -1117,6 +1139,22 @@
             
             setTimeout(() => {
                 nextRatingPage();
+            }, 500);
+        }
+
+        function skipFavoriteValenceArousal() {
+            if (!favoriteValenceSliderMoved) {
+                favoriteSongValenceRT = Date.now() - favoriteSongSurveyStartTime;
+            }
+            if (!favoriteArousalSliderMoved) {
+                favoriteSongArousalRT = Date.now() - favoriteSongSurveyStartTime;
+            }
+            
+            favoriteSongValence = 'skip';
+            favoriteSongArousal = 'skip';
+            
+            setTimeout(() => {
+                nextFavoriteRatingPage();
             }, 500);
         }
 
@@ -1144,6 +1182,33 @@
             document.getElementById('continue-btn-2').disabled = false;
             setTimeout(() => {
                 nextTrial();
+            }, 500);
+        }
+
+        function skipFavoriteAllRatings() {
+            if (favoriteSongFamiliarity === null) {
+                favoriteSongFamiliarityRT = Date.now() - favoriteSongPage2StartTime;
+            }
+            if (favoriteSongGroove === null) {
+                favoriteSongGrooveRT = Date.now() - favoriteSongPage2StartTime;
+            }
+            if (favoriteSongLiking === null) {
+                favoriteSongLikingRT = Date.now() - favoriteSongPage2StartTime;
+            }
+            
+            favoriteSongFamiliarity = 'skip';
+            favoriteSongGroove = 'skip';
+            favoriteSongLiking = 'skip';
+            
+            favoriteSongDescribe = document.getElementById('favorite-describe-response').value || '';
+            
+            document.querySelectorAll('#favorite-song-rating-screen-2 .choice-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            document.getElementById('favorite-continue-btn-2').disabled = false;
+            setTimeout(() => {
+                submitFavoriteSongRating();
             }, 500);
         }
 
@@ -1540,7 +1605,7 @@
             document.getElementById('favorite-familiarity-scale').addEventListener('click', function(e) {
                 if (e.target.classList.contains('choice-option')) {
                     if (favoriteSongFamiliarity === null || favoriteSongFamiliarity === 'skip') {
-                        favoriteSongFamiliarityRT = Date.now() - favoriteSongSurveyStartTime;
+                        favoriteSongFamiliarityRT = Date.now() - favoriteSongPage2StartTime;
                     }
                     
                     document.querySelectorAll('#favorite-familiarity-scale .choice-option').forEach(opt => {
@@ -1550,14 +1615,14 @@
                     e.target.classList.add('selected');
                     favoriteSongFamiliarity = parseInt(e.target.dataset.value);
                     
-                    checkFavoriteSongRatingsComplete();
+                    checkFavoriteSongPage2RatingsComplete();
                 }
             });
 
             document.getElementById('favorite-groove-scale').addEventListener('click', function(e) {
                 if (e.target.classList.contains('choice-option')) {
                     if (favoriteSongGroove === null || favoriteSongGroove === 'skip') {
-                        favoriteSongGrooveRT = Date.now() - favoriteSongSurveyStartTime;
+                        favoriteSongGrooveRT = Date.now() - favoriteSongPage2StartTime;
                     }
                     
                     document.querySelectorAll('#favorite-groove-scale .choice-option').forEach(opt => {
@@ -1567,14 +1632,14 @@
                     e.target.classList.add('selected');
                     favoriteSongGroove = parseInt(e.target.dataset.value);
                     
-                    checkFavoriteSongRatingsComplete();
+                    checkFavoriteSongPage2RatingsComplete();
                 }
             });
 
             document.getElementById('favorite-liking-scale').addEventListener('click', function(e) {
                 if (e.target.classList.contains('choice-option')) {
                     if (favoriteSongLiking === null || favoriteSongLiking === 'skip') {
-                        favoriteSongLikingRT = Date.now() - favoriteSongSurveyStartTime;
+                        favoriteSongLikingRT = Date.now() - favoriteSongPage2StartTime;
                     }
                     
                     document.querySelectorAll('#favorite-liking-scale .choice-option').forEach(opt => {
@@ -1584,7 +1649,7 @@
                     e.target.classList.add('selected');
                     favoriteSongLiking = parseInt(e.target.dataset.value);
                     
-                    checkFavoriteSongRatingsComplete();
+                    checkFavoriteSongPage2RatingsComplete();
                 }
             });
         });
@@ -1602,9 +1667,14 @@
         }
 
         function checkFavoriteSongRatingsComplete() {
-            if (favoriteValenceSliderMoved && favoriteArousalSliderMoved && 
-                (favoriteSongFamiliarity !== null) && (favoriteSongGroove !== null) && (favoriteSongLiking !== null)) {
+            if (favoriteValenceSliderMoved && favoriteArousalSliderMoved) {
                 document.getElementById('favorite-continue-btn').disabled = false;
+            }
+        }
+
+        function checkFavoriteSongPage2RatingsComplete() {
+            if ((favoriteSongFamiliarity !== null) && (favoriteSongGroove !== null) && (favoriteSongLiking !== null)) {
+                document.getElementById('favorite-continue-btn-2').disabled = false;
             }
         }
 
@@ -1672,7 +1742,7 @@
             document.getElementById('favorite-valence-slider').value = 3;
             document.getElementById('favorite-arousal-slider').value = 3;
             
-            document.querySelectorAll('#favorite-song-rating-screen .choice-option').forEach(option => {
+            document.querySelectorAll('#favorite-song-rating-screen .choice-option, #favorite-song-rating-screen-2 .choice-option').forEach(option => {
                 option.classList.remove('selected');
             });
             
@@ -1693,35 +1763,7 @@
             favoriteArousalSliderMoved = false;
             
             document.getElementById('favorite-continue-btn').disabled = true;
-        }
-
-        function skipFavoriteSongRating() {
-            if (!favoriteValenceSliderMoved) {
-                favoriteSongValenceRT = Date.now() - favoriteSongSurveyStartTime;
-            }
-            if (!favoriteArousalSliderMoved) {
-                favoriteSongArousalRT = Date.now() - favoriteSongSurveyStartTime;
-            }
-            if (favoriteSongFamiliarity === null) {
-                favoriteSongFamiliarityRT = Date.now() - favoriteSongSurveyStartTime;
-            }
-            if (favoriteSongGroove === null) {
-                favoriteSongGrooveRT = Date.now() - favoriteSongSurveyStartTime;
-            }
-            if (favoriteSongLiking === null) {
-                favoriteSongLikingRT = Date.now() - favoriteSongSurveyStartTime;
-            }
-            
-            favoriteSongValence = 'skip';
-            favoriteSongArousal = 'skip';
-            favoriteSongFamiliarity = 'skip';
-            favoriteSongGroove = 'skip';
-            favoriteSongLiking = 'skip';
-            
-            document.getElementById('favorite-continue-btn').disabled = false;
-            setTimeout(() => {
-                submitFavoriteSongRating();
-            }, 500);
+            document.getElementById('favorite-continue-btn-2').disabled = true;
         }
 
         function submitFavoriteSongRating() {
@@ -1949,7 +1991,7 @@
             } else if (screenId === 'stop-music-screen') {
                 document.body.classList.add('stop-music-active');
                 document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'favorite-rating-active', 'musician-screen-active');
-            } else if (screenId === 'favorite-song-rating-screen') {
+            } else if (screenId === 'favorite-song-rating-screen' || screenId === 'favorite-song-rating-screen-2') {
                 document.body.classList.add('favorite-rating-active');
                 document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'musician-screen-active');
             } else if (screenId === 'musician-screen') {
