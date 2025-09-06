@@ -596,17 +596,18 @@
             </div>
             <h1>Music Emotion Experiment</h1>
             <div class="intro-text">
-                <p>In the following experiment, we would like you to listen to a series of music clips and rate a few things:</p>
+                <p>We would like you to listen to a series of music clips or rhythms. Each clip lasts 30 seconds. After each clip, you will be asked to rate the following:</p>
                 <br>
-                <p>1. Your experienced valence, or <strong>how positive/negative the music makes you feel</strong></p>
-                <p>2. Your arousal levels, or the <strong>intensity of how you feel</strong></p>
-                <p>3. Your <strong>familiarity</strong> with the music</p>
-                <p>4. The "groove" of the music, or <strong>how much the music makes you want to move</strong></p>
-                <p>5. <strong>How much you like</strong> the music</p>
+                <p>1. <strong>How positive/negative the music makes you feel</strong></p>
+                <p>2. <strong>The intensity of how you feel</strong></p>
+                <p>3. <strong>Your familiarity with the music</strong></p>
+                <p>4. <strong>How much the music makes you want to move</strong></p>
+                <p>5. <strong>How much you like the music</strong></p>
                 <br>
-                <p><strong>Please try your best to keep your eyes focused on the white cross while listening and remain still. Also, please turn up your volume to at least 75% of max volume.</strong></p>
-                <br>
-                <p>Each clip lasts 30 seconds. Occasionally, the music you hear will consist only of rhythmic sequences. After each clip, regardless of whether you heard a song or a drum loop, you will be asked the questions mentioned above.</p>
+                <p><strong>Instructions:</strong></p>
+                <p><strong>Turn up your volume to at least 75% of max volume.</strong></p>
+                <p><strong>While listening to the music, please sit still and relaxed. Do not move or dance.</strong></p>
+                <p><strong>Keep your eyes focused on the white cross while listening.</strong></p>
                 <br>
                 <p>First, we will practice rating some music to familiarize you with the surveys.</p>
                 <br>
@@ -1617,7 +1618,7 @@
                 audio_start_time_seconds: null,
                 music_onset_time: null,
                 music_offset_time: null,
-                emotion_survey_onset_time: musicianSurveyStartTime,
+                emotion_survey_onset_time: null,
                 valence_rating: null,
                 valence_response_time: null,
                 arousal_rating: null,
@@ -1628,8 +1629,8 @@
                 groove_response_time: null,
                 liking_rating: null,
                 liking_response_time: null,
-                musician_rating: musicianRating,
-                musician_response_time: musicianRT,
+                music_exp_rating: musicianRating,
+                music_exp_rt: musicianRT,
                 describe: null,
                 strategy: null,
                 feedback: null,
@@ -1746,6 +1747,8 @@
                 groove_response_time: favoriteSongGrooveRT,
                 liking_rating: favoriteSongLiking,
                 liking_response_time: favoriteSongLikingRT,
+                music_exp_rating: null,
+                music_exp_rt: null,
                 describe: favoriteSongDescribe,
                 strategy: null,
                 feedback: null,
@@ -1790,6 +1793,8 @@
                 groove_response_time: grooveRT,
                 liking_rating: likingRating,
                 liking_response_time: likingRT,
+                music_exp_rating: null,
+                music_exp_rt: null,
                 describe: describeResponse,
                 strategy: null,
                 feedback: null,
@@ -1990,6 +1995,8 @@
                     groove_response_time: null,
                     liking_rating: null,
                     liking_response_time: null,
+                    music_exp_rating: null,
+                    music_exp_rt: null,
                     describe: null,
                     timestamp: new Date().toISOString(),
                     is_practice: null,
@@ -2053,6 +2060,8 @@
                     groove_response_time: null,
                     liking_rating: null,
                     liking_response_time: null,
+                    music_exp_rating: null,
+                    music_exp_rt: null,
                     describe: null,
                     timestamp: new Date().toISOString(),
                     is_practice: null,
