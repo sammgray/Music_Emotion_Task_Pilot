@@ -768,7 +768,7 @@
             <div class="intro-text">
                 <p><strong>Optional but recommended:</strong> Play your favorite song from your phone for 30 seconds while you close your eyes on the next screen.</p>
                 <br>
-                <p>Hit the "Start" button on the next screen when you begin playing your song. After listening, complete the brief survey.</p>
+                <p>Hit the "Start" button on the next screen when you begin playing your song. You will hear a beep once the 30 seconds is over. After listening, complete the brief survey.</p>
             </div>
             <button class="btn" onclick="startFavoriteSongTrial()">Continue</button>
             <button class="btn" onclick="skipFavoriteSong()" style="background: linear-gradient(45deg, #95a5a6, #7f8c8d); margin-left: 20px;">Skip</button>
@@ -1390,6 +1390,25 @@
             }, duration);
         }
 
+        function playBeep() {
+    // Create a simple beep using Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800; // 800 Hz beep
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
         function showRatingScreen() {
             const header = isPractice ? 'Practice - Rate Your Response' : 'Rate Your Response';
             document.getElementById('rating-header').textContent = header;
@@ -1613,6 +1632,7 @@
             document.getElementById('favorite-fixation-cross').style.display = 'block';
             
             setTimeout(() => {
+                playBeep(); // Only add beep here for favorite song
                 showScreen('stop-music-screen');
             }, 30000);
         }
