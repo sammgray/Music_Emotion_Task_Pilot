@@ -2132,7 +2132,7 @@
             }
         }
 
-        function convertToCSV(data) {
+       function convertToCSV(data) {
             if (data.length === 0) return '';
             
             const headers = Object.keys(data[0]);
@@ -2140,15 +2140,30 @@
             
             for (const row of data) {
                 const values = headers.map(header => {
-                    const value = row[header];
-                    return typeof value === 'string' ? `"${value}"` : value;
+                    let value = row[header];
+                    
+                    // Handle null/undefined
+                    if (value === null || value === undefined) {
+                        return '';
+                    }
+                    
+                    // Convert to string
+                    value = String(value);
+                    
+                    // Escape quotes by doubling them and wrap in quotes if needed
+                    if (value.includes('"') || value.includes(',') || value.includes('\n') || value.includes('\r')) {
+                        value = value.replace(/"/g, '""'); // Escape quotes
+                        return `"${value}"`; // Wrap in quotes
+                    }
+                    
+                    // If it's a string but doesn't need escaping, still wrap in quotes for safety
+                    return typeof row[header] === 'string' ? `"${value}"` : value;
                 });
                 csvRows.push(values.join(','));
             }
             
             return csvRows.join('\n');
-        }
-
+}
         function restartExperiment() {
             currentTrial = 0;
             experimentData = [];
