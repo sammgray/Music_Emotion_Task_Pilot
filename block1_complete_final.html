@@ -687,7 +687,7 @@
 
             <!-- Valence Rating -->
             <div class="rating-section">
-                <div class="rating-title">How pleasant or unpleasant does this music make you feel?</div>
+                <div class="rating-title">How negative or positive does this music make you feel?</div>
                 <div class="continuous-scale">
                     <div class="sam-images-only">
                         <img src="stimuli/SAM/valence1.png" alt="Very Negative" class="sam-image">
@@ -697,11 +697,11 @@
                         <img src="stimuli/SAM/valence5.png" alt="Very Positive" class="sam-image">
                     </div>
                     <div class="sam-labels-only">
-                        <div class="sam-label">Unpleasant</div>
+                        <div class="sam-label">Negative</div>
                         <div class="sam-label"></div>
                         <div class="sam-label">Neutral</div>
                         <div class="sam-label"></div>
-                        <div class="sam-label">Pleasant</div>
+                        <div class="sam-label">Positive</div>
                     </div>
                     <input type="range" class="continuous-slider" id="valence-slider" min="1" max="5" step="0.01" value="3">
                 </div>
@@ -709,21 +709,21 @@
 
             <!-- Arousal Rating -->
             <div class="rating-section">
-                <div class="rating-title">How calm or excited does this music make you feel?</div>
+                <div class="rating-title">What is the intensity of that feeling?</div>
                 <div class="continuous-scale">
                     <div class="sam-images-only">
-                        <img src="stimuli/SAM/arousal5.png" alt="Very Excited" class="sam-image">
-                        <img src="stimuli/SAM/arousal4.png" alt="Excited" class="sam-image">
+                        <img src="stimuli/SAM/arousal5.png" alt="Very High" class="sam-image">
+                        <img src="stimuli/SAM/arousal4.png" alt="High" class="sam-image">
                         <img src="stimuli/SAM/arousal3.png" alt="Neutral" class="sam-image">
-                        <img src="stimuli/SAM/arousal2.png" alt="Calm" class="sam-image">
-                        <img src="stimuli/SAM/arousal1.png" alt="Very Calm" class="sam-image">
+                        <img src="stimuli/SAM/arousal2.png" alt="Low" class="sam-image">
+                        <img src="stimuli/SAM/arousal1.png" alt="Very Low" class="sam-image">
                     </div>
                     <div class="sam-labels-only">
-                        <div class="sam-label">Calm</div>
+                        <div class="sam-label">Low</div>
                         <div class="sam-label"></div>
                         <div class="sam-label"></div>
                         <div class="sam-label"></div>
-                        <div class="sam-label">Excited</div>
+                        <div class="sam-label">High</div>
                     </div>
                     <input type="range" class="continuous-slider" id="arousal-slider" min="1" max="5" step="0.01" value="3">
                 </div>
@@ -796,8 +796,8 @@
 
             <!-- Describe how the task makes you feel -->
             <div class="rating-section">
-                <div class="rating-title">Use one or a few words to describe how the task makes you feel (optional but recommended):</div>
-                <textarea class="describe-textarea" id="describe-response" placeholder="Optional but recommended: Describe how this task makes you feel..."></textarea>
+                <div class="rating-title">Use one or two words to describe how the song makes you feel:</div>
+                <textarea class="describe-textarea" id="describe-response" placeholder="Describe how the song makes you feel..." required></textarea>
             </div>
 
             <button class="btn continue-btn-bottom" id="continue-btn-2" onclick="nextTrial()" disabled>Continue</button>
@@ -849,7 +849,7 @@
 
             <!-- Valence Rating -->
             <div class="rating-section">
-                <div class="rating-title">How pleasant or unpleasant does this music make you feel?</div>
+                <div class="rating-title">How negative or positive does this music make you feel?</div>
                 <div class="continuous-scale">
                     <div class="sam-images-only">
                         <img src="stimuli/SAM/valence1.png" alt="Very Negative" class="sam-image">
@@ -859,11 +859,11 @@
                         <img src="stimuli/SAM/valence5.png" alt="Very Positive" class="sam-image">
                     </div>
                     <div class="sam-labels-only">
-                        <div class="sam-label">Unpleasant</div>
+                        <div class="sam-label">Negative</div>
                         <div class="sam-label"></div>
                         <div class="sam-label">Neutral</div>
                         <div class="sam-label"></div>
-                        <div class="sam-label">Pleasant</div>
+                        <div class="sam-label">Positive</div>
                     </div>
                     <input type="range" class="continuous-slider" id="favorite-valence-slider" min="1" max="5" step="0.01" value="3">
                 </div>
@@ -871,21 +871,21 @@
 
             <!-- Arousal Rating -->
             <div class="rating-section">
-                <div class="rating-title">How calm or excited does this music make you feel?</div>
+                <div class="rating-title">What is the intensity of that feeling?</div>
                 <div class="continuous-scale">
                     <div class="sam-images-only">
-                        <img src="stimuli/SAM/arousal5.png" alt="Very Excited" class="sam-image">
-                        <img src="stimuli/SAM/arousal4.png" alt="Excited" class="sam-image">
+                        <img src="stimuli/SAM/arousal5.png" alt="Very High" class="sam-image">
+                        <img src="stimuli/SAM/arousal4.png" alt="High" class="sam-image">
                         <img src="stimuli/SAM/arousal3.png" alt="Neutral" class="sam-image">
-                        <img src="stimuli/SAM/arousal2.png" alt="Calm" class="sam-image">
-                        <img src="stimuli/SAM/arousal1.png" alt="Very Calm" class="sam-image">
+                        <img src="stimuli/SAM/arousal2.png" alt="Low" class="sam-image">
+                        <img src="stimuli/SAM/arousal1.png" alt="Very Low" class="sam-image">
                     </div>
                     <div class="sam-labels-only">
-                        <div class="sam-label">Calm</div>
+                        <div class="sam-label">Low</div>
                         <div class="sam-label"></div>
                         <div class="sam-label"></div>
                         <div class="sam-label"></div>
-                        <div class="sam-label">Excited</div>
+                        <div class="sam-label">High</div>
                     </div>
                     <input type="range" class="continuous-slider" id="favorite-arousal-slider" min="1" max="5" step="0.01" value="3">
                 </div>
@@ -958,8 +958,8 @@
 
             <!-- Describe how the song makes you feel -->
             <div class="rating-section">
-                <div class="rating-title">Use one or a few words to describe how this song makes you feel (optional but recommended):</div>
-                <textarea class="describe-textarea" id="favorite-describe-response" placeholder="Optional but recommended: Describe how this song makes you feel..."></textarea>
+                <div class="rating-title">Use one or a few words to describe how this song makes you feel:</div>
+                <textarea class="describe-textarea" id="favorite-describe-response" placeholder="Describe how this song makes you feel..."></textarea>
             </div>
 
             <button class="btn continue-btn-bottom" id="favorite-continue-btn-2" onclick="submitFavoriteSongRating()" disabled>Continue</button>
@@ -1602,6 +1602,11 @@
                 checkFavoriteSongRatingsComplete();
             });
 
+            // Describe response textarea
+            document.getElementById('describe-response').addEventListener('input', function(e) {
+                checkPage2RatingsComplete();
+            });
+
             document.getElementById('favorite-familiarity-scale').addEventListener('click', function(e) {
                 if (e.target.classList.contains('choice-option')) {
                     if (favoriteSongFamiliarity === null || favoriteSongFamiliarity === 'skip') {
@@ -1661,7 +1666,8 @@
         }
 
         function checkPage2RatingsComplete() {
-            if ((familiarityRating !== null) && (grooveRating !== null) && (likingRating !== null)) {
+            const describeText = document.getElementById('describe-response').value.trim();
+            if ((familiarityRating !== null) && (grooveRating !== null) && (likingRating !== null) && (describeText.length > 0)) {
                 document.getElementById('continue-btn-2').disabled = false;
             }
         }
