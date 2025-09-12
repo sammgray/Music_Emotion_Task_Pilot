@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Music Listening Task</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            touch-action: manipulation;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px 0;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #FFD700;
+        }
+
+        .intro-text {
+            font-size: 1.0em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: left;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Audio screen styles */
+        body.audio-playing {
+            background: #808080 !important;
+        }
+
+        #audio-screen {
+            background-color: #808080 !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 5;
+        }
+
+        .trial-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.3);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8em;
+            color: white;
+            z-index: 15;
+        }
+
+        .fixation-cross {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4em;
+            font-weight: bold;
+            color: white;
+            font-family: monospace;
+            z-index: 20;
+            text-align: center;
+        }
+
+        .start-audio-btn {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            z-index: 25;
+        }
+
+        .start-audio-btn:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .completion-screen {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .intro-text {
+                font-size: 1em;
+            }
+
+            .start-audio-btn {
+                font-size: 1.2em;
+                padding: 15px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Introduction Screen -->
+        <div class="screen active" id="intro-screen">
+            <h1>Music Listening Task</h1>
+            <div class="intro-text">
+                <p>You will listen to a series of music clips. Each clip lasts 30 seconds.</p>
+                <br>
+                <p><strong>Instructions:</strong></p>
+                <p><strong>Turn up your volume to at least 75% of max volume.</strong></p>
+                <p><strong>While listening to the music, please sit still and relaxed. Do not move or dance.</strong></p>
+                <p><strong>Keep your eyes focused on the white cross while listening.</strong></p>
+                <br>
+                <p>This task contains a total of 27 music clips.</p>
+                <br>
+                <p>To begin, hit the start button below.</p>
+            </div>
+            <button class="btn" onclick="startListeningTask()">Start Listening Task</button>
+        </div>
+
+        <!-- Audio Playback Screen -->
+        <div class="screen" id="audio-screen">
+            <div class="trial-info" id="trial-counter">Clip 1 of 27</div>
+            <div class="fixation-cross" id="fixation-cross" style="display: none;">+</div>
+            <button class="start-audio-btn" id="start-audio-btn" onclick="startAudioPlayback()">Start Audio</button>
+        </div>
+
+        <!-- Completion Screen -->
+        <div class="screen" id="completion-screen">
+            <div class="completion-screen">
+                <h1>Task Complete!</h1>
+                <p style="margin: 20px 0;">You have successfully listened to all music clips. Thank you for participating!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Experiment Configuration
+        const AUDIO_DURATION = 30000;
+        const PRACTICE_AUDIO_DURATION = 10000;
+        const FADE_IN_DURATION = 1000;
+        const PRE_AUDIO_FIXATION = 3000;
+        const POST_AUDIO_FIXATION = 3000;
+        
+        // All songs combined from blocks 1, 2, and 3
+        const ALL_SONGS = [
+            // Block 1 songs
+            { filename: 'stimuli/audio/1252', title: '1252', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/dupleMeter_stereo_30sec', title: 'Duple Meter Stereo', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/69', title: '69', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/399', title: '399', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/425', title: '425', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/612', title: '612', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/649', title: '649', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/657', title: '657', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/799', title: '799', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            
+            // Block 2 songs
+            { filename: 'stimuli/audio/1419', title: '1419', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/1507', title: '1507', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/1744', title: '1744', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/1807', title: '1807', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/1824', title: '1824', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/804', title: '804', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/851', title: '851', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/856', title: '856', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/873', title: '873', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            
+            // Block 3 songs
+            { filename: 'stimuli/audio/1835', title: '1835', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/1878', title: '1878', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/1895', title: '1895', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/1952', title: '1952', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/1954', title: '1954', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/2007', title: '2007', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/2033', title: '2033', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/2037', title: '2037', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/2057', title: '2057', formats: ['.mp3', '.wav', '.m4a', '.ogg'] }
+        ];
+
+        // Experiment State
+        let currentTrial = 0;
+        let currentAudio = null;
+        let audioStartTime = 0;
+        let currentSong = null;
+
+        function startListeningTask() {
+            currentTrial = 0;
+            showScreen('audio-screen');
+            startTrial();
+        }
+
+        function startTrial() {
+            if (currentTrial >= ALL_SONGS.length) {
+                endTask();
+                return;
+            }
+
+            currentSong = ALL_SONGS[currentTrial];
+            document.getElementById('trial-counter').textContent = `Clip ${currentTrial + 1} of ${ALL_SONGS.length}`;
+            
+            document.getElementById('start-audio-btn').style.display = 'block';
+            document.getElementById('fixation-cross').style.display = 'none';
+        }
+
+        function startAudioPlayback() {
+            document.getElementById('start-audio-btn').style.display = 'none';
+            document.getElementById('fixation-cross').style.display = 'block';
+            
+            playAudioWithFadeIn();
+        }
+        
+        function playAudioWithFadeIn() {
+            const filename = currentSong.filename + '.mp3';
+            currentAudio = new Audio(filename);
+            
+            const startTime = currentSong.filename.includes('dupleMeter') ? 0 : 10;
+            currentAudio.currentTime = startTime;
+            
+            currentAudio.volume = 0;
+            audioStartTime = Date.now();
+            
+            const playPromise = currentAudio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    fadeInAudio();
+                    startAudioTimer();
+                }).catch(error => {
+                    playAudioClip(currentSong);
+                });
+            }
+        }
+        
+        function fadeInAudio() {
+            const targetVolume = 1.0;
+            const fadeSteps = 50;
+            const stepDuration = FADE_IN_DURATION / fadeSteps;
+            const volumeIncrement = targetVolume / fadeSteps;
+            
+            let currentStep = 0;
+            
+            const fadeInterval = setInterval(() => {
+                if (!currentAudio || currentStep >= fadeSteps) {
+                    clearInterval(fadeInterval);
+                    if (currentAudio) {
+                        currentAudio.volume = targetVolume;
+                    }
+                    return;
+                }
+                
+                currentAudio.volume = Math.min(volumeIncrement * currentStep, targetVolume);
+                currentStep++;
+            }, stepDuration);
+        }
+        
+        function startAudioTimer() {
+            let audioEnded = false;
+            
+            const updateProgress = () => {
+                if (audioEnded) return;
+                
+                const elapsed = Date.now() - audioStartTime;
+                const progress = Math.min((elapsed / AUDIO_DURATION) * 100, 100);
+                
+                if (progress >= 100) {
+                    audioEnded = true;
+                    if (currentAudio) {
+                        currentAudio.pause();
+                    }
+                    setTimeout(() => {
+                        nextTrial();
+                    }, POST_AUDIO_FIXATION);
+                } else {
+                    requestAnimationFrame(updateProgress);
+                }
+            };
+            
+            updateProgress();
+        }
+
+        function findWorkingAudioFile(song) {
+            return new Promise((resolve, reject) => {
+                let formatIndex = 0;
+                
+                function tryNextFormat() {
+                    if (formatIndex >= song.formats.length) {
+                        reject('No supported audio format found for: ' + song.title);
+                        return;
+                    }
+                    
+                    const filename = song.filename + song.formats[formatIndex];
+                    const audio = new Audio();
+                    
+                    audio.addEventListener('canplaythrough', function() {
+                        console.log('Found working format:', filename);
+                        resolve(filename);
+                    });
+                    
+                    audio.addEventListener('error', function() {
+                        console.log('Format not supported or file not found:', filename);
+                        formatIndex++;
+                        tryNextFormat();
+                    });
+                    
+                    audio.src = filename;
+                    audio.load();
+                }
+                
+                tryNextFormat();
+            });
+        }
+
+        function playAudioClip(song) {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+            }
+            
+            findWorkingAudioFile(song).then(workingFilename => {
+                currentAudio = new Audio(workingFilename);
+                currentAudio.volume = 0;
+                currentAudio.preload = 'auto';
+                
+                audioStartTime = Date.now();
+                let audioEnded = false;
+                
+                currentAudio.addEventListener('loadeddata', function() {
+                    const startTime = song.filename.includes('dupleMeter') ? 0 : 10;
+                    currentAudio.currentTime = startTime;
+                });
+                
+                currentAudio.addEventListener('error', function(e) {
+                    handleAudioFailure(song);
+                });
+                
+                const playPromise = currentAudio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        const startTime = song.filename.includes('dupleMeter') ? 0 : 10;
+                        currentAudio.currentTime = startTime;
+                        fadeInAudio();
+                    }).catch(error => {
+                        handleAudioFailure(song);
+                    });
+                }
+                
+                const updateProgress = () => {
+                    if (audioEnded) return;
+                    
+                    const elapsed = Date.now() - audioStartTime;
+                    const progress = Math.min((elapsed / AUDIO_DURATION) * 100, 100);
+                    
+                    if (progress >= 100) {
+                        audioEnded = true;
+                        if (currentAudio) {
+                            currentAudio.pause();
+                        }
+                        setTimeout(() => {
+                            nextTrial();
+                        }, POST_AUDIO_FIXATION);
+                    } else {
+                        requestAnimationFrame(updateProgress);
+                    }
+                };
+                
+                updateProgress();
+                
+            }).catch(error => {
+                handleAudioFailure(song);
+            });
+        }
+        
+        function handleAudioFailure(song) {
+            alert('Cannot play audio for: ' + song.title + '\n\nContinuing with 30-second silent period...');
+            
+            setTimeout(() => {
+                setTimeout(() => {
+                    nextTrial();
+                }, POST_AUDIO_FIXATION);
+            }, AUDIO_DURATION);
+        }
+
+        function nextTrial() {
+            currentTrial++;
+            
+            setTimeout(() => {
+                if (currentTrial < ALL_SONGS.length) {
+                    startTrial();
+                } else {
+                    endTask();
+                }
+            }, 1000);
+        }
+
+        function endTask() {
+            showScreen('completion-screen');
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+            
+            if (screenId === 'audio-screen') {
+                document.body.classList.add('audio-playing');
+            } else {
+                document.body.classList.remove('audio-playing');
+            }
+        }
+    </script>
+</body>
+</html>
