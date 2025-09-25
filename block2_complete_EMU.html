@@ -435,11 +435,6 @@
             text-align: center;
         }
 
-        .download-btn {
-            background: linear-gradient(45deg, #4ECDC4, #45B7AF);
-            margin-top: 20px;
-        }
-
         body.stop-music-active {
             background: white !important;
         }
@@ -586,7 +581,6 @@
                 <p><strong>Keep your eyes focused on the white cross while listening.</strong></p>
                 <br>
                 <p>First, we will practice rating some music to familiarize you with the surveys.</p>
-                <p style="color: #ff4444; font-weight: bold; font-size: 1.1em;">**IMPORTANT: At the end of this block, you MUST download your data to save your responses!**</p>
                 <br>
                 <p>To begin, hit the continue button below.</p>
             </div>
@@ -680,57 +674,39 @@
             <!-- Familiarity Rating -->
             <div class="rating-section">
                 <div class="rating-title">How familiar were you with this music before today?</div>
-                <div class="multiple-choice-container" id="familiarity-scale">
-                    <div class="choice-option" data-value="1">1</div>
-                    <div class="choice-option" data-value="2">2</div>
-                    <div class="choice-option" data-value="3">3</div>
-                    <div class="choice-option" data-value="4">4</div>
-                    <div class="choice-option" data-value="5">5</div>
-                    <div class="choice-option" data-value="6">6</div>
-                    <div class="choice-option" data-value="7">7</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Not familiar at all</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat familiar</span>
-                    <span style="position: absolute; right: 0;">Very familiar</span>
+                <div class="continuous-scale">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9em; color: black; font-weight: bold;">
+                        <span>Not familiar at all</span>
+                        <span>Somewhat familiar</span>
+                        <span>Very familiar</span>
+                    </div>
+                    <input type="range" class="continuous-slider" id="familiarity-slider" min="1" max="7" step="0.01" value="4">
                 </div>
             </div>
 
             <!-- Groove Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much does this music make you want to move?</div>
-                <div class="multiple-choice-container" id="groove-scale">
-                    <div class="choice-option" data-value="1">1</div>
-                    <div class="choice-option" data-value="2">2</div>
-                    <div class="choice-option" data-value="3">3</div>
-                    <div class="choice-option" data-value="4">4</div>
-                    <div class="choice-option" data-value="5">5</div>
-                    <div class="choice-option" data-value="6">6</div>
-                    <div class="choice-option" data-value="7">7</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Not at all</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
-                    <span style="position: absolute; right: 0;">Very much</span>
+                <div class="continuous-scale">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9em; color: black; font-weight: bold;">
+                        <span>Not at all</span>
+                        <span>Somewhat</span>
+                        <span>Very much</span>
+                    </div>
+                    <input type="range" class="continuous-slider" id="groove-slider" min="1" max="7" step="0.01" value="4">
                 </div>
             </div>
 
             <!-- Liking Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much did you like this song?</div>
-                <div class="multiple-choice-container" id="liking-scale">
-                    <div class="choice-option" data-value="1">1</div>
-                    <div class="choice-option" data-value="2">2</div>
-                    <div class="choice-option" data-value="3">3</div>
-                    <div class="choice-option" data-value="4">4</div>
-                    <div class="choice-option" data-value="5">5</div>
-                    <div class="choice-option" data-value="6">6</div>
-                    <div class="choice-option" data-value="7">7</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Not at all</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
-                    <span style="position: absolute; right: 0;">Very much</span>
+                <div class="continuous-scale">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9em; color: black; font-weight: bold;">
+                        <span>Not at all</span>
+                        <span>Somewhat</span>
+                        <span>Very much</span>
+                    </div>
+                    <input type="range" class="continuous-slider" id="liking-slider" min="1" max="7" step="0.01" value="4">
                 </div>
             </div>
 
@@ -754,7 +730,7 @@
                 <br>
                 <p>Now you'll begin Block 2 of the main experiment with the same type of ratings.</p>
                 <br>
-                <p>Block 2 contains 9 music clips.</p>
+                <p>Block 2 contains 16 music clips.</p>
             </div>
             <button class="btn" onclick="startMainExperiment()">Start Block 2</button>
         </div>
@@ -842,57 +818,39 @@
             <!-- Familiarity Rating -->
             <div class="rating-section">
                 <div class="rating-title">How familiar were you with this music before today?</div>
-                <div class="multiple-choice-container" id="favorite-familiarity-scale">
-                    <div class="choice-option" data-value="1">1</div>
-                    <div class="choice-option" data-value="2">2</div>
-                    <div class="choice-option" data-value="3">3</div>
-                    <div class="choice-option" data-value="4">4</div>
-                    <div class="choice-option" data-value="5">5</div>
-                    <div class="choice-option" data-value="6">6</div>
-                    <div class="choice-option" data-value="7">7</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Not familiar at all</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat familiar</span>
-                    <span style="position: absolute; right: 0;">Very familiar</span>
+                <div class="continuous-scale">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9em; color: black; font-weight: bold;">
+                        <span>Not familiar at all</span>
+                        <span>Somewhat familiar</span>
+                        <span>Very familiar</span>
+                    </div>
+                    <input type="range" class="continuous-slider" id="favorite-familiarity-slider" min="1" max="7" step="0.01" value="4">
                 </div>
             </div>
 
             <!-- Groove Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much does this music make you want to move?</div>
-                <div class="multiple-choice-container" id="favorite-groove-scale">
-                    <div class="choice-option" data-value="1">1</div>
-                    <div class="choice-option" data-value="2">2</div>
-                    <div class="choice-option" data-value="3">3</div>
-                    <div class="choice-option" data-value="4">4</div>
-                    <div class="choice-option" data-value="5">5</div>
-                    <div class="choice-option" data-value="6">6</div>
-                    <div class="choice-option" data-value="7">7</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Not at all</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
-                    <span style="position: absolute; right: 0;">Very much</span>
+                <div class="continuous-scale">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9em; color: black; font-weight: bold;">
+                        <span>Not at all</span>
+                        <span>Somewhat</span>
+                        <span>Very much</span>
+                    </div>
+                    <input type="range" class="continuous-slider" id="favorite-groove-slider" min="1" max="7" step="0.01" value="4">
                 </div>
             </div>
 
             <!-- Liking Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much did you like this song?</div>
-                <div class="multiple-choice-container" id="favorite-liking-scale">
-                    <div class="choice-option" data-value="1">1</div>
-                    <div class="choice-option" data-value="2">2</div>
-                    <div class="choice-option" data-value="3">3</div>
-                    <div class="choice-option" data-value="4">4</div>
-                    <div class="choice-option" data-value="5">5</div>
-                    <div class="choice-option" data-value="6">6</div>
-                    <div class="choice-option" data-value="7">7</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Not at all</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
-                    <span style="position: absolute; right: 0;">Very much</span>
+                <div class="continuous-scale">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9em; color: black; font-weight: bold;">
+                        <span>Not at all</span>
+                        <span>Somewhat</span>
+                        <span>Very much</span>
+                    </div>
+                    <input type="range" class="continuous-slider" id="favorite-liking-slider" min="1" max="7" step="0.01" value="4">
                 </div>
             </div>
 
@@ -925,9 +883,7 @@
         <div class="screen" id="completion-screen">
             <div class="completion-screen">
                 <h1>Congratulations! You have completed Block 2.</h1>
-                <p style="color: #ff4444; font-weight: bold; font-size: 1.2em; margin: 20px 0;">PLEASE MAKE SURE TO DOWNLOAD YOUR DATA BELOW</p>
-                <button class="btn download-btn" onclick="downloadData()">Download Block 2 Data</button>
-                <p style="margin: 20px 0;" id="completion-message">Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.</p>
+                <p style="margin: 20px 0;" id="completion-message">Your responses have been saved! You may now close this tab.</p>
             </div>
         </div>
     </div>
@@ -980,7 +936,6 @@
         let strategyResponse = '';
         let confusingResponse = '';
         let describeResponse = '';
-        let isDownloading = false;
 
         // Favorite song trial variables
         let favoriteSongValence = null;
@@ -1395,10 +1350,9 @@
         function resetRatings() {
             document.getElementById('valence-slider').value = 3;
             document.getElementById('arousal-slider').value = 3;
-            
-            document.querySelectorAll('.choice-option').forEach(option => {
-                option.classList.remove('selected');
-            });
+            document.getElementById('familiarity-slider').value = 4;
+            document.getElementById('groove-slider').value = 4;
+            document.getElementById('liking-slider').value = 4;
             
             document.getElementById('describe-response').value = '';
             
@@ -1442,58 +1396,31 @@
                 checkAllRatingsComplete();
             });
 
-            // Familiarity scale
-            document.getElementById('familiarity-scale').addEventListener('click', function(e) {
-                if (e.target.classList.contains('choice-option')) {
-                    if (familiarityRating === null || familiarityRating === 'skip') {
-                        familiarityRT = Date.now() - surveyPage2StartTime;
-                    }
-                    
-                    document.querySelectorAll('#familiarity-scale .choice-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    e.target.classList.add('selected');
-                    familiarityRating = parseInt(e.target.dataset.value);
-                    
-                    checkPage2RatingsComplete();
+            // Familiarity slider
+            document.getElementById('familiarity-slider').addEventListener('input', function(e) {
+                if (familiarityRating === null || familiarityRating === 'skip') {
+                    familiarityRT = Date.now() - surveyPage2StartTime;
                 }
+                familiarityRating = parseFloat(e.target.value);
+                checkPage2RatingsComplete();
             });
 
-            // Groove scale
-            document.getElementById('groove-scale').addEventListener('click', function(e) {
-                if (e.target.classList.contains('choice-option')) {
-                    if (grooveRating === null || grooveRating === 'skip') {
-                        grooveRT = Date.now() - surveyPage2StartTime;
-                    }
-                    
-                    document.querySelectorAll('#groove-scale .choice-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    e.target.classList.add('selected');
-                    grooveRating = parseInt(e.target.dataset.value);
-                    
-                    checkPage2RatingsComplete();
+            // Groove slider
+            document.getElementById('groove-slider').addEventListener('input', function(e) {
+                if (grooveRating === null || grooveRating === 'skip') {
+                    grooveRT = Date.now() - surveyPage2StartTime;
                 }
+                grooveRating = parseFloat(e.target.value);
+                checkPage2RatingsComplete();
             });
 
-            // Liking scale
-            document.getElementById('liking-scale').addEventListener('click', function(e) {
-                if (e.target.classList.contains('choice-option')) {
-                    if (likingRating === null || likingRating === 'skip') {
-                        likingRT = Date.now() - surveyPage2StartTime;
-                    }
-                    
-                    document.querySelectorAll('#liking-scale .choice-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    e.target.classList.add('selected');
-                    likingRating = parseInt(e.target.dataset.value);
-                    
-                    checkPage2RatingsComplete();
+            // Liking slider
+            document.getElementById('liking-slider').addEventListener('input', function(e) {
+                if (likingRating === null || likingRating === 'skip') {
+                    likingRT = Date.now() - surveyPage2StartTime;
                 }
+                likingRating = parseFloat(e.target.value);
+                checkPage2RatingsComplete();
             });
 
             // Favorite valence slider
@@ -1521,55 +1448,31 @@
                 checkPage2RatingsComplete();
             });
 
-            document.getElementById('favorite-familiarity-scale').addEventListener('click', function(e) {
-                if (e.target.classList.contains('choice-option')) {
-                    if (favoriteSongFamiliarity === null || favoriteSongFamiliarity === 'skip') {
-                        favoriteSongFamiliarityRT = Date.now() - favoriteSongPage2StartTime;
-                    }
-                    
-                    document.querySelectorAll('#favorite-familiarity-scale .choice-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    e.target.classList.add('selected');
-                    favoriteSongFamiliarity = parseInt(e.target.dataset.value);
-                    
-                    checkFavoriteSongPage2RatingsComplete();
+            // Favorite familiarity slider
+            document.getElementById('favorite-familiarity-slider').addEventListener('input', function(e) {
+                if (favoriteSongFamiliarity === null || favoriteSongFamiliarity === 'skip') {
+                    favoriteSongFamiliarityRT = Date.now() - favoriteSongPage2StartTime;
                 }
+                favoriteSongFamiliarity = parseFloat(e.target.value);
+                checkFavoriteSongPage2RatingsComplete();
             });
 
-            document.getElementById('favorite-groove-scale').addEventListener('click', function(e) {
-                if (e.target.classList.contains('choice-option')) {
-                    if (favoriteSongGroove === null || favoriteSongGroove === 'skip') {
-                        favoriteSongGrooveRT = Date.now() - favoriteSongPage2StartTime;
-                    }
-                    
-                    document.querySelectorAll('#favorite-groove-scale .choice-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    e.target.classList.add('selected');
-                    favoriteSongGroove = parseInt(e.target.dataset.value);
-                    
-                    checkFavoriteSongPage2RatingsComplete();
+            // Favorite groove slider
+            document.getElementById('favorite-groove-slider').addEventListener('input', function(e) {
+                if (favoriteSongGroove === null || favoriteSongGroove === 'skip') {
+                    favoriteSongGrooveRT = Date.now() - favoriteSongPage2StartTime;
                 }
+                favoriteSongGroove = parseFloat(e.target.value);
+                checkFavoriteSongPage2RatingsComplete();
             });
 
-            document.getElementById('favorite-liking-scale').addEventListener('click', function(e) {
-                if (e.target.classList.contains('choice-option')) {
-                    if (favoriteSongLiking === null || favoriteSongLiking === 'skip') {
-                        favoriteSongLikingRT = Date.now() - favoriteSongPage2StartTime;
-                    }
-                    
-                    document.querySelectorAll('#favorite-liking-scale .choice-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    e.target.classList.add('selected');
-                    favoriteSongLiking = parseInt(e.target.dataset.value);
-                    
-                    checkFavoriteSongPage2RatingsComplete();
+            // Favorite liking slider
+            document.getElementById('favorite-liking-slider').addEventListener('input', function(e) {
+                if (favoriteSongLiking === null || favoriteSongLiking === 'skip') {
+                    favoriteSongLikingRT = Date.now() - favoriteSongPage2StartTime;
                 }
+                favoriteSongLiking = parseFloat(e.target.value);
+                checkFavoriteSongPage2RatingsComplete();
             });
         });
 
@@ -1624,10 +1527,9 @@
         function resetFavoriteSongRatings() {
             document.getElementById('favorite-valence-slider').value = 3;
             document.getElementById('favorite-arousal-slider').value = 3;
-            
-            document.querySelectorAll('#favorite-song-rating-screen .choice-option, #favorite-song-rating-screen-2 .choice-option').forEach(option => {
-                option.classList.remove('selected');
-            });
+            document.getElementById('favorite-familiarity-slider').value = 4;
+            document.getElementById('favorite-groove-slider').value = 4;
+            document.getElementById('favorite-liking-slider').value = 4;
             
             document.getElementById('favorite-describe-response').value = '';
             
@@ -1878,75 +1780,6 @@
             }
         }
 
-        function downloadData() {
-            if (isDownloading) {
-                console.log('Download already in progress, preventing duplicate');
-                return;
-            }
-            
-            isDownloading = true;
-            const downloadBtn = document.querySelector('.download-btn');
-            const originalText = downloadBtn.textContent;
-            downloadBtn.disabled = true;
-            downloadBtn.textContent = 'Downloading...';
-            
-            try {
-                const allData = [...practiceData, ...experimentData];
-                
-                const feedbackRow = {
-                    participant_id: participantId,
-                    block: 2,
-                    trial_number: null,
-                    music_clip_title: null,
-                    playback_number: null,
-                    audio_start_time_seconds: null,
-                    music_onset_time: null,
-                    music_offset_time: null,
-                    emotion_survey_onset_time: null,
-                    valence_rating: null,
-                    valence_response_time: null,
-                    arousal_rating: null,
-                    arousal_response_time: null,
-                    familiarity_rating: null,
-                    familiarity_response_time: null,
-                    groove_rating: null,
-                    groove_response_time: null,
-                    liking_rating: null,
-                    liking_response_time: null,
-                    describe: null,
-                    timestamp: new Date().toISOString(),
-                    is_practice: null,
-                    strategy: strategyResponse || '',
-                    feedback: feedbackResponse || '',
-                    confusing: confusingResponse || ''
-                };
-                allData.push(feedbackRow);
-                
-                const csvContent = convertToCSV(allData);
-                const blob = new Blob([csvContent], { type: 'text/csv' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `music_emotion_data_block2_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-                
-                document.getElementById('completion-message').innerHTML = 'Your responses have been recorded and downloaded! Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.';
-                
-            } catch (error) {
-                console.log('Download failed:', error);
-                document.getElementById('completion-message').innerHTML = 'Download may have failed. Please try again or contact the researcher.';
-            }
-            
-            setTimeout(() => {
-                isDownloading = false;
-                downloadBtn.disabled = false;
-                downloadBtn.textContent = originalText;
-            }, 2000);
-        }
-
         function saveDataToFile() {
             if (experimentData.length === 0 && practiceData.length === 0) {
                 console.log('No data to save');
@@ -2004,7 +1837,7 @@
             }
         }
 
-       function convertToCSV(data) {
+        function convertToCSV(data) {
             if (data.length === 0) return '';
             
             const headers = Object.keys(data[0]);

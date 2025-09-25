@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Music Emotion Experiment - Block 1</title>
+    <title>Music Emotion Experiment - Block 3</title>
     <style>
         * {
             margin: 0;
@@ -357,45 +357,6 @@
             border-color: #1e3c72;
         }
 
-        body.musician-screen-active {
-            background: white !important;
-        }
-
-        #musician-screen {
-            background: white !important;
-            color: black !important;
-        }
-
-        #musician-screen .container {
-            background: white !important;
-        }
-
-        #musician-screen h2 {
-            color: black !important;
-        }
-
-        #musician-screen .choice-option {
-            color: black !important;
-            border-color: black !important;
-        }
-        
-
-        #musician-screen .choice-option:hover {
-            border-color: #FFD700 !important;
-        }
-
-        #musician-screen .choice-option.selected {
-            border-color: #FFD700 !important;
-            background: transparent !important;
-            color: black !important;
-        }
-
-        #musician-screen .rating-title {
-            color: black !important;
-            font-size: 1.3em !important;
-            font-weight: normal !important;
-        }
-
         /* Audio screen */
         #audio-screen {
             background-color: #808080 !important;
@@ -472,6 +433,11 @@
 
         .completion-screen {
             text-align: center;
+        }
+
+        .download-btn {
+            background: linear-gradient(45deg, #4ECDC4, #45B7AF);
+            margin-top: 20px;
         }
 
         body.stop-music-active {
@@ -601,8 +567,8 @@
         <!-- Introduction Screen -->
         <div class="screen active" id="intro-screen">
             <div class="block-header">
-                <h2>Block 1 of 3</h2>
-                <p>This is the first block of the music emotion experiment</p>
+                <h2>Block 3 of 3</h2>
+                <p>This is the third block of the music emotion experiment</p>
             </div>
             <h1>Music Emotion Experiment</h1>
             <div class="intro-text">
@@ -621,92 +587,12 @@
                 <br>
                 <p>First, we will practice rating some music to familiarize you with the surveys.</p>
                 <br>
+                <p style="color: #ff4444; font-weight: bold; font-size: 1.1em;">**IMPORTANT: At the end of this block, you MUST download your data to save your responses!**</p>
+                <br>
                 <p>To begin, hit the continue button below.</p>
             </div>
             <button class="btn" onclick="startPractice()">Continue</button>
             <button class="btn" onclick="recoverStoredData()" style="position: fixed; bottom: 20px; left: 20px; background: linear-gradient(45deg, #95a5a6, #7f8c8d); font-size: 0.9em; padding: 10px 15px;">Recover Old Data</button>
-        </div>
-
-        <!-- Musician Experience Screen -->
-        <div class="screen" id="musician-screen">
-            <h2>Background Information</h2>
-            <div style="font-size: 0.9em; color: #666; margin-bottom: 30px; text-align: center;">(You only need to answer these questions once)</div>
-            <div class="intro-text">
-                <div class="feedback-question-title">Have you ever played an instrument?</div>
-                <div class="rating-section" style="margin-top: 15px;">
-                    <div class="continuous-scale">
-                        <div style="display: flex; justify-content: space-between; margin: 0 auto 20px auto; width: 100%;">
-                            <div style="width: 33%; font-size: 0.9em; text-align: left; color: black; font-weight: bold;">Never played an instrument</div>
-                            <div style="width: 33%; font-size: 0.9em; text-align: center; color: black; font-weight: bold;">Some experience</div>
-                            <div style="width: 33%; font-size: 0.9em; text-align: right; color: black; font-weight: bold;">Professional musician</div>
-                        </div>
-                        <input type="range" class="continuous-slider" id="musician-slider" min="1" max="7" step="0.01" value="4">
-                    </div>
-                </div>
-
-                <!-- Favorite Genre Question -->
-                <div class="rating-section" style="margin-top: 40px;">
-                    <div class="rating-title">What is your favorite genre of music?</div>
-                    <textarea class="describe-textarea" id="favorite-genre-response" placeholder="e.g., Rock, Pop, Classical, Hip-hop..." style="min-height: 40px;"></textarea>
-                </div>
-
-                <!-- Current Feeling - Valence -->
-                <div class="rating-section" style="margin-top: 40px;">
-                    <div class="rating-title">How are you feeling right now?</div>
-                    <div class="continuous-scale">
-                        <div class="sam-images-only">
-                            <img src="stimuli/SAM/valence1.png" alt="Very Negative" class="sam-image">
-                            <img src="stimuli/SAM/valence2.png" alt="Negative" class="sam-image">
-                            <img src="stimuli/SAM/valence3.png" alt="Neutral" class="sam-image">
-                            <img src="stimuli/SAM/valence4.png" alt="Positive" class="sam-image">
-                            <img src="stimuli/SAM/valence5.png" alt="Very Positive" class="sam-image">
-                        </div>
-                        <div class="sam-labels-only">
-                            <div class="sam-label">Negative</div>
-                            <div class="sam-label"></div>
-                            <div class="sam-label">Neutral</div>
-                            <div class="sam-label"></div>
-                            <div class="sam-label">Positive</div>
-                        </div>
-                        <input type="range" class="continuous-slider" id="current-feeling-valence-slider" min="1" max="5" step="0.01" value="3">
-                    </div>
-                </div>
-
-                <!-- Current Feeling - Arousal -->
-                <div class="rating-section">
-                    <div class="rating-title">What is the intensity of that feeling?</div>
-                    <div class="continuous-scale">
-                        <div class="sam-images-only">
-                            <img src="stimuli/SAM/arousal5.png" alt="Very High" class="sam-image">
-                            <img src="stimuli/SAM/arousal4.png" alt="High" class="sam-image">
-                            <img src="stimuli/SAM/arousal3.png" alt="Neutral" class="sam-image">
-                            <img src="stimuli/SAM/arousal2.png" alt="Low" class="sam-image">
-                            <img src="stimuli/SAM/arousal1.png" alt="Very Low" class="sam-image">
-                        </div>
-                        <div class="sam-labels-only">
-                            <div class="sam-label">Low</div>
-                            <div class="sam-label"></div>
-                            <div class="sam-label"></div>
-                            <div class="sam-label"></div>
-                            <div class="sam-label">High</div>
-                        </div>
-                        <input type="range" class="continuous-slider" id="current-feeling-arousal-slider" min="1" max="5" step="0.01" value="3">
-                    </div>
-                </div>
-
-                <!-- Free Response - Current Feeling -->
-                <div class="rating-section">
-                    <div class="rating-title">Please describe how you currently feel in 1 or 2 words:</div>
-                    <textarea class="describe-textarea" id="current-feeling-response" placeholder="Describe how you currently feel..." style="min-height: 40px;"></textarea>
-                </div>
-
-                <!-- Native/Preferred Language -->
-                <div class="rating-section">
-                    <div class="rating-title">What is your native/preferred language? (optional)</div>
-                    <textarea class="describe-textarea" id="preferred-language-response" placeholder="e.g., English, Spanish, Mandarin..." style="min-height: 40px;"></textarea>
-                </div>
-            </div>
-            <button class="btn continue-btn-bottom" id="musician-continue-btn" onclick="submitMusicianExperience()" disabled>Continue to Practice</button>
         </div>
 
         <!-- Practice Introduction Screen -->
@@ -795,46 +681,64 @@
             <!-- Familiarity Rating -->
             <div class="rating-section">
                 <div class="rating-title">How familiar were you with this music before today?</div>
-                <div class="continuous-scale">
-                    <div style="display: flex; justify-content: space-between; margin: 0 auto 20px auto; width: 100%;">
-                        <div style="width: 33%; font-size: 0.9em; text-align: left; color: black; font-weight: bold;">Not familiar at all</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: center; color: black; font-weight: bold;">Somewhat familiar</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: right; color: black; font-weight: bold;">Very familiar</div>
-                    </div>
-                    <input type="range" class="continuous-slider" id="familiarity-slider" min="1" max="7" step="0.01" value="4">
+                <div class="multiple-choice-container" id="familiarity-scale">
+                    <div class="choice-option" data-value="1">1</div>
+                    <div class="choice-option" data-value="2">2</div>
+                    <div class="choice-option" data-value="3">3</div>
+                    <div class="choice-option" data-value="4">4</div>
+                    <div class="choice-option" data-value="5">5</div>
+                    <div class="choice-option" data-value="6">6</div>
+                    <div class="choice-option" data-value="7">7</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Not familiar at all</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat familiar</span>
+                    <span style="position: absolute; right: 0;">Very familiar</span>
                 </div>
             </div>
 
             <!-- Groove Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much does this music make you want to move?</div>
-                <div class="continuous-scale">
-                    <div style="display: flex; justify-content: space-between; margin: 0 auto 20px auto; width: 100%;">
-                        <div style="width: 33%; font-size: 0.9em; text-align: left; color: black; font-weight: bold;">Not at all</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: center; color: black; font-weight: bold;">Somewhat</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: right; color: black; font-weight: bold;">Very much</div>
-                    </div>
-                    <input type="range" class="continuous-slider" id="groove-slider" min="1" max="7" step="0.01" value="4">
+                <div class="multiple-choice-container" id="groove-scale">
+                    <div class="choice-option" data-value="1">1</div>
+                    <div class="choice-option" data-value="2">2</div>
+                    <div class="choice-option" data-value="3">3</div>
+                    <div class="choice-option" data-value="4">4</div>
+                    <div class="choice-option" data-value="5">5</div>
+                    <div class="choice-option" data-value="6">6</div>
+                    <div class="choice-option" data-value="7">7</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Not at all</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
+                    <span style="position: absolute; right: 0;">Very much</span>
                 </div>
             </div>
 
             <!-- Liking Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much did you like this song?</div>
-                <div class="continuous-scale">
-                    <div style="display: flex; justify-content: space-between; margin: 0 auto 20px auto; width: 100%;">
-                        <div style="width: 33%; font-size: 0.9em; text-align: left; color: black; font-weight: bold;">Not at all</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: center; color: black; font-weight: bold;">Somewhat</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: right; color: black; font-weight: bold;">Very much</div>
-                    </div>
-                    <input type="range" class="continuous-slider" id="liking-slider" min="1" max="7" step="0.01" value="4">
+                <div class="multiple-choice-container" id="liking-scale">
+                    <div class="choice-option" data-value="1">1</div>
+                    <div class="choice-option" data-value="2">2</div>
+                    <div class="choice-option" data-value="3">3</div>
+                    <div class="choice-option" data-value="4">4</div>
+                    <div class="choice-option" data-value="5">5</div>
+                    <div class="choice-option" data-value="6">6</div>
+                    <div class="choice-option" data-value="7">7</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Not at all</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
+                    <span style="position: absolute; right: 0;">Very much</span>
                 </div>
             </div>
 
             <!-- Describe how the task makes you feel -->
             <div class="rating-section">
                 <div class="rating-title">Use one or two words to describe how the song makes you feel:</div>
-                <textarea class="describe-textarea" id="describe-response" placeholder="Describe how the song makes you feel..." required></textarea>
+                <textarea class="describe-textarea" id="describe-response" placeholder="Describe how this song makes you feel..."></textarea>
             </div>
 
             <button class="btn continue-btn-bottom" id="continue-btn-2" onclick="nextTrial()" disabled>Continue</button>
@@ -849,18 +753,18 @@
             <div class="intro-text">
                 <p>You've completed the practice session.</p>
                 <br>
-                <p>Now you'll begin Block 1 of the main experiment with the same type of ratings.</p>
+                <p>Now you'll begin Block 3 of the main experiment with the same type of ratings.</p>
                 <br>
-                <p>Block 1 contains 20 music clips.</p>
+                <p>Block 3 contains 9 music clips.</p>
             </div>
-            <button class="btn" onclick="startMainExperiment()">Start Block 1</button>
+            <button class="btn" onclick="startMainExperiment()">Start Block 3</button>
         </div>
 
         <!-- Favorite Song Introduction Screen -->
         <div class="screen" id="favorite-song-intro-screen">
             <h2>Optional Final Trial</h2>
             <div class="intro-text">
-                <p><strong>Optional but recommended:</strong> Play your favorite song from your phone for 30 seconds while you look at the fixation cross on the next screen.</p>
+                <p><strong>Optional but recommended:</strong> Play your one of your favorite songs from your phone for 30 seconds while you look at the fixation cross on the next screen.</p>
                 <br>
                 <p>Hit the "Start" button on the next screen when you begin playing your song. After listening, complete the brief survey.</p>
             </div>
@@ -939,46 +843,64 @@
             <!-- Familiarity Rating -->
             <div class="rating-section">
                 <div class="rating-title">How familiar were you with this music before today?</div>
-                <div class="continuous-scale">
-                    <div style="display: flex; justify-content: space-between; margin: 0 auto 20px auto; width: 100%;">
-                        <div style="width: 33%; font-size: 0.9em; text-align: left; color: black; font-weight: bold;">Not familiar at all</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: center; color: black; font-weight: bold;">Somewhat familiar</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: right; color: black; font-weight: bold;">Very familiar</div>
-                    </div>
-                    <input type="range" class="continuous-slider" id="favorite-familiarity-slider" min="1" max="7" step="0.01" value="4">
+                <div class="multiple-choice-container" id="favorite-familiarity-scale">
+                    <div class="choice-option" data-value="1">1</div>
+                    <div class="choice-option" data-value="2">2</div>
+                    <div class="choice-option" data-value="3">3</div>
+                    <div class="choice-option" data-value="4">4</div>
+                    <div class="choice-option" data-value="5">5</div>
+                    <div class="choice-option" data-value="6">6</div>
+                    <div class="choice-option" data-value="7">7</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Not familiar at all</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat familiar</span>
+                    <span style="position: absolute; right: 0;">Very familiar</span>
                 </div>
             </div>
 
             <!-- Groove Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much does this music make you want to move?</div>
-                <div class="continuous-scale">
-                    <div style="display: flex; justify-content: space-between; margin: 0 auto 20px auto; width: 100%;">
-                        <div style="width: 33%; font-size: 0.9em; text-align: left; color: black; font-weight: bold;">Not at all</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: center; color: black; font-weight: bold;">Somewhat</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: right; color: black; font-weight: bold;">Very much</div>
-                    </div>
-                    <input type="range" class="continuous-slider" id="favorite-groove-slider" min="1" max="7" step="0.01" value="4">
+                <div class="multiple-choice-container" id="favorite-groove-scale">
+                    <div class="choice-option" data-value="1">1</div>
+                    <div class="choice-option" data-value="2">2</div>
+                    <div class="choice-option" data-value="3">3</div>
+                    <div class="choice-option" data-value="4">4</div>
+                    <div class="choice-option" data-value="5">5</div>
+                    <div class="choice-option" data-value="6">6</div>
+                    <div class="choice-option" data-value="7">7</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Not at all</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
+                    <span style="position: absolute; right: 0;">Very much</span>
                 </div>
             </div>
 
             <!-- Liking Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much did you like this song?</div>
-                <div class="continuous-scale">
-                    <div style="display: flex; justify-content: space-between; margin: 0 auto 20px auto; width: 100%;">
-                        <div style="width: 33%; font-size: 0.9em; text-align: left; color: black; font-weight: bold;">Not at all</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: center; color: black; font-weight: bold;">Somewhat</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: right; color: black; font-weight: bold;">Very much</div>
-                    </div>
-                    <input type="range" class="continuous-slider" id="favorite-liking-slider" min="1" max="7" step="0.01" value="4">
+                <div class="multiple-choice-container" id="favorite-liking-scale">
+                    <div class="choice-option" data-value="1">1</div>
+                    <div class="choice-option" data-value="2">2</div>
+                    <div class="choice-option" data-value="3">3</div>
+                    <div class="choice-option" data-value="4">4</div>
+                    <div class="choice-option" data-value="5">5</div>
+                    <div class="choice-option" data-value="6">6</div>
+                    <div class="choice-option" data-value="7">7</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Not at all</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
+                    <span style="position: absolute; right: 0;">Very much</span>
                 </div>
             </div>
 
             <!-- Describe how the song makes you feel -->
             <div class="rating-section">
                 <div class="rating-title">Use one or a few words to describe how this song makes you feel:</div>
-                <textarea class="describe-textarea" id="favorite-describe-response" placeholder="Describe how this song makes you feel..."></textarea>
+                <textarea class="describe-textarea" id="favorite-describe-response" placeholder="Describe how this song makes you feel..." required></textarea>
             </div>
 
             <button class="btn continue-btn-bottom" id="favorite-continue-btn-2" onclick="submitFavoriteSongRating()" disabled>Continue</button>
@@ -1003,8 +925,10 @@
         <!-- Completion Screen -->
         <div class="screen" id="completion-screen">
             <div class="completion-screen">
-                <h1>Congratulations! You have completed Block 1.</h1>
-                <p style="margin: 20px 0;" id="completion-message">Your responses have been saved! You may now close this tab.</p>
+                <h1>Congratulations! You have completed Block 3.</h1>
+                <p style="color: #ff4444; font-weight: bold; font-size: 1.2em; margin: 20px 0;">PLEASE MAKE SURE TO DOWNLOAD YOUR DATA BELOW</p>
+                <button class="btn download-btn" onclick="downloadData()">Download Block 3 Data</button>
+                <p style="margin: 20px 0;" id="completion-message">Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.</p>
             </div>
         </div>
     </div>
@@ -1018,13 +942,12 @@
         const PRE_AUDIO_FIXATION = 3000;
         const POST_AUDIO_FIXATION = 3000;
         
+        // Block 3 songs (from your original Block 3 file)
         const DEMO_SONGS = [
-            { filename: 'stimuli/audio/873', title: '873', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
-            { filename: 'stimuli/audio/dupleMeter_stereo_30sec', title: 'Duple Meter Stereo', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
-            { filename: 'stimuli/audio/1954', title: '1954', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
-            { filename: 'stimuli/audio/1807', title: '1807', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
-            { filename: 'stimuli/audio/1252', title: '1252', formats: ['.mp3', '.wav', '.m4a', '.ogg'] }
-
+            { filename: 'stimuli/audio/1878', title: '1878', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/1895', title: '1895', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/1507', title: '1507', formats: ['.mp3', '.wav', '.m4a', '.ogg'] },
+            { filename: 'stimuli/audio/69', title: '69', formats: ['.mp3', '.wav', '.m4a', '.ogg'] }
         ];
 
         const PRACTICE_SONGS_LIST = [
@@ -1033,7 +956,7 @@
         ];
 
         // Experiment State
-        let participantId = 'participant_block1_' + Date.now();
+        let participantId = 'participant_block3_' + Date.now();
         let currentTrial = 0;
         let trials = [];
         let experimentData = [];
@@ -1058,22 +981,7 @@
         let strategyResponse = '';
         let confusingResponse = '';
         let describeResponse = '';
-
-        let musicianRating = null;
-        // NEW: Current feeling variables
-        let favoriteGenreResponse = '';
-
-        let currentFeelingValence = null;
-        let currentFeelingArousal = null;
-        let currentFeelingValenceRT = null;
-        let currentFeelingArousalRT = null;
-        let currentFeelingResponse = '';
-        let preferredLanguageResponse = '';
-        let currentFeelingValenceSliderMoved = false;
-        let currentFeelingArousalSliderMoved = false;
-        let musicianRT = null;
-        let musicianSurveyStartTime = 0;
-        let musicianSliderMoved = false;
+        let isDownloading = false;
 
         // Favorite song trial variables
         let favoriteSongValence = null;
@@ -1095,12 +1003,6 @@
         let arousalSliderMoved = false;
         let favoriteValenceSliderMoved = false;
         let favoriteArousalSliderMoved = false;
-        let familiaritySliderMoved = false;
-        let grooveSliderMoved = false;
-        let likingSliderMoved = false;
-        let favoriteFamiliaritySliderMoved = false;
-        let favoriteGrooveSliderMoved = false;
-        let favoriteLikingSliderMoved = false;
 
         // Survey timing variables
         let surveyPage2StartTime = 0;
@@ -1190,13 +1092,13 @@
         }
 
         function skipAllRatings() {
-            if (!familiaritySliderMoved) {
+            if (familiarityRating === null) {
                 familiarityRT = Date.now() - surveyPage2StartTime;
             }
-            if (!grooveSliderMoved) {
+            if (grooveRating === null) {
                 grooveRT = Date.now() - surveyPage2StartTime;
             }
-            if (!likingSliderMoved) {
+            if (likingRating === null) {
                 likingRT = Date.now() - surveyPage2StartTime;
             }
             
@@ -1206,6 +1108,10 @@
             
             describeResponse = document.getElementById('describe-response').value || '';
             
+            document.querySelectorAll('.choice-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
             document.getElementById('continue-btn-2').disabled = false;
             setTimeout(() => {
                 nextTrial();
@@ -1213,13 +1119,13 @@
         }
 
         function skipFavoriteAllRatings() {
-            if (!favoriteFamiliaritySliderMoved) {
+            if (favoriteSongFamiliarity === null) {
                 favoriteSongFamiliarityRT = Date.now() - favoriteSongPage2StartTime;
             }
-            if (!favoriteGrooveSliderMoved) {
+            if (favoriteSongGroove === null) {
                 favoriteSongGrooveRT = Date.now() - favoriteSongPage2StartTime;
             }
-            if (!favoriteLikingSliderMoved) {
+            if (favoriteSongLiking === null) {
                 favoriteSongLikingRT = Date.now() - favoriteSongPage2StartTime;
             }
             
@@ -1228,6 +1134,10 @@
             favoriteSongLiking = 'skip';
             
             favoriteSongDescribe = document.getElementById('favorite-describe-response').value || '';
+            
+            document.querySelectorAll('#favorite-song-rating-screen-2 .choice-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
             
             document.getElementById('favorite-continue-btn-2').disabled = false;
             setTimeout(() => {
@@ -1243,8 +1153,7 @@
         }
 
         function startPractice() {
-            showScreen('musician-screen');
-            musicianSurveyStartTime = Date.now();
+            showScreen('practice-intro-screen');
         }
 
         function startPracticeTrials() {
@@ -1486,9 +1395,10 @@
         function resetRatings() {
             document.getElementById('valence-slider').value = 3;
             document.getElementById('arousal-slider').value = 3;
-            document.getElementById('familiarity-slider').value = 4;
-            document.getElementById('groove-slider').value = 4;
-            document.getElementById('liking-slider').value = 4;
+            
+            document.querySelectorAll('.choice-option').forEach(option => {
+                option.classList.remove('selected');
+            });
             
             document.getElementById('describe-response').value = '';
             
@@ -1505,9 +1415,6 @@
             describeResponse = '';
             valenceSliderMoved = false;
             arousalSliderMoved = false;
-            familiaritySliderMoved = false;
-            grooveSliderMoved = false;
-            likingSliderMoved = false;
             
             document.getElementById('continue-btn').disabled = true;
             document.getElementById('continue-btn-2').disabled = true;
@@ -1515,64 +1422,6 @@
 
         // Rating scale interactions
         document.addEventListener('DOMContentLoaded', function() {
-
-            // NEW: Current feeling valence slider
-            document.getElementById('current-feeling-valence-slider').addEventListener('input', function(e) {
-                if (!currentFeelingValenceSliderMoved) {
-                    currentFeelingValenceRT = Date.now() - musicianSurveyStartTime;
-                    currentFeelingValenceSliderMoved = true;
-                }
-                currentFeelingValence = parseFloat(e.target.value);
-                checkMusicianScreenComplete();
-            });
-
-            document.getElementById('current-feeling-valence-slider').addEventListener('change', function(e) {
-                if (!currentFeelingValenceSliderMoved) {
-                    currentFeelingValenceRT = Date.now() - musicianSurveyStartTime;
-                    currentFeelingValenceSliderMoved = true;
-                }
-                currentFeelingValence = parseFloat(e.target.value);
-                checkMusicianScreenComplete();
-            });
-
-            // NEW: Current feeling arousal slider
-            document.getElementById('current-feeling-arousal-slider').addEventListener('input', function(e) {
-                if (!currentFeelingArousalSliderMoved) {
-                    currentFeelingArousalRT = Date.now() - musicianSurveyStartTime;
-                    currentFeelingArousalSliderMoved = true;
-                }
-                currentFeelingArousal = parseFloat(e.target.value);
-                checkMusicianScreenComplete();
-            });
-
-            document.getElementById('current-feeling-arousal-slider').addEventListener('change', function(e) {
-                if (!currentFeelingArousalSliderMoved) {
-                    currentFeelingArousalRT = Date.now() - musicianSurveyStartTime;
-                    currentFeelingArousalSliderMoved = true;
-                }
-                currentFeelingArousal = parseFloat(e.target.value);
-                checkMusicianScreenComplete();
-            });
-
-            // Musician slider
-            document.getElementById('musician-slider').addEventListener('input', function(e) {
-                if (!musicianSliderMoved) {
-                    musicianRT = Date.now() - musicianSurveyStartTime;
-                    musicianSliderMoved = true;
-                }
-                musicianRating = parseFloat(e.target.value);
-                checkMusicianScreenComplete();
-            });
-
-            document.getElementById('musician-slider').addEventListener('change', function(e) {
-                if (!musicianSliderMoved) {
-                    musicianRT = Date.now() - musicianSurveyStartTime;
-                    musicianSliderMoved = true;
-                }
-                musicianRating = parseFloat(e.target.value);
-                checkMusicianScreenComplete();
-            });
-
             // Valence slider
             document.getElementById('valence-slider').addEventListener('input', function(e) {
                 if (!valenceSliderMoved) {
@@ -1593,34 +1442,58 @@
                 checkAllRatingsComplete();
             });
 
-            // Familiarity slider
-            document.getElementById('familiarity-slider').addEventListener('input', function(e) {
-                if (!familiaritySliderMoved) {
-                    familiarityRT = Date.now() - surveyPage2StartTime;
-                    familiaritySliderMoved = true;
+            // Familiarity scale
+            document.getElementById('familiarity-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (familiarityRating === null || familiarityRating === 'skip') {
+                        familiarityRT = Date.now() - surveyPage2StartTime;
+                    }
+                    
+                    document.querySelectorAll('#familiarity-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    familiarityRating = parseInt(e.target.dataset.value);
+                    
+                    checkPage2RatingsComplete();
                 }
-                familiarityRating = parseFloat(e.target.value);
-                checkPage2RatingsComplete();
             });
 
-            // Groove slider
-            document.getElementById('groove-slider').addEventListener('input', function(e) {
-                if (!grooveSliderMoved) {
-                    grooveRT = Date.now() - surveyPage2StartTime;
-                    grooveSliderMoved = true;
+            // Groove scale
+            document.getElementById('groove-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (grooveRating === null || grooveRating === 'skip') {
+                        grooveRT = Date.now() - surveyPage2StartTime;
+                    }
+                    
+                    document.querySelectorAll('#groove-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    grooveRating = parseInt(e.target.dataset.value);
+                    
+                    checkPage2RatingsComplete();
                 }
-                grooveRating = parseFloat(e.target.value);
-                checkPage2RatingsComplete();
             });
 
-            // Liking slider
-            document.getElementById('liking-slider').addEventListener('input', function(e) {
-                if (!likingSliderMoved) {
-                    likingRT = Date.now() - surveyPage2StartTime;
-                    likingSliderMoved = true;
+            // Liking scale
+            document.getElementById('liking-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (likingRating === null || likingRating === 'skip') {
+                        likingRT = Date.now() - surveyPage2StartTime;
+                    }
+                    
+                    document.querySelectorAll('#liking-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    likingRating = parseInt(e.target.dataset.value);
+                    
+                    checkPage2RatingsComplete();
                 }
-                likingRating = parseFloat(e.target.value);
-                checkPage2RatingsComplete();
             });
 
             // Favorite valence slider
@@ -1643,59 +1516,62 @@
                 checkFavoriteSongRatingsComplete();
             });
 
-            // Favorite familiarity slider
-            document.getElementById('favorite-familiarity-slider').addEventListener('input', function(e) {
-                if (!favoriteFamiliaritySliderMoved) {
-                    favoriteSongFamiliarityRT = Date.now() - favoriteSongPage2StartTime;
-                    favoriteFamiliaritySliderMoved = true;
-                }
-                favoriteSongFamiliarity = parseFloat(e.target.value);
-                checkFavoriteSongPage2RatingsComplete();
-            });
-
-            // Favorite groove slider
-            document.getElementById('favorite-groove-slider').addEventListener('input', function(e) {
-                if (!favoriteGrooveSliderMoved) {
-                    favoriteSongGrooveRT = Date.now() - favoriteSongPage2StartTime;
-                    favoriteGrooveSliderMoved = true;
-                }
-                favoriteSongGroove = parseFloat(e.target.value);
-                checkFavoriteSongPage2RatingsComplete();
-            });
-
-            // Favorite liking slider
-            document.getElementById('favorite-liking-slider').addEventListener('input', function(e) {
-                if (!favoriteLikingSliderMoved) {
-                    favoriteSongLikingRT = Date.now() - favoriteSongPage2StartTime;
-                    favoriteLikingSliderMoved = true;
-                }
-                favoriteSongLiking = parseFloat(e.target.value);
-                checkFavoriteSongPage2RatingsComplete();
-            });
-
             // Describe response textarea
             document.getElementById('describe-response').addEventListener('input', function(e) {
                 checkPage2RatingsComplete();
             });
 
-            // Add event listeners for the demographics text areas
-            document.getElementById('current-feeling-response').addEventListener('input', function(e) {
-                checkMusicianScreenComplete();
+            document.getElementById('favorite-familiarity-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (favoriteSongFamiliarity === null || favoriteSongFamiliarity === 'skip') {
+                        favoriteSongFamiliarityRT = Date.now() - favoriteSongPage2StartTime;
+                    }
+                    
+                    document.querySelectorAll('#favorite-familiarity-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    favoriteSongFamiliarity = parseInt(e.target.dataset.value);
+                    
+                    checkFavoriteSongPage2RatingsComplete();
+                }
             });
 
-            document.getElementById('favorite-genre-response').addEventListener('input', function(e) {
-                checkMusicianScreenComplete();
+            document.getElementById('favorite-groove-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (favoriteSongGroove === null || favoriteSongGroove === 'skip') {
+                        favoriteSongGrooveRT = Date.now() - favoriteSongPage2StartTime;
+                    }
+                    
+                    document.querySelectorAll('#favorite-groove-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    favoriteSongGroove = parseInt(e.target.dataset.value);
+                    
+                    checkFavoriteSongPage2RatingsComplete();
+                }
+            });
+
+            document.getElementById('favorite-liking-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (favoriteSongLiking === null || favoriteSongLiking === 'skip') {
+                        favoriteSongLikingRT = Date.now() - favoriteSongPage2StartTime;
+                    }
+                    
+                    document.querySelectorAll('#favorite-liking-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    favoriteSongLiking = parseInt(e.target.dataset.value);
+                    
+                    checkFavoriteSongPage2RatingsComplete();
+                }
             });
         });
-
-        function checkMusicianScreenComplete() {
-            const feelingText = document.getElementById('current-feeling-response').value.trim();
-            const genreText = document.getElementById('favorite-genre-response').value.trim();
-            if (musicianSliderMoved && currentFeelingValenceSliderMoved && 
-                currentFeelingArousalSliderMoved && (feelingText.length > 0) && (genreText.length > 0)) {
-                document.getElementById('musician-continue-btn').disabled = false;
-            }
-        }
 
         function checkAllRatingsComplete() {
             if (valenceSliderMoved && arousalSliderMoved) {
@@ -1705,7 +1581,7 @@
 
         function checkPage2RatingsComplete() {
             const describeText = document.getElementById('describe-response').value.trim();
-            if (familiaritySliderMoved && grooveSliderMoved && likingSliderMoved && (describeText.length > 0)) {
+            if ((familiarityRating !== null) && (grooveRating !== null) && (likingRating !== null) && (describeText.length > 0)) {
                 document.getElementById('continue-btn-2').disabled = false;
             }
         }
@@ -1717,54 +1593,9 @@
         }
 
         function checkFavoriteSongPage2RatingsComplete() {
-            if (favoriteFamiliaritySliderMoved && favoriteGrooveSliderMoved && favoriteLikingSliderMoved) {
+            if ((favoriteSongFamiliarity !== null) && (favoriteSongGroove !== null) && (favoriteSongLiking !== null)) {
                 document.getElementById('favorite-continue-btn-2').disabled = false;
             }
-        }
-
-        function submitMusicianExperience() {
-            // Collect the new survey responses
-            currentFeelingResponse = document.getElementById('current-feeling-response').value || '';
-            preferredLanguageResponse = document.getElementById('preferred-language-response').value || '';
-            favoriteGenreResponse = document.getElementById('favorite-genre-response').value || '';
-
-            const musicianData = {
-                participant_id: participantId,
-                block: 1,
-                trial_number: 'background_info',  // Changed from 'music_experience'
-                music_clip_title: 'background_info',
-                playback_number: null,
-                audio_start_time_seconds: null,
-                music_onset_time: null,
-                music_offset_time: null,
-                emotion_survey_onset_time: null,
-                valence_rating: currentFeelingValence,           // Current feeling valence goes here
-                valence_response_time: currentFeelingValenceRT,  // Current feeling valence RT goes here
-                arousal_rating: currentFeelingArousal,           // Current feeling arousal goes here
-                arousal_response_time: currentFeelingArousalRT,  // Current feeling arousal RT goes here
-                familiarity_rating: null,
-                familiarity_response_time: null,
-                groove_rating: null,
-                groove_response_time: null,
-                liking_rating: null,
-                liking_response_time: null,
-                music_exp_rating: musicianRating,                // Musician experience rating
-                music_exp_rt: musicianRT,                        // Musician experience RT
-                describe: currentFeelingResponse,                // Free response goes in existing describe field
-                favorite_genre: favoriteGenreResponse,
-                strategy: null,
-                feedback: null,
-                confusing: null,
-                timestamp: new Date().toISOString(),
-                is_practice: null,
-                // NEW COLUMNS (empty for all other trials)
-                pref_lang: preferredLanguageResponse             // Only new column needed
-            };
-            
-            experimentData.unshift(musicianData);
-            console.log('Background info data saved as first row');
-            
-            showScreen('practice-intro-screen');
         }
 
         function startFavoriteSongTrial() {
@@ -1793,9 +1624,10 @@
         function resetFavoriteSongRatings() {
             document.getElementById('favorite-valence-slider').value = 3;
             document.getElementById('favorite-arousal-slider').value = 3;
-            document.getElementById('favorite-familiarity-slider').value = 4;
-            document.getElementById('favorite-groove-slider').value = 4;
-            document.getElementById('favorite-liking-slider').value = 4;
+            
+            document.querySelectorAll('#favorite-song-rating-screen .choice-option, #favorite-song-rating-screen-2 .choice-option').forEach(option => {
+                option.classList.remove('selected');
+            });
             
             document.getElementById('favorite-describe-response').value = '';
             
@@ -1812,9 +1644,6 @@
             favoriteSongDescribe = '';
             favoriteValenceSliderMoved = false;
             favoriteArousalSliderMoved = false;
-            favoriteFamiliaritySliderMoved = false;
-            favoriteGrooveSliderMoved = false;
-            favoriteLikingSliderMoved = false;
             
             document.getElementById('favorite-continue-btn').disabled = true;
             document.getElementById('favorite-continue-btn-2').disabled = true;
@@ -1825,7 +1654,7 @@
             
             const favoriteSongData = {
                 participant_id: participantId,
-                block: 1,
+                block: 3,
                 trial_number: 'favorite_song',
                 music_clip_title: 'Participant_Favorite_Song',
                 playback_number: 1,
@@ -1843,18 +1672,14 @@
                 groove_response_time: favoriteSongGrooveRT,
                 liking_rating: favoriteSongLiking,
                 liking_response_time: favoriteSongLikingRT,
-                music_exp_rating: null,
-                music_exp_rt: null,
                 describe: favoriteSongDescribe,
-                favorite_genre: null,
                 strategy: null,
                 feedback: null,
                 confusing: null,
                 timestamp: new Date().toISOString(),
-                is_practice: false,
-                pref_lang: null
+                is_practice: false
             };
-                        
+            
             experimentData.push(favoriteSongData);
             console.log('Favorite song data saved');
             
@@ -1873,7 +1698,7 @@
             const startTime = trial.song.filename.includes('dupleMeter') ? 0 : 10;
             const trialData = {
                 participant_id: participantId,
-                block: 1,
+                block: 3,
                 trial_number: currentTrial + 1,
                 music_clip_title: trial.song.title,
                 playback_number: trial.repetition,
@@ -1891,8 +1716,6 @@
                 groove_response_time: grooveRT,
                 liking_rating: likingRating,
                 liking_response_time: likingRT,
-                music_exp_rating: null,
-                music_exp_rt: null,
                 describe: describeResponse,
                 strategy: null,
                 feedback: null,
@@ -1929,7 +1752,7 @@
 
         function saveTrialToLocalStorage(trialData, trialType) {
             try {
-                const key = `block1_${participantId}_${trialType}_trial_${trialData.trial_number}`;
+                const key = `block3_${participantId}_${trialType}_trial_${trialData.trial_number}`;
                 localStorage.setItem(key, JSON.stringify(trialData));
                 console.log(`Trial ${trialData.trial_number} saved to localStorage`);
             } catch (error) {
@@ -1940,7 +1763,7 @@
         function downloadAllStoredData() {
             try {
                 const allTrials = [];
-                const keyPrefix = `block1_${participantId}_`;
+                const keyPrefix = `block3_${participantId}_`;
                 
                 for (let i = 0; i < localStorage.length; i++) {
                     const key = localStorage.key(i);
@@ -1962,7 +1785,7 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `music_emotion_block1_ALL_TRIALS_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                a.download = `music_emotion_block3_ALL_TRIALS_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
                 
                 document.body.appendChild(a);
                 a.click();
@@ -1978,7 +1801,7 @@
 
         function recoverStoredData() {
             try {
-                const keyPrefix = `block1_`;
+                const keyPrefix = `block3_`;
                 let foundData = false;
                 let participantIds = [];
                 
@@ -1997,7 +1820,7 @@
                 }
                 
                 if (!foundData) {
-                    alert('No stored Block 1 data found');
+                    alert('No stored Block 3 data found');
                     return;
                 }
                 
@@ -2024,7 +1847,7 @@
         function endExperiment() {
             if (experimentData.length > 0) {
                 saveDataToFile();
-                console.log('Block 1 completed - final data saved');
+                console.log('Block 3 completed - final data saved');
             }
             showScreen('favorite-song-intro-screen');
         }
@@ -2037,39 +1860,42 @@
             
             if (screenId === 'audio-screen' || screenId === 'favorite-song-screen') {
                 document.body.classList.add('audio-playing');
-                document.body.classList.remove('rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active', 'musician-screen-active');
+                document.body.classList.remove('rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active');
             } else if (screenId === 'rating-screen' || screenId === 'rating-screen-2') {
                 document.body.classList.add('rating-screen-active');
-                document.body.classList.remove('audio-playing', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active', 'musician-screen-active');
+                document.body.classList.remove('audio-playing', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active');
             } else if (screenId === 'feedback-screen') {
                 document.body.classList.add('feedback-screen-active');
-                document.body.classList.remove('audio-playing', 'rating-screen-active', 'stop-music-active', 'favorite-rating-active', 'musician-screen-active');
+                document.body.classList.remove('audio-playing', 'rating-screen-active', 'stop-music-active', 'favorite-rating-active');
             } else if (screenId === 'stop-music-screen') {
                 document.body.classList.add('stop-music-active');
-                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'favorite-rating-active', 'musician-screen-active');
+                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'favorite-rating-active');
             } else if (screenId === 'favorite-song-rating-screen' || screenId === 'favorite-song-rating-screen-2') {
                 document.body.classList.add('favorite-rating-active');
-                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'musician-screen-active');
-            } else if (screenId === 'musician-screen') {
-                document.body.classList.add('musician-screen-active');
-                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active');
+                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'stop-music-active');
             } else {
-                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active', 'musician-screen-active');
+                document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active');
             }
         }
 
-        function saveDataToFile() {
-            if (experimentData.length === 0 && practiceData.length === 0) {
-                console.log('No data to save');
+        function downloadData() {
+            if (isDownloading) {
+                console.log('Download already in progress, preventing duplicate');
                 return;
             }
+            
+            isDownloading = true;
+            const downloadBtn = document.querySelector('.download-btn');
+            const originalText = downloadBtn.textContent;
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = 'Downloading...';
             
             try {
                 const allData = [...practiceData, ...experimentData];
                 
                 const feedbackRow = {
                     participant_id: participantId,
-                    block: 1,
+                    block: 3,
                     trial_number: null,
                     music_clip_title: null,
                     playback_number: null,
@@ -2087,16 +1913,12 @@
                     groove_response_time: null,
                     liking_rating: null,
                     liking_response_time: null,
-                    music_exp_rating: null,
-                    music_exp_rt: null,
                     describe: null,
-                    favorite_genre: null,
                     timestamp: new Date().toISOString(),
                     is_practice: null,
                     strategy: strategyResponse || '',
                     feedback: feedbackResponse || '',
-                    confusing: confusingResponse || '',
-                    pref_lang: null
+                    confusing: confusingResponse || ''
                 };
                 allData.push(feedbackRow);
                 
@@ -2105,7 +1927,70 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `music_emotion_data_block1_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                a.download = `music_emotion_data_block3_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                document.getElementById('completion-message').innerHTML = 'Your responses have been recorded and downloaded! Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.';
+                
+            } catch (error) {
+                console.log('Download failed:', error);
+                document.getElementById('completion-message').innerHTML = 'Download may have failed. Please try again or contact the researcher.';
+            }
+            
+            setTimeout(() => {
+                isDownloading = false;
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = originalText;
+            }, 2000);
+        }
+
+        function saveDataToFile() {
+            if (experimentData.length === 0 && practiceData.length === 0) {
+                console.log('No data to save');
+                return;
+            }
+            
+            try {
+                const allData = [...practiceData, ...experimentData];
+                
+                const feedbackRow = {
+                    participant_id: participantId,
+                    block: 3,
+                    trial_number: null,
+                    music_clip_title: null,
+                    playback_number: null,
+                    audio_start_time_seconds: null,
+                    music_onset_time: null,
+                    music_offset_time: null,
+                    emotion_survey_onset_time: null,
+                    valence_rating: null,
+                    valence_response_time: null,
+                    arousal_rating: null,
+                    arousal_response_time: null,
+                    familiarity_rating: null,
+                    familiarity_response_time: null,
+                    groove_rating: null,
+                    groove_response_time: null,
+                    liking_rating: null,
+                    liking_response_time: null,
+                    describe: null,
+                    timestamp: new Date().toISOString(),
+                    is_practice: null,
+                    strategy: strategyResponse || '',
+                    feedback: feedbackResponse || '',
+                    confusing: confusingResponse || ''
+                };
+                allData.push(feedbackRow);
+                
+                const csvContent = convertToCSV(allData);
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `music_emotion_data_block3_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
                 
                 document.body.appendChild(a);
                 a.click();
@@ -2119,7 +2004,7 @@
             }
         }
 
-       function convertToCSV(data) {
+        function convertToCSV(data) {
             if (data.length === 0) return '';
             
             const headers = Object.keys(data[0]);
@@ -2132,12 +2017,6 @@
                     // Handle null/undefined
                     if (value === null || value === undefined) {
                         return '';
-                    }
-                    
-                    // SPECIAL HANDLING FOR SONG_ID - always treat as string
-                    if (header === 'music_clip_title' && value !== null && value !== undefined) {
-                        value = String(value).replace('.0', ''); // Remove .0 suffix
-                        return `"${value}"`;
                     }
                     
                     // Convert to string
@@ -2157,12 +2036,13 @@
             
             return csvRows.join('\n');
         }
+
         function restartExperiment() {
             currentTrial = 0;
             experimentData = [];
             practiceData = [];
             isPractice = false;
-            participantId = 'participant_block1_' + Date.now();
+            participantId = 'participant_block3_' + Date.now();
             showScreen('intro-screen');
         }
     </script>

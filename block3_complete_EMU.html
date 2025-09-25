@@ -435,11 +435,6 @@
             text-align: center;
         }
 
-        .download-btn {
-            background: linear-gradient(45deg, #4ECDC4, #45B7AF);
-            margin-top: 20px;
-        }
-
         body.stop-music-active {
             background: white !important;
         }
@@ -587,12 +582,10 @@
                 <br>
                 <p>First, we will practice rating some music to familiarize you with the surveys.</p>
                 <br>
-                <p style="color: #ff4444; font-weight: bold; font-size: 1.1em;">**IMPORTANT: At the end of this block, you MUST download your data to save your responses!**</p>
-                <br>
+
                 <p>To begin, hit the continue button below.</p>
             </div>
             <button class="btn" onclick="startPractice()">Continue</button>
-            <button class="btn" onclick="recoverStoredData()" style="position: fixed; bottom: 20px; left: 20px; background: linear-gradient(45deg, #95a5a6, #7f8c8d); font-size: 0.9em; padding: 10px 15px;">Recover Old Data</button>
         </div>
 
         <!-- Practice Introduction Screen -->
@@ -681,57 +674,39 @@
             <!-- Familiarity Rating -->
             <div class="rating-section">
                 <div class="rating-title">How familiar were you with this music before today?</div>
-                <div class="multiple-choice-container" id="familiarity-scale">
-                    <div class="choice-option" data-value="1">1</div>
-                    <div class="choice-option" data-value="2">2</div>
-                    <div class="choice-option" data-value="3">3</div>
-                    <div class="choice-option" data-value="4">4</div>
-                    <div class="choice-option" data-value="5">5</div>
-                    <div class="choice-option" data-value="6">6</div>
-                    <div class="choice-option" data-value="7">7</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Not familiar at all</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat familiar</span>
-                    <span style="position: absolute; right: 0;">Very familiar</span>
+                <div class="continuous-scale">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9em; color: black; font-weight: bold;">
+                        <span>Not familiar at all</span>
+                        <span>Somewhat familiar</span>
+                        <span>Very familiar</span>
+                    </div>
+                    <input type="range" class="continuous-slider" id="familiarity-slider" min="1" max="7" step="0.01" value="4">
                 </div>
             </div>
 
             <!-- Groove Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much does this music make you want to move?</div>
-                <div class="multiple-choice-container" id="groove-scale">
-                    <div class="choice-option" data-value="1">1</div>
-                    <div class="choice-option" data-value="2">2</div>
-                    <div class="choice-option" data-value="3">3</div>
-                    <div class="choice-option" data-value="4">4</div>
-                    <div class="choice-option" data-value="5">5</div>
-                    <div class="choice-option" data-value="6">6</div>
-                    <div class="choice-option" data-value="7">7</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Not at all</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
-                    <span style="position: absolute; right: 0;">Very much</span>
+                <div class="continuous-scale">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9em; color: black; font-weight: bold;">
+                        <span>Not at all</span>
+                        <span>Somewhat</span>
+                        <span>Very much</span>
+                    </div>
+                    <input type="range" class="continuous-slider" id="groove-slider" min="1" max="7" step="0.01" value="4">
                 </div>
             </div>
 
             <!-- Liking Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much did you like this song?</div>
-                <div class="multiple-choice-container" id="liking-scale">
-                    <div class="choice-option" data-value="1">1</div>
-                    <div class="choice-option" data-value="2">2</div>
-                    <div class="choice-option" data-value="3">3</div>
-                    <div class="choice-option" data-value="4">4</div>
-                    <div class="choice-option" data-value="5">5</div>
-                    <div class="choice-option" data-value="6">6</div>
-                    <div class="choice-option" data-value="7">7</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Not at all</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
-                    <span style="position: absolute; right: 0;">Very much</span>
+                <div class="continuous-scale">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9em; color: black; font-weight: bold;">
+                        <span>Not at all</span>
+                        <span>Somewhat</span>
+                        <span>Very much</span>
+                    </div>
+                    <input type="range" class="continuous-slider" id="liking-slider" min="1" max="7" step="0.01" value="4">
                 </div>
             </div>
 
@@ -755,7 +730,7 @@
                 <br>
                 <p>Now you'll begin Block 3 of the main experiment with the same type of ratings.</p>
                 <br>
-                <p>Block 3 contains 9 music clips.</p>
+                <p>Block 3 contains 16 music clips.</p>
             </div>
             <button class="btn" onclick="startMainExperiment()">Start Block 3</button>
         </div>
@@ -843,57 +818,39 @@
             <!-- Familiarity Rating -->
             <div class="rating-section">
                 <div class="rating-title">How familiar were you with this music before today?</div>
-                <div class="multiple-choice-container" id="favorite-familiarity-scale">
-                    <div class="choice-option" data-value="1">1</div>
-                    <div class="choice-option" data-value="2">2</div>
-                    <div class="choice-option" data-value="3">3</div>
-                    <div class="choice-option" data-value="4">4</div>
-                    <div class="choice-option" data-value="5">5</div>
-                    <div class="choice-option" data-value="6">6</div>
-                    <div class="choice-option" data-value="7">7</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Not familiar at all</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat familiar</span>
-                    <span style="position: absolute; right: 0;">Very familiar</span>
+                <div class="continuous-scale">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9em; color: black; font-weight: bold;">
+                        <span>Not familiar at all</span>
+                        <span>Somewhat familiar</span>
+                        <span>Very familiar</span>
+                    </div>
+                    <input type="range" class="continuous-slider" id="favorite-familiarity-slider" min="1" max="7" step="0.01" value="4">
                 </div>
             </div>
 
             <!-- Groove Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much does this music make you want to move?</div>
-                <div class="multiple-choice-container" id="favorite-groove-scale">
-                    <div class="choice-option" data-value="1">1</div>
-                    <div class="choice-option" data-value="2">2</div>
-                    <div class="choice-option" data-value="3">3</div>
-                    <div class="choice-option" data-value="4">4</div>
-                    <div class="choice-option" data-value="5">5</div>
-                    <div class="choice-option" data-value="6">6</div>
-                    <div class="choice-option" data-value="7">7</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Not at all</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
-                    <span style="position: absolute; right: 0;">Very much</span>
+                <div class="continuous-scale">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9em; color: black; font-weight: bold;">
+                        <span>Not at all</span>
+                        <span>Somewhat</span>
+                        <span>Very much</span>
+                    </div>
+                    <input type="range" class="continuous-slider" id="favorite-groove-slider" min="1" max="7" step="0.01" value="4">
                 </div>
             </div>
 
             <!-- Liking Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much did you like this song?</div>
-                <div class="multiple-choice-container" id="favorite-liking-scale">
-                    <div class="choice-option" data-value="1">1</div>
-                    <div class="choice-option" data-value="2">2</div>
-                    <div class="choice-option" data-value="3">3</div>
-                    <div class="choice-option" data-value="4">4</div>
-                    <div class="choice-option" data-value="5">5</div>
-                    <div class="choice-option" data-value="6">6</div>
-                    <div class="choice-option" data-value="7">7</div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
-                    <span style="position: absolute; left: 0;">Not at all</span>
-                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
-                    <span style="position: absolute; right: 0;">Very much</span>
+                <div class="continuous-scale">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 0.9em; color: black; font-weight: bold;">
+                        <span>Not at all</span>
+                        <span>Somewhat</span>
+                        <span>Very much</span>
+                    </div>
+                    <input type="range" class="continuous-slider" id="favorite-liking-slider" min="1" max="7" step="0.01" value="4">
                 </div>
             </div>
 
@@ -926,8 +883,6 @@
         <div class="screen" id="completion-screen">
             <div class="completion-screen">
                 <h1>Congratulations! You have completed Block 3.</h1>
-                <p style="color: #ff4444; font-weight: bold; font-size: 1.2em; margin: 20px 0;">PLEASE MAKE SURE TO DOWNLOAD YOUR DATA BELOW</p>
-                <button class="btn download-btn" onclick="downloadData()">Download Block 3 Data</button>
                 <p style="margin: 20px 0;" id="completion-message">Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.</p>
             </div>
         </div>
@@ -981,7 +936,6 @@
         let strategyResponse = '';
         let confusingResponse = '';
         let describeResponse = '';
-        let isDownloading = false;
 
         // Favorite song trial variables
         let favoriteSongValence = null;
@@ -1006,20 +960,6 @@
 
         // Survey timing variables
         let surveyPage2StartTime = 0;
-
-        // Auto-save when page is about to close
-        window.addEventListener('beforeunload', function(e) {
-            if (experimentData.length > 0 || practiceData.length > 0) {
-                saveDataToFile();
-            }
-        });
-
-        // Auto-save when page visibility changes
-        document.addEventListener('visibilitychange', function() {
-            if (document.visibilityState === 'hidden' && (experimentData.length > 0 || practiceData.length > 0)) {
-                saveDataToFile();
-            }
-        });
 
         function initializePractice() {
             practiceTrials = [];
@@ -1395,10 +1335,9 @@
         function resetRatings() {
             document.getElementById('valence-slider').value = 3;
             document.getElementById('arousal-slider').value = 3;
-            
-            document.querySelectorAll('.choice-option').forEach(option => {
-                option.classList.remove('selected');
-            });
+            document.getElementById('familiarity-slider').value = 4;
+            document.getElementById('groove-slider').value = 4;
+            document.getElementById('liking-slider').value = 4;
             
             document.getElementById('describe-response').value = '';
             
@@ -1442,58 +1381,31 @@
                 checkAllRatingsComplete();
             });
 
-            // Familiarity scale
-            document.getElementById('familiarity-scale').addEventListener('click', function(e) {
-                if (e.target.classList.contains('choice-option')) {
-                    if (familiarityRating === null || familiarityRating === 'skip') {
-                        familiarityRT = Date.now() - surveyPage2StartTime;
-                    }
-                    
-                    document.querySelectorAll('#familiarity-scale .choice-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    e.target.classList.add('selected');
-                    familiarityRating = parseInt(e.target.dataset.value);
-                    
-                    checkPage2RatingsComplete();
+            // Familiarity slider
+            document.getElementById('familiarity-slider').addEventListener('input', function(e) {
+                if (familiarityRating === null || familiarityRating === 'skip') {
+                    familiarityRT = Date.now() - surveyPage2StartTime;
                 }
+                familiarityRating = parseFloat(e.target.value);
+                checkPage2RatingsComplete();
             });
 
-            // Groove scale
-            document.getElementById('groove-scale').addEventListener('click', function(e) {
-                if (e.target.classList.contains('choice-option')) {
-                    if (grooveRating === null || grooveRating === 'skip') {
-                        grooveRT = Date.now() - surveyPage2StartTime;
-                    }
-                    
-                    document.querySelectorAll('#groove-scale .choice-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    e.target.classList.add('selected');
-                    grooveRating = parseInt(e.target.dataset.value);
-                    
-                    checkPage2RatingsComplete();
+            // Groove slider
+            document.getElementById('groove-slider').addEventListener('input', function(e) {
+                if (grooveRating === null || grooveRating === 'skip') {
+                    grooveRT = Date.now() - surveyPage2StartTime;
                 }
+                grooveRating = parseFloat(e.target.value);
+                checkPage2RatingsComplete();
             });
 
-            // Liking scale
-            document.getElementById('liking-scale').addEventListener('click', function(e) {
-                if (e.target.classList.contains('choice-option')) {
-                    if (likingRating === null || likingRating === 'skip') {
-                        likingRT = Date.now() - surveyPage2StartTime;
-                    }
-                    
-                    document.querySelectorAll('#liking-scale .choice-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    e.target.classList.add('selected');
-                    likingRating = parseInt(e.target.dataset.value);
-                    
-                    checkPage2RatingsComplete();
+            // Liking slider
+            document.getElementById('liking-slider').addEventListener('input', function(e) {
+                if (likingRating === null || likingRating === 'skip') {
+                    likingRT = Date.now() - surveyPage2StartTime;
                 }
+                likingRating = parseFloat(e.target.value);
+                checkPage2RatingsComplete();
             });
 
             // Favorite valence slider
@@ -1521,55 +1433,31 @@
                 checkPage2RatingsComplete();
             });
 
-            document.getElementById('favorite-familiarity-scale').addEventListener('click', function(e) {
-                if (e.target.classList.contains('choice-option')) {
-                    if (favoriteSongFamiliarity === null || favoriteSongFamiliarity === 'skip') {
-                        favoriteSongFamiliarityRT = Date.now() - favoriteSongPage2StartTime;
-                    }
-                    
-                    document.querySelectorAll('#favorite-familiarity-scale .choice-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    e.target.classList.add('selected');
-                    favoriteSongFamiliarity = parseInt(e.target.dataset.value);
-                    
-                    checkFavoriteSongPage2RatingsComplete();
+            // Favorite familiarity slider
+            document.getElementById('favorite-familiarity-slider').addEventListener('input', function(e) {
+                if (favoriteSongFamiliarity === null || favoriteSongFamiliarity === 'skip') {
+                    favoriteSongFamiliarityRT = Date.now() - favoriteSongPage2StartTime;
                 }
+                favoriteSongFamiliarity = parseFloat(e.target.value);
+                checkFavoriteSongPage2RatingsComplete();
             });
 
-            document.getElementById('favorite-groove-scale').addEventListener('click', function(e) {
-                if (e.target.classList.contains('choice-option')) {
-                    if (favoriteSongGroove === null || favoriteSongGroove === 'skip') {
-                        favoriteSongGrooveRT = Date.now() - favoriteSongPage2StartTime;
-                    }
-                    
-                    document.querySelectorAll('#favorite-groove-scale .choice-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    e.target.classList.add('selected');
-                    favoriteSongGroove = parseInt(e.target.dataset.value);
-                    
-                    checkFavoriteSongPage2RatingsComplete();
+            // Favorite groove slider
+            document.getElementById('favorite-groove-slider').addEventListener('input', function(e) {
+                if (favoriteSongGroove === null || favoriteSongGroove === 'skip') {
+                    favoriteSongGrooveRT = Date.now() - favoriteSongPage2StartTime;
                 }
+                favoriteSongGroove = parseFloat(e.target.value);
+                checkFavoriteSongPage2RatingsComplete();
             });
 
-            document.getElementById('favorite-liking-scale').addEventListener('click', function(e) {
-                if (e.target.classList.contains('choice-option')) {
-                    if (favoriteSongLiking === null || favoriteSongLiking === 'skip') {
-                        favoriteSongLikingRT = Date.now() - favoriteSongPage2StartTime;
-                    }
-                    
-                    document.querySelectorAll('#favorite-liking-scale .choice-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    
-                    e.target.classList.add('selected');
-                    favoriteSongLiking = parseInt(e.target.dataset.value);
-                    
-                    checkFavoriteSongPage2RatingsComplete();
+            // Favorite liking slider
+            document.getElementById('favorite-liking-slider').addEventListener('input', function(e) {
+                if (favoriteSongLiking === null || favoriteSongLiking === 'skip') {
+                    favoriteSongLikingRT = Date.now() - favoriteSongPage2StartTime;
                 }
+                favoriteSongLiking = parseFloat(e.target.value);
+                checkFavoriteSongPage2RatingsComplete();
             });
         });
 
@@ -1624,10 +1512,9 @@
         function resetFavoriteSongRatings() {
             document.getElementById('favorite-valence-slider').value = 3;
             document.getElementById('favorite-arousal-slider').value = 3;
-            
-            document.querySelectorAll('#favorite-song-rating-screen .choice-option, #favorite-song-rating-screen-2 .choice-option').forEach(option => {
-                option.classList.remove('selected');
-            });
+            document.getElementById('favorite-familiarity-slider').value = 4;
+            document.getElementById('favorite-groove-slider').value = 4;
+            document.getElementById('favorite-liking-slider').value = 4;
             
             document.getElementById('favorite-describe-response').value = '';
             
@@ -1726,11 +1613,9 @@
             
             if (isPractice) {
                 practiceData.push(trialData);
-                saveTrialToLocalStorage(trialData, 'practice');
                 console.log(`Practice trial ${currentTrial + 1} data saved to memory. Total practice trials: ${practiceData.length}`);
             } else {
                 experimentData.push(trialData);
-                saveTrialToLocalStorage(trialData, 'main');
                 console.log(`Trial ${currentTrial + 1} data saved to memory. Total trials: ${experimentData.length}`);
             }
             
@@ -1750,105 +1635,8 @@
             }, 1000);
         }
 
-        function saveTrialToLocalStorage(trialData, trialType) {
-            try {
-                const key = `block3_${participantId}_${trialType}_trial_${trialData.trial_number}`;
-                localStorage.setItem(key, JSON.stringify(trialData));
-                console.log(`Trial ${trialData.trial_number} saved to localStorage`);
-            } catch (error) {
-                console.log('LocalStorage save failed:', error);
-            }
-        }
-
-        function downloadAllStoredData() {
-            try {
-                const allTrials = [];
-                const keyPrefix = `block3_${participantId}_`;
-                
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key && key.startsWith(keyPrefix)) {
-                        const trialData = JSON.parse(localStorage.getItem(key));
-                        allTrials.push(trialData);
-                    }
-                }
-                
-                if (allTrials.length === 0) {
-                    console.log('No stored data found for this participant');
-                    return;
-                }
-                
-                allTrials.sort((a, b) => a.trial_number - b.trial_number);
-                
-                const csvContent = convertToCSV(allTrials);
-                const blob = new Blob([csvContent], { type: 'text/csv' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `music_emotion_block3_ALL_TRIALS_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
-                
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-                
-                console.log(`Downloaded ${allTrials.length} trials from localStorage`);
-                
-            } catch (error) {
-                console.log('Download from localStorage failed:', error);
-            }
-        }
-
-        function recoverStoredData() {
-            try {
-                const keyPrefix = `block3_`;
-                let foundData = false;
-                let participantIds = [];
-                
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key && key.startsWith(keyPrefix)) {
-                        foundData = true;
-                        const parts = key.split('_');
-                        if (parts.length >= 3) {
-                            const pid = parts[1] + '_' + parts[2];
-                            if (!participantIds.includes(pid)) {
-                                participantIds.push(pid);
-                            }
-                        }
-                    }
-                }
-                
-                if (!foundData) {
-                    alert('No stored Block 3 data found');
-                    return;
-                }
-                
-                if (participantIds.length > 1) {
-                    const choice = prompt(`Found data for ${participantIds.length} participants:\n${participantIds.join('\n')}\n\nEnter participant ID to recover:`);
-                    if (choice && participantIds.includes(choice)) {
-                        participantId = choice;
-                    } else {
-                        alert('Invalid participant ID');
-                        return;
-                    }
-                } else if (participantIds.length === 1) {
-                    participantId = participantIds[0];
-                }
-                
-                downloadAllStoredData();
-                
-            } catch (error) {
-                console.log('Recovery failed:', error);
-                alert('Data recovery failed');
-            }
-        }
 
         function endExperiment() {
-            if (experimentData.length > 0) {
-                saveDataToFile();
-                console.log('Block 3 completed - final data saved');
-            }
             showScreen('favorite-song-intro-screen');
         }
 
@@ -1878,131 +1666,7 @@
             }
         }
 
-        function downloadData() {
-            if (isDownloading) {
-                console.log('Download already in progress, preventing duplicate');
-                return;
-            }
-            
-            isDownloading = true;
-            const downloadBtn = document.querySelector('.download-btn');
-            const originalText = downloadBtn.textContent;
-            downloadBtn.disabled = true;
-            downloadBtn.textContent = 'Downloading...';
-            
-            try {
-                const allData = [...practiceData, ...experimentData];
-                
-                const feedbackRow = {
-                    participant_id: participantId,
-                    block: 3,
-                    trial_number: null,
-                    music_clip_title: null,
-                    playback_number: null,
-                    audio_start_time_seconds: null,
-                    music_onset_time: null,
-                    music_offset_time: null,
-                    emotion_survey_onset_time: null,
-                    valence_rating: null,
-                    valence_response_time: null,
-                    arousal_rating: null,
-                    arousal_response_time: null,
-                    familiarity_rating: null,
-                    familiarity_response_time: null,
-                    groove_rating: null,
-                    groove_response_time: null,
-                    liking_rating: null,
-                    liking_response_time: null,
-                    describe: null,
-                    timestamp: new Date().toISOString(),
-                    is_practice: null,
-                    strategy: strategyResponse || '',
-                    feedback: feedbackResponse || '',
-                    confusing: confusingResponse || ''
-                };
-                allData.push(feedbackRow);
-                
-                const csvContent = convertToCSV(allData);
-                const blob = new Blob([csvContent], { type: 'text/csv' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `music_emotion_data_block3_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-                
-                document.getElementById('completion-message').innerHTML = 'Your responses have been recorded and downloaded! Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.';
-                
-            } catch (error) {
-                console.log('Download failed:', error);
-                document.getElementById('completion-message').innerHTML = 'Download may have failed. Please try again or contact the researcher.';
-            }
-            
-            setTimeout(() => {
-                isDownloading = false;
-                downloadBtn.disabled = false;
-                downloadBtn.textContent = originalText;
-            }, 2000);
-        }
 
-        function saveDataToFile() {
-            if (experimentData.length === 0 && practiceData.length === 0) {
-                console.log('No data to save');
-                return;
-            }
-            
-            try {
-                const allData = [...practiceData, ...experimentData];
-                
-                const feedbackRow = {
-                    participant_id: participantId,
-                    block: 3,
-                    trial_number: null,
-                    music_clip_title: null,
-                    playback_number: null,
-                    audio_start_time_seconds: null,
-                    music_onset_time: null,
-                    music_offset_time: null,
-                    emotion_survey_onset_time: null,
-                    valence_rating: null,
-                    valence_response_time: null,
-                    arousal_rating: null,
-                    arousal_response_time: null,
-                    familiarity_rating: null,
-                    familiarity_response_time: null,
-                    groove_rating: null,
-                    groove_response_time: null,
-                    liking_rating: null,
-                    liking_response_time: null,
-                    describe: null,
-                    timestamp: new Date().toISOString(),
-                    is_practice: null,
-                    strategy: strategyResponse || '',
-                    feedback: feedbackResponse || '',
-                    confusing: confusingResponse || ''
-                };
-                allData.push(feedbackRow);
-                
-                const csvContent = convertToCSV(allData);
-                const blob = new Blob([csvContent], { type: 'text/csv' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `music_emotion_data_block3_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
-                
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-                
-                console.log(`Auto-saved CSV with ${practiceData.length} practice + ${experimentData.length} main trials for participant: ${participantId}`);
-                
-            } catch (error) {
-                console.log('Auto-save failed:', error);
-            }
-        }
 
         function convertToCSV(data) {
             if (data.length === 0) return '';

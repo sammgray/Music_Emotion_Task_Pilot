@@ -474,6 +474,11 @@
             text-align: center;
         }
 
+        .download-btn {
+            background: linear-gradient(45deg, #4ECDC4, #45B7AF);
+            margin-top: 20px;
+        }
+
         body.stop-music-active {
             background: white !important;
         }
@@ -621,6 +626,8 @@
                 <br>
                 <p>First, we will practice rating some music to familiarize you with the surveys.</p>
                 <br>
+                <p style="color: #ff4444; font-weight: bold; font-size: 1.1em;">**IMPORTANT: At the end of this block, you MUST download your data to save your responses!**</p>
+                <br>
                 <p>To begin, hit the continue button below.</p>
             </div>
             <button class="btn" onclick="startPractice()">Continue</button>
@@ -634,13 +641,19 @@
             <div class="intro-text">
                 <div class="feedback-question-title">Have you ever played an instrument?</div>
                 <div class="rating-section" style="margin-top: 15px;">
-                    <div class="continuous-scale">
-                        <div style="display: flex; justify-content: space-between; margin: 0 auto 20px auto; width: 100%;">
-                            <div style="width: 33%; font-size: 0.9em; text-align: left; color: black; font-weight: bold;">Never played an instrument</div>
-                            <div style="width: 33%; font-size: 0.9em; text-align: center; color: black; font-weight: bold;">Some experience</div>
-                            <div style="width: 33%; font-size: 0.9em; text-align: right; color: black; font-weight: bold;">Professional musician</div>
-                        </div>
-                        <input type="range" class="continuous-slider" id="musician-slider" min="1" max="7" step="0.01" value="4">
+                    <div class="multiple-choice-container" id="musician-scale" style="margin: 15px 0;">
+                        <div class="choice-option" data-value="1">1</div>
+                        <div class="choice-option" data-value="2">2</div>
+                        <div class="choice-option" data-value="3">3</div>
+                        <div class="choice-option" data-value="4">4</div>
+                        <div class="choice-option" data-value="5">5</div>
+                        <div class="choice-option" data-value="6">6</div>
+                        <div class="choice-option" data-value="7">7</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                        <span style="position: absolute; left: 0;">Never played an instrument</span>
+                        <span style="position: absolute; left: 50%; transform: translateX(-50%);">Some experience</span>
+                        <span style="position: absolute; right: 0;">Professional musician</span>
                     </div>
                 </div>
 
@@ -808,26 +821,38 @@
             <!-- Groove Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much does this music make you want to move?</div>
-                <div class="continuous-scale">
-                    <div style="display: flex; justify-content: space-between; margin: 0 auto 20px auto; width: 100%;">
-                        <div style="width: 33%; font-size: 0.9em; text-align: left; color: black; font-weight: bold;">Not at all</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: center; color: black; font-weight: bold;">Somewhat</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: right; color: black; font-weight: bold;">Very much</div>
-                    </div>
-                    <input type="range" class="continuous-slider" id="groove-slider" min="1" max="7" step="0.01" value="4">
+                <div class="multiple-choice-container" id="groove-scale">
+                    <div class="choice-option" data-value="1">1</div>
+                    <div class="choice-option" data-value="2">2</div>
+                    <div class="choice-option" data-value="3">3</div>
+                    <div class="choice-option" data-value="4">4</div>
+                    <div class="choice-option" data-value="5">5</div>
+                    <div class="choice-option" data-value="6">6</div>
+                    <div class="choice-option" data-value="7">7</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Not at all</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
+                    <span style="position: absolute; right: 0;">Very much</span>
                 </div>
             </div>
 
             <!-- Liking Rating -->
             <div class="rating-section">
                 <div class="rating-title">How much did you like this song?</div>
-                <div class="continuous-scale">
-                    <div style="display: flex; justify-content: space-between; margin: 0 auto 20px auto; width: 100%;">
-                        <div style="width: 33%; font-size: 0.9em; text-align: left; color: black; font-weight: bold;">Not at all</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: center; color: black; font-weight: bold;">Somewhat</div>
-                        <div style="width: 33%; font-size: 0.9em; text-align: right; color: black; font-weight: bold;">Very much</div>
-                    </div>
-                    <input type="range" class="continuous-slider" id="liking-slider" min="1" max="7" step="0.01" value="4">
+                <div class="multiple-choice-container" id="liking-scale">
+                    <div class="choice-option" data-value="1">1</div>
+                    <div class="choice-option" data-value="2">2</div>
+                    <div class="choice-option" data-value="3">3</div>
+                    <div class="choice-option" data-value="4">4</div>
+                    <div class="choice-option" data-value="5">5</div>
+                    <div class="choice-option" data-value="6">6</div>
+                    <div class="choice-option" data-value="7">7</div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 10px; position: relative;">
+                    <span style="position: absolute; left: 0;">Not at all</span>
+                    <span style="position: absolute; left: 50%; transform: translateX(-50%);">Somewhat</span>
+                    <span style="position: absolute; right: 0;">Very much</span>
                 </div>
             </div>
 
@@ -851,7 +876,7 @@
                 <br>
                 <p>Now you'll begin Block 1 of the main experiment with the same type of ratings.</p>
                 <br>
-                <p>Block 1 contains 20 music clips.</p>
+                <p>Block 1 contains 9 music clips.</p>
             </div>
             <button class="btn" onclick="startMainExperiment()">Start Block 1</button>
         </div>
@@ -1004,7 +1029,9 @@
         <div class="screen" id="completion-screen">
             <div class="completion-screen">
                 <h1>Congratulations! You have completed Block 1.</h1>
-                <p style="margin: 20px 0;" id="completion-message">Your responses have been saved! You may now close this tab.</p>
+                <p style="color: #ff4444; font-weight: bold; font-size: 1.2em; margin: 20px 0;">PLEASE MAKE SURE TO DOWNLOAD YOUR DATA BELOW</p>
+                <button class="btn download-btn" onclick="downloadData()">Download Block 1 Data</button>
+                <p style="margin: 20px 0;" id="completion-message">Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.</p>
             </div>
         </div>
     </div>
@@ -1058,6 +1085,7 @@
         let strategyResponse = '';
         let confusingResponse = '';
         let describeResponse = '';
+        let isDownloading = false;
 
         let musicianRating = null;
         // NEW: Current feeling variables
@@ -1073,7 +1101,6 @@
         let currentFeelingArousalSliderMoved = false;
         let musicianRT = null;
         let musicianSurveyStartTime = 0;
-        let musicianSliderMoved = false;
 
         // Favorite song trial variables
         let favoriteSongValence = null;
@@ -1095,12 +1122,6 @@
         let arousalSliderMoved = false;
         let favoriteValenceSliderMoved = false;
         let favoriteArousalSliderMoved = false;
-        let familiaritySliderMoved = false;
-        let grooveSliderMoved = false;
-        let likingSliderMoved = false;
-        let favoriteFamiliaritySliderMoved = false;
-        let favoriteGrooveSliderMoved = false;
-        let favoriteLikingSliderMoved = false;
 
         // Survey timing variables
         let surveyPage2StartTime = 0;
@@ -1190,13 +1211,13 @@
         }
 
         function skipAllRatings() {
-            if (!familiaritySliderMoved) {
+            if (familiarityRating === null) {
                 familiarityRT = Date.now() - surveyPage2StartTime;
             }
-            if (!grooveSliderMoved) {
+            if (grooveRating === null) {
                 grooveRT = Date.now() - surveyPage2StartTime;
             }
-            if (!likingSliderMoved) {
+            if (likingRating === null) {
                 likingRT = Date.now() - surveyPage2StartTime;
             }
             
@@ -1206,6 +1227,10 @@
             
             describeResponse = document.getElementById('describe-response').value || '';
             
+            document.querySelectorAll('.choice-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
             document.getElementById('continue-btn-2').disabled = false;
             setTimeout(() => {
                 nextTrial();
@@ -1213,13 +1238,13 @@
         }
 
         function skipFavoriteAllRatings() {
-            if (!favoriteFamiliaritySliderMoved) {
+            if (favoriteSongFamiliarity === null) {
                 favoriteSongFamiliarityRT = Date.now() - favoriteSongPage2StartTime;
             }
-            if (!favoriteGrooveSliderMoved) {
+            if (favoriteSongGroove === null) {
                 favoriteSongGrooveRT = Date.now() - favoriteSongPage2StartTime;
             }
-            if (!favoriteLikingSliderMoved) {
+            if (favoriteSongLiking === null) {
                 favoriteSongLikingRT = Date.now() - favoriteSongPage2StartTime;
             }
             
@@ -1228,6 +1253,10 @@
             favoriteSongLiking = 'skip';
             
             favoriteSongDescribe = document.getElementById('favorite-describe-response').value || '';
+            
+            document.querySelectorAll('#favorite-song-rating-screen-2 .choice-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
             
             document.getElementById('favorite-continue-btn-2').disabled = false;
             setTimeout(() => {
@@ -1486,9 +1515,10 @@
         function resetRatings() {
             document.getElementById('valence-slider').value = 3;
             document.getElementById('arousal-slider').value = 3;
-            document.getElementById('familiarity-slider').value = 4;
-            document.getElementById('groove-slider').value = 4;
-            document.getElementById('liking-slider').value = 4;
+            
+            document.querySelectorAll('.choice-option').forEach(option => {
+                option.classList.remove('selected');
+            });
             
             document.getElementById('describe-response').value = '';
             
@@ -1505,9 +1535,6 @@
             describeResponse = '';
             valenceSliderMoved = false;
             arousalSliderMoved = false;
-            familiaritySliderMoved = false;
-            grooveSliderMoved = false;
-            likingSliderMoved = false;
             
             document.getElementById('continue-btn').disabled = true;
             document.getElementById('continue-btn-2').disabled = true;
@@ -1526,15 +1553,6 @@
                 checkMusicianScreenComplete();
             });
 
-            document.getElementById('current-feeling-valence-slider').addEventListener('change', function(e) {
-                if (!currentFeelingValenceSliderMoved) {
-                    currentFeelingValenceRT = Date.now() - musicianSurveyStartTime;
-                    currentFeelingValenceSliderMoved = true;
-                }
-                currentFeelingValence = parseFloat(e.target.value);
-                checkMusicianScreenComplete();
-            });
-
             // NEW: Current feeling arousal slider
             document.getElementById('current-feeling-arousal-slider').addEventListener('input', function(e) {
                 if (!currentFeelingArousalSliderMoved) {
@@ -1544,35 +1562,6 @@
                 currentFeelingArousal = parseFloat(e.target.value);
                 checkMusicianScreenComplete();
             });
-
-            document.getElementById('current-feeling-arousal-slider').addEventListener('change', function(e) {
-                if (!currentFeelingArousalSliderMoved) {
-                    currentFeelingArousalRT = Date.now() - musicianSurveyStartTime;
-                    currentFeelingArousalSliderMoved = true;
-                }
-                currentFeelingArousal = parseFloat(e.target.value);
-                checkMusicianScreenComplete();
-            });
-
-            // Musician slider
-            document.getElementById('musician-slider').addEventListener('input', function(e) {
-                if (!musicianSliderMoved) {
-                    musicianRT = Date.now() - musicianSurveyStartTime;
-                    musicianSliderMoved = true;
-                }
-                musicianRating = parseFloat(e.target.value);
-                checkMusicianScreenComplete();
-            });
-
-            document.getElementById('musician-slider').addEventListener('change', function(e) {
-                if (!musicianSliderMoved) {
-                    musicianRT = Date.now() - musicianSurveyStartTime;
-                    musicianSliderMoved = true;
-                }
-                musicianRating = parseFloat(e.target.value);
-                checkMusicianScreenComplete();
-            });
-
             // Valence slider
             document.getElementById('valence-slider').addEventListener('input', function(e) {
                 if (!valenceSliderMoved) {
@@ -1593,34 +1582,76 @@
                 checkAllRatingsComplete();
             });
 
-            // Familiarity slider
-            document.getElementById('familiarity-slider').addEventListener('input', function(e) {
-                if (!familiaritySliderMoved) {
-                    familiarityRT = Date.now() - surveyPage2StartTime;
-                    familiaritySliderMoved = true;
+            // Familiarity scale
+            document.getElementById('familiarity-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (familiarityRating === null || familiarityRating === 'skip') {
+                        familiarityRT = Date.now() - surveyPage2StartTime;
+                    }
+                    
+                    document.querySelectorAll('#familiarity-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    familiarityRating = parseInt(e.target.dataset.value);
+                    
+                    checkPage2RatingsComplete();
                 }
-                familiarityRating = parseFloat(e.target.value);
-                checkPage2RatingsComplete();
             });
 
-            // Groove slider
-            document.getElementById('groove-slider').addEventListener('input', function(e) {
-                if (!grooveSliderMoved) {
-                    grooveRT = Date.now() - surveyPage2StartTime;
-                    grooveSliderMoved = true;
+            // Groove scale
+            document.getElementById('groove-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (grooveRating === null || grooveRating === 'skip') {
+                        grooveRT = Date.now() - surveyPage2StartTime;
+                    }
+                    
+                    document.querySelectorAll('#groove-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    grooveRating = parseInt(e.target.dataset.value);
+                    
+                    checkPage2RatingsComplete();
                 }
-                grooveRating = parseFloat(e.target.value);
-                checkPage2RatingsComplete();
             });
 
-            // Liking slider
-            document.getElementById('liking-slider').addEventListener('input', function(e) {
-                if (!likingSliderMoved) {
-                    likingRT = Date.now() - surveyPage2StartTime;
-                    likingSliderMoved = true;
+            // Liking scale
+            document.getElementById('liking-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (likingRating === null || likingRating === 'skip') {
+                        likingRT = Date.now() - surveyPage2StartTime;
+                    }
+                    
+                    document.querySelectorAll('#liking-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    likingRating = parseInt(e.target.dataset.value);
+                    
+                    checkPage2RatingsComplete();
                 }
-                likingRating = parseFloat(e.target.value);
-                checkPage2RatingsComplete();
+            });
+
+            // Musician scale
+            document.getElementById('musician-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (musicianRating === null) {
+                        musicianRT = Date.now() - musicianSurveyStartTime;
+                    }
+                    
+                    document.querySelectorAll('#musician-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    musicianRating = parseInt(e.target.dataset.value);
+                    
+                    document.getElementById('musician-continue-btn').disabled = false;
+                }
             });
 
             // Favorite valence slider
@@ -1643,55 +1674,67 @@
                 checkFavoriteSongRatingsComplete();
             });
 
-            // Favorite familiarity slider
-            document.getElementById('favorite-familiarity-slider').addEventListener('input', function(e) {
-                if (!favoriteFamiliaritySliderMoved) {
-                    favoriteSongFamiliarityRT = Date.now() - favoriteSongPage2StartTime;
-                    favoriteFamiliaritySliderMoved = true;
-                }
-                favoriteSongFamiliarity = parseFloat(e.target.value);
-                checkFavoriteSongPage2RatingsComplete();
-            });
-
-            // Favorite groove slider
-            document.getElementById('favorite-groove-slider').addEventListener('input', function(e) {
-                if (!favoriteGrooveSliderMoved) {
-                    favoriteSongGrooveRT = Date.now() - favoriteSongPage2StartTime;
-                    favoriteGrooveSliderMoved = true;
-                }
-                favoriteSongGroove = parseFloat(e.target.value);
-                checkFavoriteSongPage2RatingsComplete();
-            });
-
-            // Favorite liking slider
-            document.getElementById('favorite-liking-slider').addEventListener('input', function(e) {
-                if (!favoriteLikingSliderMoved) {
-                    favoriteSongLikingRT = Date.now() - favoriteSongPage2StartTime;
-                    favoriteLikingSliderMoved = true;
-                }
-                favoriteSongLiking = parseFloat(e.target.value);
-                checkFavoriteSongPage2RatingsComplete();
-            });
-
             // Describe response textarea
             document.getElementById('describe-response').addEventListener('input', function(e) {
                 checkPage2RatingsComplete();
             });
 
-            // Add event listeners for the demographics text areas
-            document.getElementById('current-feeling-response').addEventListener('input', function(e) {
-                checkMusicianScreenComplete();
+            document.getElementById('favorite-familiarity-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (favoriteSongFamiliarity === null || favoriteSongFamiliarity === 'skip') {
+                        favoriteSongFamiliarityRT = Date.now() - favoriteSongPage2StartTime;
+                    }
+                    
+                    document.querySelectorAll('#favorite-familiarity-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    favoriteSongFamiliarity = parseInt(e.target.dataset.value);
+                    
+                    checkFavoriteSongPage2RatingsComplete();
+                }
             });
 
-            document.getElementById('favorite-genre-response').addEventListener('input', function(e) {
-                checkMusicianScreenComplete();
+            document.getElementById('favorite-groove-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (favoriteSongGroove === null || favoriteSongGroove === 'skip') {
+                        favoriteSongGrooveRT = Date.now() - favoriteSongPage2StartTime;
+                    }
+                    
+                    document.querySelectorAll('#favorite-groove-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    favoriteSongGroove = parseInt(e.target.dataset.value);
+                    
+                    checkFavoriteSongPage2RatingsComplete();
+                }
+            });
+
+            document.getElementById('favorite-liking-scale').addEventListener('click', function(e) {
+                if (e.target.classList.contains('choice-option')) {
+                    if (favoriteSongLiking === null || favoriteSongLiking === 'skip') {
+                        favoriteSongLikingRT = Date.now() - favoriteSongPage2StartTime;
+                    }
+                    
+                    document.querySelectorAll('#favorite-liking-scale .choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    e.target.classList.add('selected');
+                    favoriteSongLiking = parseInt(e.target.dataset.value);
+                    
+                    checkFavoriteSongPage2RatingsComplete();
+                }
             });
         });
 
         function checkMusicianScreenComplete() {
             const feelingText = document.getElementById('current-feeling-response').value.trim();
             const genreText = document.getElementById('favorite-genre-response').value.trim();
-            if (musicianSliderMoved && currentFeelingValenceSliderMoved && 
+            if ((musicianRating !== null) && currentFeelingValenceSliderMoved && 
                 currentFeelingArousalSliderMoved && (feelingText.length > 0) && (genreText.length > 0)) {
                 document.getElementById('musician-continue-btn').disabled = false;
             }
@@ -1705,7 +1748,7 @@
 
         function checkPage2RatingsComplete() {
             const describeText = document.getElementById('describe-response').value.trim();
-            if (familiaritySliderMoved && grooveSliderMoved && likingSliderMoved && (describeText.length > 0)) {
+            if ((familiarityRating !== null) && (grooveRating !== null) && (likingRating !== null) && (describeText.length > 0)) {
                 document.getElementById('continue-btn-2').disabled = false;
             }
         }
@@ -1717,7 +1760,7 @@
         }
 
         function checkFavoriteSongPage2RatingsComplete() {
-            if (favoriteFamiliaritySliderMoved && favoriteGrooveSliderMoved && favoriteLikingSliderMoved) {
+            if ((favoriteSongFamiliarity !== null) && (favoriteSongGroove !== null) && (favoriteSongLiking !== null)) {
                 document.getElementById('favorite-continue-btn-2').disabled = false;
             }
         }
@@ -1793,9 +1836,10 @@
         function resetFavoriteSongRatings() {
             document.getElementById('favorite-valence-slider').value = 3;
             document.getElementById('favorite-arousal-slider').value = 3;
-            document.getElementById('favorite-familiarity-slider').value = 4;
-            document.getElementById('favorite-groove-slider').value = 4;
-            document.getElementById('favorite-liking-slider').value = 4;
+            
+            document.querySelectorAll('#favorite-song-rating-screen .choice-option, #favorite-song-rating-screen-2 .choice-option').forEach(option => {
+                option.classList.remove('selected');
+            });
             
             document.getElementById('favorite-describe-response').value = '';
             
@@ -1812,9 +1856,6 @@
             favoriteSongDescribe = '';
             favoriteValenceSliderMoved = false;
             favoriteArousalSliderMoved = false;
-            favoriteFamiliaritySliderMoved = false;
-            favoriteGrooveSliderMoved = false;
-            favoriteLikingSliderMoved = false;
             
             document.getElementById('favorite-continue-btn').disabled = true;
             document.getElementById('favorite-continue-btn-2').disabled = true;
@@ -2056,6 +2097,79 @@
             } else {
                 document.body.classList.remove('audio-playing', 'rating-screen-active', 'feedback-screen-active', 'stop-music-active', 'favorite-rating-active', 'musician-screen-active');
             }
+        }
+
+        function downloadData() {
+            if (isDownloading) {
+                console.log('Download already in progress, preventing duplicate');
+                return;
+            }
+            
+            isDownloading = true;
+            const downloadBtn = document.querySelector('.download-btn');
+            const originalText = downloadBtn.textContent;
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = 'Downloading...';
+            
+            try {
+                const allData = [...practiceData, ...experimentData];
+                
+                const feedbackRow = {
+                    participant_id: participantId,
+                    block: 1,
+                    trial_number: null,
+                    music_clip_title: null,
+                    playback_number: null,
+                    audio_start_time_seconds: null,
+                    music_onset_time: null,
+                    music_offset_time: null,
+                    emotion_survey_onset_time: null,
+                    valence_rating: null,
+                    valence_response_time: null,
+                    arousal_rating: null,
+                    arousal_response_time: null,
+                    familiarity_rating: null,
+                    familiarity_response_time: null,
+                    groove_rating: null,
+                    groove_response_time: null,
+                    liking_rating: null,
+                    liking_response_time: null,
+                    music_exp_rating: null,
+                    music_exp_rt: null,
+                    describe: null,
+                    favorite_genre: null,
+                    timestamp: new Date().toISOString(),
+                    is_practice: null,
+                    strategy: strategyResponse || '',
+                    feedback: feedbackResponse || '',
+                    confusing: confusingResponse || '',
+                    pref_lang: null
+                };
+                allData.push(feedbackRow);
+                
+                const csvContent = convertToCSV(allData);
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `music_emotion_data_block1_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                document.getElementById('completion-message').innerHTML = 'Your responses have been recorded and downloaded! Close this tab and continue to the next block when you are ready by clicking on the next block on the home screen.';
+                
+            } catch (error) {
+                console.log('Download failed:', error);
+                document.getElementById('completion-message').innerHTML = 'Download may have failed. Please try again or contact the researcher.';
+            }
+            
+            setTimeout(() => {
+                isDownloading = false;
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = originalText;
+            }, 2000);
         }
 
         function saveDataToFile() {
