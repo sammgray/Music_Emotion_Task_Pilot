@@ -585,7 +585,6 @@
                 <p>To begin, hit the continue button below.</p>
             </div>
             <button class="btn" onclick="startPractice()">Continue</button>
-            <button class="btn" onclick="recoverStoredData()" style="position: fixed; bottom: 20px; left: 20px; background: linear-gradient(45deg, #95a5a6, #7f8c8d); font-size: 0.9em; padding: 10px 15px;">Recover Old Data</button>
         </div>
 
         <!-- Practice Introduction Screen -->
@@ -1628,11 +1627,9 @@
             
             if (isPractice) {
                 practiceData.push(trialData);
-                saveTrialToLocalStorage(trialData, 'practice');
                 console.log(`Practice trial ${currentTrial + 1} data saved to memory. Total practice trials: ${practiceData.length}`);
             } else {
                 experimentData.push(trialData);
-                saveTrialToLocalStorage(trialData, 'main');
                 console.log(`Trial ${currentTrial + 1} data saved to memory. Total trials: ${experimentData.length}`);
             }
             
@@ -1652,107 +1649,6 @@
             }, 1000);
         }
 
-        function saveTrialToLocalStorage(trialData, trialType) {
-            try {
-                const key = `block2_${participantId}_${trialType}_trial_${trialData.trial_number}`;
-                localStorage.setItem(key, JSON.stringify(trialData));
-                console.log(`Trial ${trialData.trial_number} saved to localStorage`);
-            } catch (error) {
-                console.log('LocalStorage save failed:', error);
-            }
-        }
-
-        function downloadAllStoredData() {
-            try {
-                const allTrials = [];
-                const keyPrefix = `block2_${participantId}_`;
-                
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key && key.startsWith(keyPrefix)) {
-                        const trialData = JSON.parse(localStorage.getItem(key));
-                        allTrials.push(trialData);
-                    }
-                }
-                
-                if (allTrials.length === 0) {
-                    console.log('No stored data found for this participant');
-                    return;
-                }
-                
-                allTrials.sort((a, b) => a.trial_number - b.trial_number);
-                
-                const csvContent = convertToCSV(allTrials);
-                const blob = new Blob([csvContent], { type: 'text/csv' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `music_emotion_block2_ALL_TRIALS_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
-                
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-                
-                console.log(`Downloaded ${allTrials.length} trials from localStorage`);
-                
-            } catch (error) {
-                console.log('Download from localStorage failed:', error);
-            }
-        }
-
-        function recoverStoredData() {
-            try {
-                const keyPrefix = `block2_`;
-                let foundData = false;
-                let participantIds = [];
-                
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key && key.startsWith(keyPrefix)) {
-                        foundData = true;
-                        const parts = key.split('_');
-                        if (parts.length >= 3) {
-                            const pid = parts[1] + '_' + parts[2];
-                            if (!participantIds.includes(pid)) {
-                                participantIds.push(pid);
-                            }
-                        }
-                    }
-                }
-                
-                if (!foundData) {
-                    alert('No stored Block 2 data found');
-                    return;
-                }
-                
-                if (participantIds.length > 1) {
-                    const choice = prompt(`Found data for ${participantIds.length} participants:\n${participantIds.join('\n')}\n\nEnter participant ID to recover:`);
-                    if (choice && participantIds.includes(choice)) {
-                        participantId = choice;
-                    } else {
-                        alert('Invalid participant ID');
-                        return;
-                    }
-                } else if (participantIds.length === 1) {
-                    participantId = participantIds[0];
-                }
-                
-                downloadAllStoredData();
-                
-            } catch (error) {
-                console.log('Recovery failed:', error);
-                alert('Data recovery failed');
-            }
-        }
-
-        function endExperiment() {
-            if (experimentData.length > 0) {
-                saveDataToFile();
-                console.log('Block 2 completed - final data saved');
-            }
-            showScreen('favorite-song-intro-screen');
-        }
 
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(screen => {
