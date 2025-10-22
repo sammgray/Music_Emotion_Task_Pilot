@@ -1003,11 +1003,17 @@
         }
 
         function nextRatingPage() {
+            
+            document.getElementById('continue-btn').disabled = true;
+
             surveyPage2StartTime = Date.now();
             showScreen('rating-screen-2');
         }
 
         function nextFavoriteRatingPage() {
+
+            document.getElementById('favorite-continue-btn').disabled = true;
+
             favoriteSongPage2StartTime = Date.now();
             showScreen('favorite-song-rating-screen-2');
         }
@@ -1551,6 +1557,10 @@
         }
 
         function submitFavoriteSongRating() {
+
+            document.getElementById('favorite-continue-btn-2').disabled = true;
+
+
             favoriteSongDescribe = document.getElementById('favorite-describe-response').value || '';
             
             const favoriteSongData = {
@@ -1588,6 +1598,9 @@
         }
 
         function nextTrial() {
+            
+            document.getElementById('continue-btn-2').disabled = true;
+
             const currentTrials = isPractice ? practiceTrials : trials;
             const trial = currentTrials[currentTrial];
             const duration = isPractice ? PRACTICE_AUDIO_DURATION : AUDIO_DURATION;
