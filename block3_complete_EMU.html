@@ -1713,6 +1713,48 @@
             return csvRows.join('\n');
         }
 
+        function saveDataToFile() {
+            if (experimentData.length === 0 && practiceData.length === 0) {
+                console.log('No data to save');
+                return;
+            }
+            
+            try {
+                const allData = [...practiceData, ...experimentData];
+                
+                const csvContent = convertToCSV(allData);
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `music_emotion_data_block3_${participantId}_${new Date().toISOString().split('T')[0]}.csv`;
+                
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                console.log(`Auto-saved CSV with ${practiceData.length} practice + ${experimentData.length} main trials for participant: ${participantId}`);
+                
+            } catch (error) {
+                console.log('Auto-save failed:', error);
+            }
+        }
+
+        // Auto-save when page is about to close
+        window.addEventListener('beforeunload', function(e) {
+            if (experimentData.length > 0) {
+                saveDataToFile();
+            }
+        });
+
+        // Auto-save when page visibility changes
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && experimentData.length > 0) {
+                saveDataToFile();
+            }
+        });
+
         function restartExperiment() {
             currentTrial = 0;
             experimentData = [];
