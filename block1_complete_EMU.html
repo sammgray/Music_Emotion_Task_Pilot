@@ -980,6 +980,12 @@
                 <textarea class="describe-textarea" id="favorite-describe-response" placeholder="Describe how this song makes you feel..."></textarea>
             </div>
 
+            <!-- Song Name Input -->
+        <div class="rating-section">
+            <div class="rating-title">What song were you listening to? (Artist - Song Title):</div>
+            <textarea class="describe-textarea" id="favorite-song-name" placeholder="Enter the artist and song title..."></textarea>
+        </div>
+
             <button class="btn continue-btn-bottom" id="favorite-continue-btn-2" onclick="submitFavoriteSongRating()" disabled>Continue</button>
             <button class="skip-btn" onclick="skipFavoriteAllRatings()">Skip All</button>
         </div>
@@ -1088,6 +1094,7 @@
         let favoriteSongDescribe = '';
         let favoriteSongSurveyStartTime = 0;
         let favoriteSongPage2StartTime = 0;
+        let favoriteSongName = '';
 
         // Track if sliders have been moved
         let valenceSliderMoved = false;
@@ -1234,6 +1241,9 @@
             
             favoriteSongDescribe = document.getElementById('favorite-describe-response').value || '';
             
+
+            favoriteSongName = document.getElementById('favorite-song-name').value || '';
+
             document.getElementById('favorite-continue-btn-2').disabled = false;
             setTimeout(() => {
                 submitFavoriteSongRating();
@@ -1681,6 +1691,11 @@
                 checkFavoriteSongPage2RatingsComplete();
             });
 
+            // Favorite song name textarea
+            document.getElementById('favorite-song-name').addEventListener('input', function(e) {
+                checkFavoriteSongPage2RatingsComplete();
+            });
+
             // Describe response textarea
             document.getElementById('describe-response').addEventListener('input', function(e) {
                 checkPage2RatingsComplete();
@@ -1725,7 +1740,8 @@
         }
 
         function checkFavoriteSongPage2RatingsComplete() {
-            if (favoriteFamiliaritySliderMoved && favoriteGrooveSliderMoved && favoriteLikingSliderMoved) {
+            const songNameText = document.getElementById('favorite-song-name').value.trim();
+            if (favoriteFamiliaritySliderMoved && favoriteGrooveSliderMoved && favoriteLikingSliderMoved && (songNameText.length > 0)) {
                 document.getElementById('favorite-continue-btn-2').disabled = false;
             }
         }
@@ -1809,6 +1825,9 @@
             document.getElementById('favorite-liking-slider').value = 4;
             
             document.getElementById('favorite-describe-response').value = '';
+
+            document.getElementById('favorite-song-name').value = '';
+
             
             favoriteSongValence = null;
             favoriteSongArousal = null;
@@ -1821,6 +1840,9 @@
             favoriteSongGrooveRT = null;
             favoriteSongLikingRT = null;
             favoriteSongDescribe = '';
+
+            favoriteSongName = '';
+
             favoriteValenceSliderMoved = false;
             favoriteArousalSliderMoved = false;
             favoriteFamiliaritySliderMoved = false;
@@ -1837,11 +1859,13 @@
 
             favoriteSongDescribe = document.getElementById('favorite-describe-response').value || '';
             
+            favoriteSongName = document.getElementById('favorite-song-name').value || '';
+
             const favoriteSongData = {
                 participant_id: participantId,
                 block: 1,
                 trial_number: 'favorite_song',
-                music_clip_title: 'Participant_Favorite_Song',
+                music_clip_title: favoriteSongName || 'Participant_Favorite_Song',
                 playback_number: 1,
                 audio_start_time_seconds: 0,
                 music_onset_time: Date.now(),
