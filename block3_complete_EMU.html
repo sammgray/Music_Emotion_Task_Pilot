@@ -1148,7 +1148,10 @@
             document.getElementById('start-audio-btn').style.display = 'none';
             document.getElementById('fixation-cross').style.display = 'block';
             
-            playAudioWithFadeIn();
+             // Show fixation cross for 2 seconds before starting audio
+            setTimeout(() => {
+                playAudioWithFadeIn();
+            }, 3000); // 2000 milliseconds = 2 seconds
         }
         
         function playAudioWithFadeIn() {
